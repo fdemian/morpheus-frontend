@@ -1,0 +1,21 @@
+.SocialLinksContainer
+{
+  display: block;
+  margin-top: 5px;
+}
+
+.Icon
+{
+  margin-right: 12px;
+  color: gray;
+}
+
+.Icon:Hover
+{
+  color: gray;
+}
+
+.IconLink
+{
+  text-decoration:none;
+}

@@ -1,0 +1,108 @@
+.ComposerToggle
+{
+   padding: 9px;
+   text-align: center;
+}
+
+.ComposerDrawer .ant-drawer-title {
+  text-align: center;
+}
+
+.ComposerToggleText
+{
+  font-size: 23px;
+}
+
+.ReplyingToText
+{
+  margin-left: 23%;
+  font-size: 17px;
+  margin-right: 5%;
+}
+
+.DrawerHeader {
+  color: darkgray;
+  font-size: 18px;
+}
+
+.UserInfoHeading
+{
+  font-size: 17px;
+  margin-right: 20%;
+}
+
+/* COMMENT BOX */
+
+@media screen and (min-width: 768px) {
+  .CommentBox
+  {
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height: 100px;
+  }
+
+  .PanelButtons {
+    margin-left: 69%;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .CommentBox
+  {
+    height: 100px;
+  }
+
+  .PanelButtons {
+    margin-left: 36%;
+  }
+
+}
+
+
+.UserInfoBox
+{
+  margin-left: 20px;
+  margin-right: 33px;
+  padding-top: 22px;
+  margin-top: 21px;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 248px;
+  height: 246px;
+  padding-left: 13px;
+
+  /*
+  margin-left: 20px;
+  margin-right: 70px;
+  padding-top: 22px;*/
+}
+
+.UserInfoText
+{
+  font-size:24px;
+}
+
+.UserInfoLink
+{
+  margin-left: 10px;
+}
+
+.EditorContainer
+{
+  height: 200px;
+  display: block;
+}
+
+.CommentButton
+{
+  display: block;
+  margin-top: 65px;
+  margin-left: 604px;
+}
+
+.CommentButtonText
+{
+  margin-left: 10px;
+}

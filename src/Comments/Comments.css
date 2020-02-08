@@ -1,0 +1,52 @@
+.NoComments
+{
+  text-align: center;
+}
+
+.CommentContainer
+{
+  margin-bottom: 10px;
+}
+
+.CommentsTitle
+{
+   margin-bottom: 20px;
+   font-size: 23px;
+}
+
+.Comment
+{
+  margin-bottom:10px;
+  width: 100%;
+  text-align: left;
+}
+
+.CommentAuthor
+{
+  margin-top: 10px;
+  font-size: 21px;
+  margin-left: 0px;
+  text-align: left;
+}
+
+.CommentAuthor:hover,.CommentAuthor:clicked
+{
+  text-decoration:none;
+}
+
+.CommentText p
+{
+  margin-top: 30px;
+  text-align: left;
+}
+
+.CommentActions
+{
+  margin-left:88%;
+  margin-bottom: 10px;
+}
+
+.ReplyText
+{
+  margin-left:10px;
+}

@@ -1,0 +1,78 @@
+.composer-container
+{
+  background-color: white;
+  padding-top: 40px;
+  padding-bottom: 150px;
+}
+
+.ComposerTitle
+{
+  margin-bottom:40px;
+}
+
+.ComposerTitleText,.TagChooseText
+{
+  font-size: 25px;
+}
+
+.ComposerTitleText {
+    text-align: center;
+}
+
+.ComposerHeadContainer.Desktop
+{
+    display: flex;
+}
+
+.ComposerHeadContainer.Mobile
+{
+    display: block;
+}
+
+.ComposerHeadContainer.Mobile .TitleInput
+{
+  margin-bottom: 7px;
+}
+
+.CategoriesContainer
+{
+  width: 40%;
+}
+
+.PostEditorContainer
+{
+  margin-bottom:80px;
+  height: 300px;
+}
+
+.TagsContainer
+{
+  margin-bottom:40px;
+  margin-top:40px;
+}
+
+.CancelButton
+{
+  margin-right:7px;
+}
+
+.AcceptButton
+{
+  margin-right:7px;
+}
+
+.TitleInputContainer
+{
+   margin-right:12px;
+   width:70%;
+}
+
+.TagContainer {
+  margin-top: 40px;
+}
+
+.TagContainer .ant-tag {
+  font-size: 21px;
+  height: 37px;
+  padding-top: 4px;
+}

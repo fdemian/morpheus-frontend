@@ -1,0 +1,199 @@
+.GreenLink, .GreenLink:hover
+{
+  text-decoration:none;
+  underline:none;
+  color: green;
+}
+
+.PostInfo
+{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.StoryTitleContainer
+{
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.StoryText {
+  margin-left: 20%;
+  width: 60%;
+}
+
+.StoryFooter
+{
+  text-align: center;
+  width: 60%;
+  margin-left: 20%;
+  height: 100px;
+  margin-top: 50px;
+  margin-bottom: 130px;
+  padding-top: 5px;
+}
+
+.UserDescription,.CategoryDescriptionTitle
+{
+  font-size: 14px;
+}
+
+.TopicInfoContainer,.TopicDate,.TopicCategoryLink
+{
+  font-size: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.TopicCategoryLink
+{
+  margin-left: -24px;
+}
+
+.SocialMediaShare
+{
+  padding-bottom: 11px;
+  margin-top: 5px;
+}
+
+.StoryTitleHeading
+{
+  display: inline;
+  margin-right: 12px;
+  word-wrap: break-word;
+  font-size: 28px;
+  line-height: 32px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.StoryCategory > h2
+{
+  display: inline;
+  margin-right: 7px;
+}
+
+.CommentAnonymousToggle
+{
+   padding: 9px;
+   text-align: center;
+   cursor: hand;
+}
+
+@media screen and (max-width: 768px) {
+  .StoryText
+  {
+    width: 60%;
+    margin-left: 20%;
+    padding-left: 10%;
+  }
+}
+
+.StoryText img
+{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+.StoryShare
+{
+  visibility: visible;
+}
+
+.StoryTags
+{
+  margin-top: 10px;
+  margin-bottom: 35px;
+  text-align:center;
+}
+
+.UserInfoContainer
+{
+  margin-bottom: 24px;
+}
+
+.SharingLinksContainer
+{
+  margin-bottom: 12px;
+}
+
+.StoryComments
+{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.CommentSpace
+{
+   text-align: center;
+}
+
+.UserLinkContainer
+{
+   margin-top: 13px;
+}
+
+.UserLink
+{
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.UserAvatar
+{
+   vertical-align: middle;
+   margin-right: 6px;
+}
+
+.UserLink .Avatar {
+  margin-right: 4px;
+}
+
+.Divider
+{
+  width: 80%;
+  margin-left: 10%;
+}
+
+.story-container {
+  background-color: white;
+  padding-top: 50px;
+  padding-bottom: 150px;
+}
+
+
+.CommentSpace .FormInput
+{
+    width: 300px;
+}
+
+.CommentSpace .FormButtons
+{
+   margin-top: 10px;
+}
+
+.CommentSpace .FormGroup
+{
+   margin-top: 7px;
+}
+
+.CommentSpace .FormButtonLeft
+{
+  margin-right: 5px;
+}
+
+.CommentSpace .FromInputLeft
+{
+  margin-left: 28px;
+}
+
+.URLInput
+{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.comments-disabled {
+  color: rgba(0,0,0,.65);
+}

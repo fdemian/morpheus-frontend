@@ -1,0 +1,11 @@
+.Avatar
+{
+  border-radius:  50%;
+  vertical-align: middle;
+}
+
+.AvatarText
+{
+  margin-left: 4px;
+  font-weight: 500;
+}

@@ -1,0 +1,73 @@
+.input-field-security {
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+.password-strong, font.strong {
+  color: #52c41a;
+}
+
+.password-medium, font.medium {
+    color: #faad14;
+}
+
+.password-weak, font.weak {
+    color: #f5222d;
+}
+
+.email-desc {
+  color: black;
+  font-weight: bold;
+}
+
+.modal-spin {
+  margin-left: 42%;
+}
+
+.security-view.password-error-layer {
+  text-align: center;
+  border: 1px solid gainsboro;
+  background: #fff1f0;
+}
+
+.security-view.password-error-layer .alert-circle {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.security-view.password-success-layer {
+  text-align: center;
+}
+
+.modify-password-form {
+  padding-top: 30px;
+}
+
+.ant-progress-status-password-weak .ant-progress-bg {
+    background-color: #f5222d;
+}
+
+.ant-progress-bg {
+    background-color: #faad14;
+}
+
+.ant-progress-status-password-strong .ant-progress-bg {
+    background-color: #52c41a;
+}
+
+.link-button {
+    background:none!important;
+    border:none;
+    padding:0!important;
+
+    /*optional*/
+    font-family:arial,sans-serif; /*input has OS specific font-family*/
+    color:#1890ff;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.link-button.blocked{
+  color: darkgray;
+  cursor: not-allowed;
+}
