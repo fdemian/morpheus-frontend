@@ -1,4 +1,11 @@
-## Morpheus Frontend
+# Morpheus Frontend
+
+## How to run
+
+
+### Install packages
+
+`yarn`
 
 ### Start the application (backend must be running in the background).
 
