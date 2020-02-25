@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import ComposerAvatar from './ComposerAvatar';
+import ComposerAvatar from '../UserAvatar/UserAvatar';
 import './Composer.css';
 
 const DrawerHeader = ({userlink, user, commentsEnabled}) => {
@@ -36,7 +36,11 @@ const DrawerHeader = ({userlink, user, commentsEnabled}) => {
 			to={userlink}
 			className="UserLink UserInfoLink"
 		>
-			<ComposerAvatar user={user} />
+			<ComposerAvatar
+				username={user.username}
+				avatar={user.avatar}
+				size="large"
+			/>
 		</Link>
 		 &nbsp;
 		 <FontAwesomeIcon
