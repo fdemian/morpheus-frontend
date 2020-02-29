@@ -8,7 +8,7 @@ import './Profile.css';
 
 const FormItem = Form.Item;
 
-Form.create()
+//Form.create()
 const BaseView = (props) => {
 
   const {

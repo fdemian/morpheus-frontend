@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu , Spin, Icon} from 'antd';
+import { Menu , Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,8 +10,6 @@ import AccountMenu from './AccountMenu/Container';
 import Notifications from './Notifications';
 import logo from '../logo.svg';
 import './Navbar.css';
-
-const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 const Navbar = (props) => {
 
@@ -84,7 +82,7 @@ const Navbar = (props) => {
     <span
       className={isFetching ? 'navbar-spinner' : 'invisible'}
     >
-      <Spin indicator={antIcon} />
+      <Spin />
     </span>
   </Menu>
   );

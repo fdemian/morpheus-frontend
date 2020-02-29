@@ -120,7 +120,7 @@ const LoginScreen = (props) => {
   <div className="login-grid-container">
     <GridContent>
         <TopIcon />
-        <Form onSubmit={onSubmit} >
+        <Form name="login-register-form" onFinish={onSubmit}>
           <Login
              defaultActiveKey={method}
              onTabChange={setType}
