@@ -44,7 +44,6 @@ const Composer = (props) => {
           toggleComposer={toggleComposer}
           postComment={postComment}
        />
-
        <div id="new-comment" className="CommentBox">
          <div className="EditorContainer">
            <Editor
@@ -53,7 +52,6 @@ const Composer = (props) => {
            />
          </div>
        </div>
-
    </Drawer>
 
  </React.Fragment>

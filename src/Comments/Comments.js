@@ -10,11 +10,7 @@ import moment from 'moment';
 
 const DateComponent = ({commentDate}) => {
 
-  const formattedDate = moment(commentDate)
-                        .format("Do MMM YYYY HH:mm:ss");
-
-  console.clear();
-  console.log(formattedDate);
+  const formattedDate = moment(commentDate).format("Do MMM YYYY HH:mm:ss");
 
   return(
   <Tooltip title={formattedDate}>
