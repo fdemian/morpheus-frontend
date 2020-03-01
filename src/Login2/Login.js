@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, Alert } from 'antd';
+import { Form, Input, Button, /*Checkbox,*/ Alert } from 'antd';
 import { Redirect } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -22,10 +22,10 @@ const LoginScreen = (props) => {
 
   const {
     loggedIn,
-    oauthServices,
     loading,
     authenticate,
-    register,
+    /*oauthServices,
+    register,*/
     error
   } = props;
 
@@ -34,7 +34,7 @@ const LoginScreen = (props) => {
     password: null
   };
 
-  const [type, setType] = useState('login');
+  //const [type, setType] = useState('login');
   const [login, setLogin] = useState(initialLoginState);
 
   const onFinish = values => {
@@ -117,7 +117,7 @@ const LoginScreen = (props) => {
          <br />
          <Form.Item>
            <Button type="primary" htmlType="submit" block>
-             Submit
+             Log In
            </Button>
          </Form.Item>
        </Form>
