@@ -85,13 +85,10 @@ export function initializeWebsocketConnection(dispatch){
 }
 
 export function initializeSucess(){
-  console.log("EXITO")
   return { type: INITIALIZE_WEBSOCKET_SUCCESS };
 }
 
 export function initializeWSError(error){
-  console.log(error)
-  console.log(":::")
   return { type: INITIALIZE_WEBSOCKET_FAILURE };
 }
 
