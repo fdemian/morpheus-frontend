@@ -17,6 +17,11 @@ import './Stories.css';
 
 const getAvatarLink = (author) => "/users/" + author.id + "/" + author.name;
 
+const defaultCategory = {
+  id: -1,
+  name: "Uncategorized"
+};
+
 const StoryItem = (props) => {
 
   const { item, editFn, deleteFn, loggedIn, stories  } = props;
@@ -42,7 +47,8 @@ const StoryItem = (props) => {
     ];
 
    const mappedActions = loggedIn ? itemActions : [];
-   const categoryLink = "/categories/" + item.category.id + "/" + item.category.name;
+   let category = item.category != null ? item.category : defaultCategory;
+   const categoryLink = "/categories/" + category.id + "/" + category.name;
 
    return(
    <List.Item
@@ -65,7 +71,7 @@ const StoryItem = (props) => {
         description={
         <React.Fragment>
           <Link to={categoryLink}>
-            {item.category.name}
+            {category.name}
           </Link>
           <br />
           <br />
