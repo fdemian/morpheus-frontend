@@ -42,6 +42,7 @@ const DrawerHeader = ({userlink, user, commentsEnabled}) => {
 				size="large"
 			/>
 		</Link>
+		{user.username}
 		 &nbsp;
 		 <FontAwesomeIcon
 			 icon={faReply}
