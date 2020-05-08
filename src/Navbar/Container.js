@@ -7,6 +7,8 @@ import {
    markReadNotification
  } from './Actions';
 
+import { REQUEST_INITIALIZE_WS } from '../App/Actions';
+
 const mapStateToProps = (state, ownProps) => {
   return {
     loggedIn: state.session.loggedIn,
@@ -31,6 +33,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     markReadNotification: (notification) => {
       dispatch(markReadNotification(notification));
+    },
+    initializeWS: () => {
+      dispatch({type: REQUEST_INITIALIZE_WS });
     }
   }
 }

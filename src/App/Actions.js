@@ -5,6 +5,7 @@ export const REQUEST_CONFIG_DATA = 'REQUEST_CONFIG_DATA';
 export const RECEIVE_CONFIG_DATA = 'RECEIVE_CONFIG_DATA';
 export const RECEIVE_CONFIG_FAILURE = 'RECEIVE_CONFIG_FAILURE';
 
+export const REQUEST_INITIALIZE_WS = 'REQUEST_INITIALIZE_WS';
 export const INITIALIZE_WEBSOCKET = 'INITIALIZE_WEBSOCKET';
 export const INITIALIZE_WEBSOCKET_SUCCESS = 'INITIALIZE_WEBSOCKET_SUCCESS';
 export const INITIALIZE_WEBSOCKET_FAILURE = 'INITIALIZE_WEBSOCKET_FAILURE';
@@ -34,24 +35,43 @@ const wssURL = wsOptions.protocol + wsOptions.base + wsOptions.path;
 
 export default function* loadConfig(dispatch) {
   const state = yield select();
-  const { config } = state;
+  const { config, session } = state;
   const { options } = config;
 
   if(options.length >= 0){
     yield cancelled();
   }
 
+  const { loggedIn, user } = session;
+
+  if(!loggedIn)
+    yield cancelled();
+
   try {
     const config = yield call(Fetch.GET, '/api/config');
     yield put({type: RECEIVE_CONFIG_DATA, data: config});
-    if(config.notificationsEnabled) {
-      initializeWebsocketConnection(dispatch);
-    }
-
     yield loadAppOptions();
   }
   catch(error) {
     yield put({type: RECEIVE_CONFIG_FAILURE, error: error})
+  }
+}
+
+/* ----------------- LOAD NOTIFICATIONS ----------------- */
+
+export function* loadWebsocket(dispatch, enabled) {
+ try{
+
+   const state = yield select();
+   const { session } = state;
+   const user_id = session.user.id;
+
+   if(enabled) {
+     initializeWebsocketConnection(dispatch, user_id);
+   }
+  }
+  catch{
+    console.log("ERROR!");
   }
 }
 
@@ -67,17 +87,18 @@ export function* loadAppOptions(dispatch){
 
 }
 
-export function initializeWebsocketConnection(dispatch){
-  try{
+export function initializeWebsocketConnection(dispatch, user_id) {
+  try {
+    const WS_URL = wssURL + "/" + user_id;
     dispatch({type: INITIALIZE_WEBSOCKET});
-    const socket = new WebSocket(wssURL);
+    const socket = new WebSocket(WS_URL);
 
     // Socket functions.
     socket.onopen = () => dispatch(initializeSucess());
     socket.onerror = (error) => dispatch(initializeWSError(error));
     socket.onmessage = (message) => dispatch(newMessage(message));
   }
-  catch(error){
+  catch(error) {
     console.clear()
     console.log(error)
     dispatch({ type: INITIALIZE_WEBSOCKET_FAILURE, error: error});

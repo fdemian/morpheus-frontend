@@ -62,6 +62,7 @@ const initialState = {
   loggedIn: false,
   isFetching: false,
   user : {
+    id: null,
     name: "",
     username: "",
     role: "",

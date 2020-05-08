@@ -4,8 +4,12 @@ import NavbarMobile from './NavbarMobile';
 
 const Navbar = (props) => {
 
+  if(props.loggedIn){
+    props.initializeWS();
+  }
+
   const { mobile } = props;
-  
+
   if(mobile)
     return <NavbarMobile {...props} />;
 
