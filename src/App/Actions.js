@@ -42,11 +42,6 @@ export default function* loadConfig(dispatch) {
     yield cancelled();
   }
 
-  const { loggedIn, user } = session;
-
-  if(!loggedIn)
-    yield cancelled();
-
   try {
     const config = yield call(Fetch.GET, '/api/config');
     yield put({type: RECEIVE_CONFIG_DATA, data: config});
