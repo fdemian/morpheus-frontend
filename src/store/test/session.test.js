@@ -60,6 +60,7 @@ const initialState = {
   loggedIn: false,
   isFetching: false,
   user : {
+    id: null,
     name: "",
     username: "",
     role: "",
@@ -165,6 +166,7 @@ describe('Store > Reducers > Session', () => {
         loggedIn: false,
         isFetching: true,
         user : {
+          id: null,
           name: "",
           username: "",
           role: "",
@@ -289,6 +291,7 @@ describe('Store > Reducers > Session', () => {
       loggedIn: false,
       isFetching: true,
       user : {
+        id: null,
         name: "",
         username: "",
         role: "",

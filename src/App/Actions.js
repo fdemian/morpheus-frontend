@@ -35,7 +35,7 @@ const wssURL = wsOptions.protocol + wsOptions.base + wsOptions.path;
 
 export default function* loadConfig(dispatch) {
   const state = yield select();
-  const { config, session } = state;
+  const { config } = state;
   const { options } = config;
 
   if(options.length >= 0){
