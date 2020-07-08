@@ -6,6 +6,7 @@ faBell as bell,
 faEnvelope as message
 } from '@fortawesome/free-solid-svg-icons';
 import emptyBellIcon from './emptyBell.svg';
+import './Navbar.css';
 
 const mapNotification = (p) => {
     const avatarElement = <FontAwesomeIcon icon={message} />;
@@ -49,7 +50,7 @@ const Notifications = (props) => {
     <FontAwesomeIcon
       icon={bell}
       size='lg'
-      color="rgba(0,0,0,.65)" 
+      color="rgba(0,0,0,.65)"
     />
     }
     className="notice-icon"

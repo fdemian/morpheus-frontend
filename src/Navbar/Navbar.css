@@ -98,3 +98,7 @@ span.pull-right, .ant-menu-item.pull-right {
   box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
   background-color: white;
 }
+
+.ant-tabs-nav-wrap {
+  padding-left: 38%;
+}
