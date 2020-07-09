@@ -16,12 +16,13 @@ import
   LOGOUT_FAILURE
 } from '../../Authentication/Actions';
 
+/*
 import
 {
    REGISTER_START,
    REGISTER_SUCCESS,
    REGISTER_FAILURE
- } from '../../LoginForm/Actions';
+ } from '../../LoginForm/Actions';*/
 
  import
  {
@@ -158,7 +159,8 @@ describe('Store > Reducers > Session', () => {
       })
     })
 
-    /* REGISTER */
+    /*
+    REGISTER
 
     it('REGISTER_START', () => {
       expect(reducer(initialState, {type: REGISTER_START}))
@@ -281,7 +283,7 @@ describe('Store > Reducers > Session', () => {
       validated: true
     });
 
-  })
+  })*/
 
   /* AUTHENTICATION */
 

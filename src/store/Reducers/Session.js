@@ -18,12 +18,13 @@ import
   LOGOUT_FAILURE
 } from '../../Authentication/Actions';
 
+/*
 import
 {
    REGISTER_START,
    REGISTER_SUCCESS,
    REGISTER_FAILURE
- } from '../../LoginForm/Actions';
+ } from '../../LoginForm/Actions';*/
 
  import
  {
@@ -89,7 +90,8 @@ export function session(state = initialState, action) {
    case REGISTER_TEMP_USER:
       return {...state, user: action.data };
 
-    /* Register user */
+    /*
+    -- Register user
     case REGISTER_START:
  	    return { ...state, isFetching: true };
     case REGISTER_SUCCESS:
@@ -110,6 +112,7 @@ export function session(state = initialState, action) {
       };
     case REGISTER_FAILURE:
       return { ...state, isFetching: false, error: true};
+    */
 
     /* Authenticate user (login) */
     case AUTH_START:

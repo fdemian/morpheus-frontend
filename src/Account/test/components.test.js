@@ -56,7 +56,7 @@ describe("<Account /> Views.", () => {
       const items = compMenu.find(Menu.Item);
 
       expect(compMenu.length).toBe(1);
-      expect(items.length).toBe(4);
+      expect(items.length).toBe(2);
     })
 
 });

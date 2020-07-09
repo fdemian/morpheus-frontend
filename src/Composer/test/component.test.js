@@ -3,7 +3,6 @@ import Enzyme, { mount, render } from 'enzyme';
 import { StaticRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Alert , Input, Tag, Button} from 'antd';
-import { Submit } from 'ant-design-pro/lib/Login';
 import { Editor } from 'elementary-editor';
 
 //

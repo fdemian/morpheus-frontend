@@ -1,6 +1,4 @@
-import React,
-{
-  Fragment,
+import React, {
   useState,
   useRef,
   useEffect
@@ -126,11 +124,9 @@ const Composer = (props) => {
     </div>
 
     <div className="TagsContainer">
-      <Fragment>
         <p className="TagChooseText">
           Choose some tags
         </p>
-      </Fragment>
       <EditableTagGroup
         initialState={tags}
         updateFn={updateTags}
