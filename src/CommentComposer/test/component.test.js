@@ -6,7 +6,6 @@ import { StaticRouter } from 'react-router';
 import Composer from '../Composer';
 import DrawerHeader from '../DrawerHeader';
 import ComposerHeader from '../ComposerHeader';
-import ComposerAvatar from '../../Avatar/Avatar';
 
 import ComposerEditorHeading from '../ComposerEditorHeading';
 
@@ -33,7 +32,7 @@ describe("<CommentComposer />", () => {
       expect(composer.contains(ComposerEditorHeading));
    })
 
-   it("Renders <ComposerAvatar /> with guest user", () => {
+  /* it("Renders <ComposerAvatar /> with guest user", () => {
      const props = {
        user:{
          id: 15,
@@ -74,7 +73,7 @@ describe("<CommentComposer />", () => {
 
       const composer = mount(<ComposerAvatar {...props} />);
       expect(composer.contains(Avatar));
-   })
+   })*/
 
 
 
