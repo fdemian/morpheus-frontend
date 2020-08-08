@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Drawer, Row, Col } from 'antd';
 import { Link } from 'react-router-dom'; // Replace
-import logo from '../logo.svg';
+import logo from '../logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import NavbarMenu from './Mobile/MobileMenu';

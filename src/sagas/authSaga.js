@@ -6,7 +6,7 @@ import signIn,
   signOut
 } from '../Authentication/Actions';
 
-import { register, REGISTER_START } from '../LoginForm/Actions';
+import { register, REGISTER_START } from '../Login2/Actions';
 
 export default function* authSaga() {
   yield takeEvery(AUTH_START, signIn);

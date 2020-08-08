@@ -33,7 +33,11 @@ span.logo-item-desktop{
 }
 
 span.pull-right, .ant-menu-item.pull-right {
-  margin-left: 65%;
+  margin-left: 60%;
+}
+
+span.register-link {
+ margin-left: 45px;
 }
 
 .logo.container.mobile {
@@ -58,6 +62,10 @@ span.pull-right, .ant-menu-item.pull-right {
 
 .blog-logo {
   vertical-align: middle;
+  max-height:50px;
+  max-width:200px;
+  height:50px;
+  width:200px;
 }
 
 .logo.container.mobile .header-search {

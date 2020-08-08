@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Authentication from './Authentication';
 import { startAuth } from './Actions';
-import { requestRegister } from '../LoginForm/Actions';
+import { requestRegister } from '../Login2/Actions';
 
 const mapStateToProps = (state) => {
   return {

@@ -105,6 +105,7 @@
 .icon-header,.icon-logo {
   height: 44px;
   line-height: 44px;
+  padding-left: 25px;
 }
 
 .icon-title {
