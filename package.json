@@ -1,6 +1,6 @@
 {
   "name": "morpheus-cra",
-  "version": "0.1.0",
+  "version": "0.7.0",
   "private": true,
   "proxy": "https://localhost:8888",
   "ant-design-pro": "2.1.1",
@@ -13,7 +13,7 @@
     "@redux-saga/testing-utils": "1.1.3",
     "ant-design-pro": "2.3.2",
     "antd": "4.6.1",
-    "elementary-editor": "0.8.55",
+    "elementary-editor": "0.9.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.3",
     "katex": "0.12.0",
