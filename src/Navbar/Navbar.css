@@ -62,10 +62,10 @@ span.register-link {
 
 .blog-logo {
   vertical-align: middle;
-  max-height:50px;
-  max-width:200px;
-  height:50px;
-  width:200px;
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  line-height: 64px;
 }
 
 .logo.container.mobile .header-search {
