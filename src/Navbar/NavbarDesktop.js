@@ -11,9 +11,7 @@ import Notifications from './Notifications';
 import logo from '../logo.png';
 import './Navbar.css';
 
-const { SubMenu } = Menu;
-
-/*onClick={null} selectedKeys={null}*/
+// const { SubMenu } = Menu;
 
 const Navbar = (props) => {
 
