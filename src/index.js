@@ -6,6 +6,7 @@ import AppRoute from './Routes/AppRoute';
 import { Provider } from 'react-redux';
 import store from './store/Configure';
 import { REQUEST_CONFIG_DATA } from './App/Actions';
+import register from './registerServiceWorker';
 
 const {App} = ApplicationRoutes;
 const {Routes} = ApplicationRoutes;
@@ -39,3 +40,4 @@ const Morpheus = () => {
 };
 
 ReactDOM.render(<Morpheus />, document.getElementById('root'));
+register();
