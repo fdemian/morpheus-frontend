@@ -18,6 +18,7 @@ const initialState = {
   oauth: [],
   notificationsEnabled: false,
   blogName: "",
+  description:"",
   isFetching: false,
   error: false,
   fetched: false
@@ -38,6 +39,7 @@ export function configuration(state = initialState, action) {
         oauth: data.oauth,
         notificationsEnabled: data.notificationsEnabled,
         blogName: data.blogName,
+        description:data.description,
         fetched: true
       };
 

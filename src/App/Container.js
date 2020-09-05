@@ -3,7 +3,8 @@ import App from './App';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    blogName: state.config.blogName
+    blogName: state.config.blogName,
+    description:state.config.description
   }
 }
 
