@@ -10,9 +10,10 @@ const App = (props) => {
   <Fragment>
 
      <Helmet>
-       <title>{props.blogName}</title>
+       <meta name="Description" content={props.description} />
        <meta charSet="utf-8" />
        <meta name="og:title" content={props.blogName} />
+       <title>{props.blogName}</title>
      </Helmet>
 
      <MediaQuery minDeviceWidth={1246} >
