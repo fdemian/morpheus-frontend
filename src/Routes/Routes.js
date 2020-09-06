@@ -6,7 +6,6 @@ const Home = React.lazy(() => import('../Stories/Container'));
 const Authentication = React.lazy(() => import('../Authentication/Container'));
 const Categories = React.lazy(() => import('../Categories/Container'));
 const Story = React.lazy(() => import( '../Story/Container'));
-//const Login = React.lazy(() => import('../LoginForm/Container'));
 const Login = React.lazy(() => import('../Login2/Container'));
 const Category = React.lazy(() => import('../Category/Container'));
 const User = React.lazy(() => import('../User/Container'));

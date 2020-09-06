@@ -11,7 +11,7 @@ const App = (props) => {
 
      <Helmet>
        <meta name="Description" content={props.description} />
-       <meta charSet="utf-8" />
+       <meta charset="utf-8" />
        <meta name="og:title" content={props.blogName} />
        <title>{props.blogName}</title>
      </Helmet>

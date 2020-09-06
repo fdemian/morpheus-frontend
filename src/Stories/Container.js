@@ -37,7 +37,6 @@ const StoriesContainer = (props) => {
   }, [props, props.stories]);
 
   return <Stories {...props} />;
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoriesContainer);
