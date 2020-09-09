@@ -40,4 +40,5 @@ const Morpheus = () => {
 };
 
 ReactDOM.render(<Morpheus />, document.getElementById('root'));
+
 register();

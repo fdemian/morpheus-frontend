@@ -3,8 +3,8 @@ import NavbarDesktop from './NavbarDesktop';
 import NavbarMobile from './NavbarMobile';
 
 const Navbar = (props) => {
-
-  if(props.loggedIn){
+  
+  if(props.loggedIn) {
     props.initializeWS();
   }
 
