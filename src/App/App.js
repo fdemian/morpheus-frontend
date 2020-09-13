@@ -3,14 +3,18 @@ import React, {
   Suspense,
   Fragment
 } from 'react';
-import MediaQuery from 'react-responsive';
+import Navbar from '../Navbar/Container';
+import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
-import { Spin } from 'antd';
+import { Layout, Affix, Spin } from 'antd';
+import './App.css';
 
-const LayoutDesktop = lazy(() => import('./LayoutDesktop'));
-const LayoutMobile = lazy(() => import('./LayoutMobile'));
+const {Content, Header } = Layout;
 
 const App = (props) => {
+
+  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+  const { children } = props;
 
   return (
   <Fragment>
@@ -21,17 +25,21 @@ const App = (props) => {
        <title>{props.blogName}</title>
      </Helmet>
 
-     <MediaQuery minDeviceWidth={1246}>
-       <Suspense fallback={<Spin />}>
-         <LayoutDesktop children={props.children} />
-       </Suspense>
-     </MediaQuery>
+     <Suspense fallback={<Spin />}>
+       <Layout>
 
-     <MediaQuery maxDeviceWidth={1246}>
-       <Suspense fallback={<Spin />}>
-         <LayoutMobile children={props.children} />
-       </Suspense>
-     </MediaQuery>
+        <Header className="page-header-container">
+           <Affix>
+           <Navbar mobile={isMobile} />
+           </Affix>
+        </Header>
+
+        <Content className={"content-container" + isMobile ? "mobile": ""}>
+          {children}
+        </Content>
+       </Layout>
+
+      </Suspense>
 
   </Fragment>
   );

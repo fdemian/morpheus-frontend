@@ -1,8 +1,11 @@
-import React from 'react';
-import { List } from 'antd';
-
+import React, {
+  lazy,
+  Suspense
+} from 'react';
+import { List , Spin} from 'antd';
 import StoryItem from './StoriesItem';
-import NoStoriesNotice from './NoStoriesNotice';
+
+const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
 const pagination = {
   pageSize: 10,
@@ -26,10 +29,18 @@ const Stories = (props) =>
    } = props;
 
    if(error)
-    return <NoStoriesNotice text={errorText} error={true} />;
+    return (
+    <Suspense fallback={<Spin />}>
+      <NoStoriesNotice text={errorText} error={true} />
+    </Suspense>
+    );
 
    if(stories === null || stories.length === 0)
-       return <NoStoriesNotice text={noStoriesText} error={false} />;
+   return (
+   <Suspense fallback={<Spin />}>
+      <NoStoriesNotice text={noStoriesText} error={false} />
+    </Suspense>
+    );
 
 	return(
   <div className="stories-container">
@@ -38,6 +49,7 @@ const Stories = (props) =>
     </div>
 
     <div className="StoryListContainer">
+     <Suspense fallback={<Spin />}>
     	<List
     	  itemLayout="vertical"
     	  size="default"
@@ -53,6 +65,7 @@ const Stories = (props) =>
           />
         }
     	/>
+      </Suspense>
     </div>
   </div>
 	);

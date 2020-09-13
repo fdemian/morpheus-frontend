@@ -4,11 +4,9 @@ import { Spin } from 'antd';
 const RouteWrapper = ({ Component }) => {
 
   return(
-  <div>
-    <Suspense fallback={<Spin />}>
-      <Component />
-    </Suspense>
-  </div>
+  <Suspense fallback={<Spin />}>
+    <Component />
+  </Suspense>
   );
 }
 
