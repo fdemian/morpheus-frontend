@@ -6,18 +6,14 @@ import {
   faUserPlus as userPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
-const menuStyle = {
-  width: '256px',
-  marginLeft: '-24px'
-}
+import '../Navbar.css';
 
 const LoginMenu = ({ setDrawerVisible }) => {
 
   const closeDrawer = () => setDrawerVisible(false);
 
   return (
-  <div className="sidemenu-inline" style={menuStyle}>
+  <div className="sidemenu-inline sidemenu-mobile">
     <Menu
       onClick={null}
       defaultSelectedKeys={[]}

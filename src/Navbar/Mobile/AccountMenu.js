@@ -12,10 +12,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import NotificationsHeader from '../AccountMenu/NotificationsMenu/NotificationsMenuHeader';
+import '../Navbar.css';
 
 const SubMenu = Menu.SubMenu;
-const menuStyle = { width: '256px', marginLeft: '-24px' };
-const menuTitleStyle = {marginLeft: '5px', fontSize:'15px'};
 
 const AccountMenu = (props) => {
 
@@ -28,8 +27,10 @@ const AccountMenu = (props) => {
 
   const closeDrawer = () => setDrawerVisible(false);
 
+  console.log(logoutFn);
+
   return (
-  <div className="sidemenu-inline" style={menuStyle}>
+  <div className="sidemenu-inline sidemenu-mobile">
     <Menu
       onClick={null}
       defaultSelectedKeys={[]}
@@ -39,7 +40,7 @@ const AccountMenu = (props) => {
       <SubMenu
         key="UserMenu"
         title={
-          <strong style={menuTitleStyle}>
+          <strong className="sidemenu-style-title">
             <FontAwesomeIcon icon={userIcon} size="lg" />
             &nbsp; User
           </strong>
@@ -75,7 +76,7 @@ const AccountMenu = (props) => {
           </Link>
         </Menu.Item>
         <Menu.Item key="UserMenu:4" onClick={closeDrawer} className="MenuItem">
-          <span onClick={() => logoutFn()}>
+          <span onClick={logoutFn}>
             <FontAwesomeIcon
               icon={signOut}
               className="MenuIcon"
@@ -89,11 +90,11 @@ const AccountMenu = (props) => {
         key="NotificationsMenu"
         title={
          notificationsEnabled ?
-         <strong style={menuTitleStyle}>
+         <strong className="sidemenu-style-title">
            <FontAwesomeIcon icon={bellIcon} size="lg" />
             &nbsp; Notifications
           </strong> :
-         <strong style={menuTitleStyle}>
+         <strong className="sidemenu-style-title">
           <FontAwesomeIcon icon={bellSlashIcon} size="lg" />
            &nbsp; Notifications disabled
          </strong>

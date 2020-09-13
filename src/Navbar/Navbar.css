@@ -91,6 +91,18 @@ span.register-link {
   margin-left: 10px;
 }
 
+/* Navbar mobile */
+
+.sidemenu-mobile {
+  width: 256px;
+  margin-left: -24px;
+}
+
+.sidemenu-inline .sidemenu-style-title {
+  margin-left: 5px;
+  font-size: 15px;
+}
+
 /* Sider styles */
 
 .sider {

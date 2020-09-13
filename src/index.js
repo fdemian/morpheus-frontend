@@ -28,8 +28,8 @@ const Morpheus = () => {
                 path={route.path}
                 component={route.component}
                 isPrivate={route.private}
-                key={route.path}
-                />
+                key={route.path ? route.path.toString() : "-"}
+              />
              )}
              </Switch>
            </App>

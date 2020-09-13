@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, /*Checkbox,*/ Alert } from 'antd';
+import { Form, Input, Button, Alert } from 'antd';
 import { Redirect } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -38,13 +38,13 @@ const LoginScreen = (props) => {
   const [login, setLogin] = useState(initialLoginState);
 
   const onFinish = values => {
-     console.log('Success:', values);
-     const { username, password } = values;
-     authenticate(username, password);
+    const { username, password } = values;
+    authenticate(username, password);
   };
 
+  // TODO: show error message here.
   const onFinishFailed = errorInfo => {
-     console.log('Failed:', errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   const usernameChange = (username, register) => {
