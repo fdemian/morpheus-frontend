@@ -1,6 +1,7 @@
 .stories-container {
   background: white;
   min-height: 900px;
+  margin: 10%;
 }
 
 .StoriesTitle {

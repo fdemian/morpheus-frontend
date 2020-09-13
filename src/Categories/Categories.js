@@ -4,7 +4,6 @@ import { Table } from 'antd';
 import DeleteRow from './DeleteRow';
 import CategoryLink from './CategoryLink';
 import NewCategoryForm from './NewCategoryForm';
-import GridContent from '../PageHeaderWrapper/GridContent';
 
 import './Categories.css';
 
@@ -33,8 +32,6 @@ const Categories = (props) => {
 
     return(
     <div className="categories-container">
-      <GridContent>
-
         <div className="CategoriesTitle">
          <p>Categories</p>
         </div>
@@ -49,8 +46,6 @@ const Categories = (props) => {
             locale={{emptyText:'No categories available.'}}
           />
         </div>
-
-      </GridContent>
     </div>
     );
 

@@ -8,7 +8,6 @@ import Comments from '../Comments/Comments';
 import StoryFooter from './StoryFooter';
 import CommentSpace from './CommentSpace';
 import LoadingIndicator from '../Loading/LoadingIndicator';
-import GridContent from '../PageHeaderWrapper/GridContent';
 
 import './Story.css';
 
@@ -37,8 +36,6 @@ const Story = (props) => {
       <meta charSet="utf-8" />
       <meta name="og:title" content={story.title} />
     </Helmet>
-
-    <GridContent>
 
         <div className="BackToTop">
           <BackTop />
@@ -82,8 +79,6 @@ const Story = (props) => {
         </Fragment>
         )
         }
-
-    </GridContent>
   </div>
   );
 }

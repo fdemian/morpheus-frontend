@@ -3,10 +3,9 @@ import { Menu } from 'antd';
 
 // Views.
 import BaseView from './Profile/Container';
-//import BindingView from './BindingView';
 import SecurityView from './Security/Container';
+//import BindingView from './BindingView';
 //import NotificationView from './NotificationView'
-import GridContent from '../PageHeaderWrapper/GridContent';
 
 import './Info.css';
 
@@ -49,7 +48,6 @@ const AccountSettings = () => {
 
   return (
   <div className="settings-container">
-    <GridContent>
       <div className="info-main">
         <div className="leftmenu">
           <Menu
@@ -65,7 +63,6 @@ const AccountSettings = () => {
             {childComponent}
         </div>
       </div>
-    </GridContent>
   </div>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from 'antd';
-import GridContent from '../PageHeaderWrapper/GridContent';
 import DraftLink from './DraftLink';
 import CategoryLink from './DraftCategoryLink';
 import DeleteRow from './DeleteRow';
@@ -35,8 +34,6 @@ const Drafts = (props) => {
 
   return(
   <div className="drafts-container">
-    <GridContent>
-
       <div className="drafts-title">
        <p>Drafts</p>
       </div>
@@ -49,8 +46,6 @@ const Drafts = (props) => {
           locale={{emptyText:'There are no drafts.'}}
         />
       </div>
-
-    </GridContent>
   </div>
   );
 }

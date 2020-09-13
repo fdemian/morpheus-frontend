@@ -1,6 +1,5 @@
 import React from 'react';
 import MediaQuery from 'react-responsive';
-import GridContent from '../PageHeaderWrapper/GridContent';
 import Composer from './ComposerComponent';
 
 import './Composer.css';
@@ -9,7 +8,6 @@ const ComposerWrapper = ({postStory, editStory, clearComposer, posting, posted, 
 
 	return(
 	<div className="composer-container">
-		<GridContent>
 			<MediaQuery minDeviceWidth={1224}>
 				<Composer
 					mobile={false}
@@ -38,7 +36,6 @@ const ComposerWrapper = ({postStory, editStory, clearComposer, posting, posted, 
 					editing={story !== null}
 				/>
 			</MediaQuery>
-		</GridContent>
 	</div>
 	);
 }
