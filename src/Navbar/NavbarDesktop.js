@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  lazy,
+  Suspense
+} from 'react';
 import { Menu , Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,10 +9,11 @@ import {
   faSignInAlt as signIn,
   faUserPlus as userPlus
 } from '@fortawesome/free-solid-svg-icons';
-import AccountMenu from './AccountMenu/Container';
-import Notifications from './Notifications';
 import logo from '../logo.png';
 import './Navbar.css';
+
+const AccountMenu = lazy(() => import('./AccountMenu/Container'));
+const Notifications = lazy(() => import('./Notifications'));
 
 const Navbar = (props) => {
 
@@ -39,18 +43,23 @@ const Navbar = (props) => {
        </Link>
      </span>
      <span className="pull-right">
+      <Suspense fallback={<Spin />}>
         <Notifications
            notifications={notifications}
            clearFn={dismissNotifications}
            markRead={markReadNotification}
            dismiss={dismissNotifications}
         />
+        </Suspense>
      </span>
+
      <span>
-      <AccountMenu
-         user={user}
-         logoutFn={logoutFn}
-       />
+      <Suspense fallback={<Spin />}>
+        <AccountMenu
+          user={user}
+          logoutFn={logoutFn}
+        />
+      </Suspense>
      </span>
   </Menu>
   );
