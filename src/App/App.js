@@ -21,7 +21,7 @@ const App = (props) => {
        <title>{props.blogName}</title>
      </Helmet>
 
-     <MediaQuery minDeviceWidth={1246} >
+     <MediaQuery minDeviceWidth={1246}>
        <Suspense fallback={<Spin />}>
          <LayoutDesktop children={props.children} />
        </Suspense>

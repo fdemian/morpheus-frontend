@@ -16,7 +16,6 @@ const layout = {
   },
 };
 
-
 const LoginScreen = (props) => {
 
   const {
@@ -47,21 +46,21 @@ const LoginScreen = (props) => {
   };
 
   const usernameChange = (username, register) => {
-      setLogin({
-        username: username,
-        password: login.password
-      });
-    }
+    setLogin({
+      username: username,
+      password: login.password
+    });
+  }
 
   const passwordChange = (password, register) => {
-      setLogin({
-        username: login.username,
-        password: password
-      });
+    setLogin({
+      username: login.username,
+      password: password
+    });
   }
 
   if(loggedIn)
-     return <Redirect to="/"/>;
+    return <Redirect to="/"/>;
 
   if(loading)
     return <Loading />;

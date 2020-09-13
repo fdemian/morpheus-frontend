@@ -31,67 +31,68 @@ const Navbar = (props) => {
 
   if(loggedIn)
    return(
-   <Menu mode="horizontal">
-     <Menu.Item></Menu.Item>
-     <span className="logo-item-desktop">
-       <Link to="/" className="topnav header-logo">
-         <img
-           src={logo}
-           alt={blogName + " logo"}
-           className="blog-logo"
-         />
-       </Link>
-     </span>
-     <span className="pull-right">
-      <Suspense fallback={<Spin />}>
-        <Notifications
-           notifications={notifications}
-           clearFn={dismissNotifications}
-           markRead={markReadNotification}
-           dismiss={dismissNotifications}
-        />
-        </Suspense>
-     </span>
-
-     <span>
-      <Suspense fallback={<Spin />}>
-        <AccountMenu
-          user={user}
-          logoutFn={logoutFn}
-        />
-      </Suspense>
-     </span>
-  </Menu>
+   <Suspense fallback={<Spin />}>
+     <Menu mode="horizontal" key="parent.menu.logged">
+       <Menu.Item key="item.empty.logged"></Menu.Item>
+       <span className="logo-item-desktop" key="logo-item-desktop">
+         <Link to="/" className="topnav header-logo">
+           <img
+             src={logo}
+             alt={blogName + " logo"}
+             className="blog-logo"
+           />
+         </Link>
+       </span>
+       <span className="pull-right" >
+          <Notifications
+             notifications={notifications}
+             clearFn={dismissNotifications}
+             markRead={markReadNotification}
+             dismiss={dismissNotifications}
+          />
+       </span>
+       <span>
+          <AccountMenu
+            user={user}
+            logoutFn={logoutFn}
+          />
+       </span>
+    </Menu>
+  </Suspense>
   );
 
   return(
-  <Menu mode="horizontal">
-    <Menu.Item></Menu.Item>
-    <span className="logo-item-desktop">
-       <Link to="/" className="topnav header-logo">
-         <img
-           src={logo}     
-           alt={blogName + " logo"}
-           className="blog-logo"
-         />
-       </Link>
-    </span>
-    <span className="pull-right">
-      <span className={isFetching ? 'invisible': ''}>
-        <Link to="/login/login">
-          <FontAwesomeIcon icon={signIn} />
-           Login
-        </Link>
-        <Link to="/login/register">
-          <FontAwesomeIcon icon={userPlus} />
-          Register
-        </Link>
-      </span>
-      <span className={isFetching ? 'navbar-spinner' : 'invisible'}>
-       <Spin />
-      </span>
-    </span>
-  </Menu>
+  <Suspense fallback={<Spin />}>
+    <Menu mode="horizontal" key="parent.menu.not.logged">
+      <Menu.Item key="item.empty.not.logged"></Menu.Item>
+        <span className="logo-item-desktop">
+           <Link to="/" className="topnav header-logo">
+             <img
+               src={logo}     
+               alt={blogName + " logo"}
+               className="blog-logo"
+             />
+           </Link>
+        </span>
+        <span className="pull-right">
+         {
+           isFetching ? <Spin /> :
+           (
+            <span key="login-items">
+               <Link to="/login/login">
+                  <FontAwesomeIcon icon={signIn} />
+                  Login
+               </Link>
+               <Link to="/login/register">
+                 <FontAwesomeIcon icon={userPlus} />
+                 Register
+               </Link>
+            </span>
+            )
+         }
+        </span>
+    </Menu>
+  </Suspense>
   );
 
 }
