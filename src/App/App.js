@@ -1,8 +1,4 @@
-import React, {
-  lazy,
-  Suspense,
-  Fragment
-} from 'react';
+import React, { Suspense, Fragment } from 'react';
 import Navbar from '../Navbar/Container';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
