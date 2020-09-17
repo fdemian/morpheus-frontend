@@ -6,7 +6,7 @@ const AccountAvatar = ({ avatar, username, size, shape }) => {
   if(avatar === null || avatar === undefined || avatar.trim() === '')
     return(
     <Avatar
-        alt={`Avatar for ：${username}`}
+      alt={`Avatar for ：${username}`}
       shape={shape === undefined ? 'circle': shape}
       size={size}
       className="Avatar"

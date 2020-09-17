@@ -2,7 +2,12 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-import { Menu , Spin } from 'antd';
+import {
+  Menu ,
+  Spin,
+  Row,
+  Col
+} from 'antd';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -64,33 +69,44 @@ const Navbar = (props) => {
   return(
   <Suspense fallback={<Spin />}>
     <Menu mode="horizontal" key="parent.menu.not.logged">
-      <Menu.Item key="item.empty.not.logged"></Menu.Item>
-        <span className="logo-item-desktop">
-           <Link to="/" className="topnav header-logo">
-             <img
-               src={logo}     
-               alt={blogName + " logo"}
-               className="blog-logo"
-             />
-           </Link>
-        </span>
-        <span className="pull-right">
-         {
-           isFetching ? <Spin /> :
-           (
-            <span key="login-items">
-               <Link to="/login/login">
-                  <FontAwesomeIcon icon={signIn} />
-                  Login
-               </Link>
-               <Link to="/login/register">
-                 <FontAwesomeIcon icon={userPlus} />
-                 Register
-               </Link>
-            </span>
-            )
-         }
-        </span>
+      <Row>
+        <Col span={8}>
+          <Menu.Item key="item.empty.not.logged"></Menu.Item>
+          <span className="logo-item-desktop" key="logo-item-desktop">
+             <Link to="/" className="topnav header-logo">
+                <Suspense fallback={<Spin />}>
+                 <img
+                   src={logo}     
+                   alt={blogName + " logo"}
+                   className="blog-logo"
+                 />
+                </Suspense>
+             </Link>
+          </span>
+        </Col>
+        <Col span={8}></Col>
+        <Col span={8}>
+          <span>
+           {
+             isFetching ? <Spin /> :
+             (
+              <span key="login-items">
+                 <Link to="/login/login">
+                    <FontAwesomeIcon icon={signIn} />
+                    Login
+                 </Link>
+                 <Link to="/login/register">
+                   <FontAwesomeIcon icon={userPlus} />
+                   Register
+                 </Link>
+              </span>
+              )
+           }
+          </span>
+        </Col>
+      </Row>
+
+
     </Menu>
   </Suspense>
   );
