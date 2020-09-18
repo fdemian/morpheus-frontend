@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
-import { Menu } from 'antd';
-
-// Views.
-import BaseView from './Profile/Container';
-import SecurityView from './Security/Container';
-//import BindingView from './BindingView';
-//import NotificationView from './NotificationView'
+import React, {
+  useState,
+  lazy,
+  Suspense
+} from 'react';
+import { Menu, Spin } from 'antd';
 
 import './Info.css';
+
+// Views.
+const Profile = lazy(() => import('./Profile/Container'));
+const SecurityView = lazy(() => import('./Security/Container'));
+//import BindingView from './BindingView';
+//import NotificationView from './NotificationView'
 
 const { Item } = Menu;
 
 const getmenu = (menuMap) => {
   return Object.keys(menuMap).map(item =>
-    <Item key={item}>{menuMap[item].name}
-  </Item>
+    <Item key={item}>
+      <Suspense fallback={<Spin />}>
+        {menuMap[item].name}
+      </Suspense>
+    </Item>
   );
 };
 
@@ -23,7 +30,7 @@ const AccountSettings = () => {
   const menuMap = {
     'base': {
       name: "Profile",
-      component: <BaseView />
+      component: <Profile />
     },
     'security': {
       name: "Security",

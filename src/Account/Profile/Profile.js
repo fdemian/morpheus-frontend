@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import React, {
+  useState,
+  lazy,
+  Suspense
+} from 'react';
+import { Form, Input, Button, Spin } from 'antd';
 import AvatarUpload from './AvatarUpload';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 import MediaQuery from 'react-responsive';

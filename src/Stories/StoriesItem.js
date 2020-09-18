@@ -2,16 +2,17 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-import { List, Skeleton } from 'antd';
+import List from 'antd/lib/list';
+import Skeleton from 'antd/lib/skeleton';
+
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/';
 import { faTrash, faEdit, faComment }  from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import format_title_string from '../utils/formats';
 import './Stories.css';
 
 // Lazy imports.
-const StoryLink = lazy(() => import('./StoryLink'));
 const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
 const ActionButton = lazy(() => import('./ActionButton'));
 
@@ -47,6 +48,9 @@ const StoryItem = (props) => {
    let category = item.category != null ? item.category : defaultCategory;
    const categoryLink = "/categories/" + category.id + "/" + category.name;
 
+   // Story link
+   const storyLink = '/stories/' + item.id + '/' + format_title_string(item.name);
+
    return(
    <Suspense fallback={
      <Skeleton
@@ -70,7 +74,11 @@ const StoryItem = (props) => {
             />
            </Link>
           }
-          title={<StoryLink story={item} />}
+          title={
+          <Link to={storyLink}>
+            <h1 className="StoryLinkTitle">{item.name}</h1>
+          </Link>
+          }
           description={
           <>
             <Link to={categoryLink}>
