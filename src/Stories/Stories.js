@@ -47,7 +47,7 @@ const Stories = (props) =>
 
 	return(
   <div className="stories-container">
-    
+
     <div>
       <h1 className="StoriesTitle">Stories</h1>
     </div>

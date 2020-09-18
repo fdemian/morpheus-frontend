@@ -1,0 +1,13 @@
+{
+  "plugins": [["import", [
+   {
+    "libraryName": "antd",
+    "style": ["css", "scss"],
+    "libraryDirectory": "es",
+  },
+  {
+    "libraryName": "ant-design-pro",
+    "style": ["css", "scss"],
+    "libraryDirectory": "es",
+  }]]
+}

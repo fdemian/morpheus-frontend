@@ -3,6 +3,7 @@ import React, {
   Suspense
 } from 'react';
 import List from 'antd/lib/list';
+import Spin from 'antd/lib/spin';
 import Skeleton from 'antd/lib/skeleton';
 
 import { Link } from 'react-router-dom';
@@ -60,7 +61,11 @@ const StoryItem = (props) => {
     }>
      <List.Item
         key={item.id}
-        actions={mappedActions}
+        actions={
+        <Suspense fallback={<Spin />}>
+          {mappedActions}
+        </Suspense>
+        }
         extra={storyDate}
         >
        <div className="item-container">
