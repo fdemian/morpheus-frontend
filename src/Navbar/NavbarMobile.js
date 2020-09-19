@@ -19,7 +19,7 @@ const Navbar = (props) => {
  const [drawerVisible, setDrawerVisible] = useState(false);
  const closeDrawer = () => setDrawerVisible(false);
  const openDrawer = () => setDrawerVisible(true);
- 
+
  const {
    loggedIn,
    user,
@@ -37,7 +37,7 @@ const Navbar = (props) => {
      onClose={closeDrawer}
      title={
        loggedIn ?
-       <React.Fragment>
+       <>
            <AccountAvatar
              avatar={user.avatar}
              username={user.username}
@@ -46,7 +46,7 @@ const Navbar = (props) => {
            <strong className="menu-title">
               {user.username}
            </strong>
-       </React.Fragment>
+       </>
        : null
      }
      className="drawer-navbar"

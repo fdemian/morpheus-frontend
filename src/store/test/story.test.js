@@ -7,7 +7,6 @@ import
 from '../../Story/Actions';
 import { POST_COMMENT_OK } from '../../CommentComposer/Actions';
 import reducer from '../Reducers/Story';
-import moment from 'moment';
 
 const initialState = {
   id : 0,

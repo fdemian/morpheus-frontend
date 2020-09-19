@@ -9,7 +9,7 @@ import Skeleton from 'antd/lib/skeleton';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/';
 import { faTrash, faEdit, faComment }  from '@fortawesome/free-solid-svg-icons';
-import moment from 'moment';
+
 import format_title_string from '../utils/formats';
 import './Stories.css';
 
@@ -20,11 +20,27 @@ const ActionButton = lazy(() => import('./ActionButton'));
 const getAvatarLink = (author) => "/users/" + author.id + "/" + author.name;
 const defaultCategory = { id: -1, name: "Uncategorized" };
 
+// Format date.
+const getFormattedDate = (dateSTR) => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false
+  };
+  const date = new Date(dateSTR);
+  const storyDate = new Intl.DateTimeFormat("es", options)
+                    .format(date).toString() + " hs";
+
+  return storyDate;
+}
+
 const StoryItem = (props) => {
 
   const { item, editFn, deleteFn, loggedIn, stories  } = props;
   const commentsLink = "/stories/" + item.id + "/" + format_title_string(item.name) + "#comments";
-  const storyDate = moment(item.date).fromNow();
 
   const itemActions = [
       <ActionButton
@@ -51,6 +67,7 @@ const StoryItem = (props) => {
 
    // Story link
    const storyLink = '/stories/' + item.id + '/' + format_title_string(item.name);
+   const storyDate = getFormattedDate(item.date);
 
    return(
    <Suspense fallback={

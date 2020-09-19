@@ -10,7 +10,6 @@ import NavbarDesktop from '../NavbarDesktop';
 import NavbarMobile from '../NavbarMobile';
 import NavbarMenuMobile from '../Mobile/MobileMenu';
 import Notifications from '../Notifications';
-import SearchArea from '../SearchArea';
 import AccountMenu from '../AccountMenu/AccountMenu';
 
 import Notification from '../AccountMenu/NotificationsMenu/Notification';
@@ -67,16 +66,6 @@ describe("<Navbar />", () => {
 
      expect(notificationsComponent.contains(NoticeIcon));
      expect(notificationsComponent.contains(NoticeIcon.Tab));
-   })
-
-   it("<SearchArea />", () => {
-     const searchAreaComponent = mount(
-      <StaticRouter >
-        <SearchArea />
-      </StaticRouter>
-     );
-
-     expect(searchAreaComponent.contains(Input));
    })
 
    it("<AccountMenu />", () => {
