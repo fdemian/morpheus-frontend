@@ -2,12 +2,12 @@
   "plugins": [["import", [
    {
     "libraryName": "antd",
-    "style": ["css", "scss"],
+    "style": true,
     "libraryDirectory": "es",
   },
   {
     "libraryName": "ant-design-pro",
-    "style": ["css", "scss"],
+    "style": true,
     "libraryDirectory": "es",
   }]]
 }
