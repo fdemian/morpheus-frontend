@@ -2,7 +2,7 @@ import React from 'react';
 import AvatarUpload from './AvatarUpload';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 
-const AvatarModify = ({props}) => {
+const AvatarModify = (props) => {
 
   const {
     user,

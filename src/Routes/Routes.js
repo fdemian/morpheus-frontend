@@ -12,7 +12,7 @@ const User = React.lazy(() => import('../User/Container'));
 const Profile = React.lazy(() => import('../Account/Profile/Container'));
 const NotFound = React.lazy(() => import('../Errors/NotFound'));
 //const Activation = React.lazy(() => import('../Activation/Activation'));
-const Settings  = React.lazy(() => import('../Account/Info'));
+const Settings  = React.lazy(() => import('../Account/AccountSettings'));
 const Drafts = React.lazy(() => import('../Drafts/Container'));
 const Draft = React.lazy(() => import('../Draft/Container'));
 

@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { Menu, Spin } from 'antd';
 
-import './Info.css';
+import './AccountSettings.css';
 
 // Views.
 const Profile = lazy(() => import('./Profile/Container'));

@@ -31,21 +31,21 @@ const bindData = [
 ];
 
 const BindingView = () => (
-    <Fragment>
-      <List
-        itemLayout="horizontal"
-        dataSource={bindData}
-        renderItem={item => (
-          <List.Item actions={item.actions}>
-            <List.Item.Meta
-              avatar={item.avatar}
-              title={item.title}
-              description={item.description}
-            />
-          </List.Item>
-        )}
-      />
-    </Fragment>
+<Fragment>
+  <List
+    itemLayout="horizontal"
+    dataSource={bindData}
+    renderItem={item => (
+      <List.Item actions={item.actions}>
+        <List.Item.Meta
+          avatar={item.avatar}
+          title={item.title}
+          description={item.description}
+        />
+      </List.Item>
+    )}
+  />
+</Fragment>
 )
 
 export default BindingView;

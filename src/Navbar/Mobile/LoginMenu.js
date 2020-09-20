@@ -1,5 +1,6 @@
-import React from 'react';
-import { Menu } from 'antd';
+import React, { Suspense } from 'react';
+import Menu from 'antd/lib/menu';
+import Spin from 'antd/lib/spin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSignInAlt as signIn,
@@ -8,34 +9,34 @@ import {
 import { Link } from 'react-router-dom';
 import '../Navbar.css';
 
-const LoginMenu = ({ setDrawerVisible }) => {
-
-  const closeDrawer = () => setDrawerVisible(false);
+const LoginMenu = ({ closeDrawer }) => {
 
   return (
-  <div className="sidemenu-inline sidemenu-mobile">
-    <Menu
-      onClick={null}
-      defaultSelectedKeys={[]}
-      defaultOpenKeys={[]}
-      mode="inline"
-    >
-      <Menu.Item key="1" onClick={closeDrawer}>
-        <Link to="/login/login">
-          <FontAwesomeIcon icon={signIn} />
-          &nbsp;
-          Log in
-        </Link>
-      </Menu.Item>
-     <Menu.Item key="2" onClick={closeDrawer}>
-       <Link to="/login/register">
-         <FontAwesomeIcon icon={userPlus} />
-         &nbsp;
-         Register
-       </Link>
-     </Menu.Item>
-    </Menu>
-  </div>
+  <Suspense fallback={<Spin />}>
+    <div className="sidemenu-inline sidemenu-mobile">
+       <Menu
+          onClick={null}
+          defaultSelectedKeys={[]}
+          defaultOpenKeys={[]}
+          mode="inline"
+        >
+          <Menu.Item key="1" onClick={closeDrawer}>
+            <Link to="/login/login">
+              <FontAwesomeIcon icon={signIn} />
+              &nbsp;
+              Log in
+            </Link>
+          </Menu.Item>
+         <Menu.Item key="2" onClick={closeDrawer}>
+           <Link to="/login/register">
+             <FontAwesomeIcon icon={userPlus} />
+             &nbsp;
+             Register
+           </Link>
+         </Menu.Item>
+        </Menu>
+      </div>
+  </Suspense>
   )
 };
 

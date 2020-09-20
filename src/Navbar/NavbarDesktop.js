@@ -17,7 +17,7 @@ import {
 import logo from '../logo.png';
 import './Navbar.css';
 
-const AccountMenu = lazy(() => import('./AccountMenu/Container'));
+const AccountMenu = lazy(() => import('./AccountMenu/AccountMenu'));
 const Notifications = lazy(() => import('./Notifications'));
 
 const Navbar = (props) => {

@@ -15,7 +15,7 @@ const NavbarMenu = (props) => {
     notificationsEnabled,
     user,
     clearFn,
-    setDrawerVisible
+    closeDrawer
   } = props;
 
   if(loggedIn)
@@ -27,14 +27,14 @@ const NavbarMenu = (props) => {
         notifications={notifications}
         notificationsEnabled={notificationsEnabled}
         clearFn={clearFn}
-        setDrawerVisible={setDrawerVisible}
+        closeDrawer={closeDrawer}
       />
     </Suspense>
-    )
+    );
 
    return (
   <Suspense fallback={<p>Loading</p>}>
-     <LoginMenu setDrawerVisible={setDrawerVisible} />
+     <LoginMenu closeDrawer={closeDrawer} />
   </Suspense>
    );
 }

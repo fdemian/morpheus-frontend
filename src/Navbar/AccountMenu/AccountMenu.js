@@ -14,21 +14,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './AccountMenu.css';
 
-const userNameStyle = {
-  textAlign:'center',
-  color: 'rgba(0,0,0,.65)',
-  fontSize: '20px',
-  marginLeft: '10px',
-  verticalAlign: 'text-bottom'
-};
-
-const hrLineStyle = {
-   height: '12px',
-   border: '0',
-   borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-   borderBottom: '1px solid rgba(255, 255, 255, 0.3)'
-};
-
 const AccountMenu = ({ logoutFn, user, isFetching }) => {
 
   const menu = (
@@ -40,11 +25,11 @@ const AccountMenu = ({ logoutFn, user, isFetching }) => {
           shape='circle'
           size='medium'
         />
-        <span style={userNameStyle}>
+        <span className="username-menu-text">
           {user.username}
         </span>
       </Menu.Item>
-      <hr style={hrLineStyle} />
+      <hr className="divider" />
       <Menu.Item key="account:newstory">
         <Link to="/stories/new">
           <FontAwesomeIcon

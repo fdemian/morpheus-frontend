@@ -3,16 +3,18 @@ import React, {
   useState,
   Suspense
 } from 'react';
-import { Drawer, Row, Col, Spin } from 'antd';
+import Drawer from 'antd/lib/drawer';
+import Row  from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Spin from 'antd/lib/spin';
 import { Link } from 'react-router-dom'; // Replace
 import logo from '../logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import NavbarMenu from './Mobile/MobileMenu';
-
 import './Navbar.css';
 
 const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
+const NavbarMenu = lazy(() => import('./Mobile/MobileMenu'));
 
 const Navbar = (props) => {
 
@@ -30,62 +32,66 @@ const Navbar = (props) => {
  } = props;
 
  return (
- <div className="navbar-container navbar-mobile">
-   <Drawer
-     visible={drawerVisible}
-     placement="right"
-     onClose={closeDrawer}
-     title={
-       loggedIn ?
-       <>
-           <AccountAvatar
-             avatar={user.avatar}
-             username={user.username}
-             size='small'
-           />
-           <strong className="menu-title">
-              {user.username}
-           </strong>
-       </>
-       : null
-     }
-     className="drawer-navbar"
-   >
-    <Suspense fallback={<Spin />}>
-       <NavbarMenu
-         logoutFn={logoutFn}
-         loggedIn={loggedIn}
-         notifications={notifications}
-         notificationsEnabled={notificationsEnabled}
-         user={user}
-         clearFn={dismissNotifications}
-         setDrawerVisible={setDrawerVisible}
-       />
-     </Suspense>
-   </Drawer>
-   <Row gutter={4}>
-     <Col className="gutter-row" span={20}>
-       <Link to="/" className="topnav header-logo">
-         <img
-            src={logo}
-            alt={props.blogName + " logo"}
-            className="navbar-logo-mobile"
-          />
-       </Link>
-     </Col>
-     <Col className="gutter-row" span={4}>
-     </Col>
-     <Col className="gutter-row" span={4}>
-       <span onClick={openDrawer}>
-         <FontAwesomeIcon
-             icon={faBars}
-             size="lg"
-             color="gainsboro"
-          />
-       </span>
-     </Col>
-   </Row>
- </div>
+ <Suspense fallback={<Spin />}>
+   <div className="navbar-container navbar-mobile">
+     <Drawer
+       visible={drawerVisible}
+       placement="right"
+       onClose={closeDrawer}
+       title={
+         loggedIn ?
+         <>
+             <AccountAvatar
+               avatar={user.avatar}
+               username={user.username}
+               size='small'
+             />
+             <strong className="menu-title">
+                {user.username}
+             </strong>
+         </>
+         : null
+       }
+       className="drawer-navbar"
+     >
+      <Suspense fallback={<Spin />}>
+         <NavbarMenu
+           logoutFn={logoutFn}
+           loggedIn={loggedIn}
+           notifications={notifications}
+           notificationsEnabled={notificationsEnabled}
+           user={user}
+           clearFn={dismissNotifications}
+           closeDrawer={closeDrawer}
+           setDrawerVisible={setDrawerVisible}
+         />
+       </Suspense>
+     </Drawer>
+     <Row gutter={4}>
+       <Col className="gutter-row" span={4}>
+        <Suspense fallback={<Spin />}>
+           <Link to="/" className="topnav header-logo">
+             <img
+                src={logo}
+                alt={props.blogName + " logo"}
+                className="navbar-logo-mobile"
+              />
+           </Link>
+        </Suspense>
+       </Col>
+       <Col className="gutter-row" span={16}></Col>
+       <Col className="gutter-row" span={4}>
+         <span onClick={openDrawer}>
+           <FontAwesomeIcon
+               icon={faBars}
+               size="lg"
+               color="gainsboro"
+            />
+         </span>
+       </Col>
+     </Row>
+   </div>
+ </Suspense>
  );
 
 }
