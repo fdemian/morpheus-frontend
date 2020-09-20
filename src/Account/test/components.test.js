@@ -3,7 +3,7 @@ import Enzyme, { mount, render } from 'enzyme';
 import { List, Menu } from 'antd';
 
 import BindingView from '../BindingView';
-import AccountView from '../Info';
+import AccountView from '../AccountSettings';
 import NotificationView from '../NotificationView';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
@@ -25,7 +25,7 @@ describe("<Account /> Views.", () => {
      expect(itemList.length).toBe(1);
     })
 
-    it("<Account /> > BaseView > Render", () => {
+    it("<Account /> > Account View > Render", () => {
 
       const initialState = {
         session: {

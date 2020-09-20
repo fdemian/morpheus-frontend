@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { List } from 'antd';
-import './Info.css';
+import './AccountSettings.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

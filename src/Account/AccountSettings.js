@@ -4,7 +4,6 @@ import React, {
   Suspense
 } from 'react';
 import { Menu, Spin } from 'antd';
-
 import './AccountSettings.css';
 
 // Views.
@@ -18,9 +17,7 @@ const { Item } = Menu;
 const getmenu = (menuMap) => {
   return Object.keys(menuMap).map(item =>
     <Item key={item}>
-      <Suspense fallback={<Spin />}>
-        {menuMap[item].name}
-      </Suspense>
+      {menuMap[item].name}
     </Item>
   );
 };
@@ -30,11 +27,19 @@ const AccountSettings = () => {
   const menuMap = {
     'base': {
       name: "Profile",
-      component: <Profile />
+      component:(
+      <Suspense fallback={<Spin />}>
+        <Profile />
+      </Suspense>
+      )
     },
     'security': {
       name: "Security",
-      component:  <SecurityView />
+      component:(
+      <Suspense fallback={<Spin />}>
+        <SecurityView />
+      </Suspense>
+      )
     }/*,
     'binding': {
       name:"Binding Accounts",
@@ -67,7 +72,7 @@ const AccountSettings = () => {
         </div>
         <div className="right">
           <div className="title">{title}</div>
-            {childComponent}
+          {childComponent}
         </div>
       </div>
   </div>

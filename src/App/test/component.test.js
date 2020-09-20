@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { render } from 'enzyme';
-import LayoutDesktop from '../LayoutDesktop';
-import LayoutMobile from '../LayoutMobile';
+//import LayoutDesktop from '../LayoutDesktop';
+//import LayoutMobile from '../LayoutMobile';
 import Navbar from '../../Navbar/Container';
 import { Provider } from 'react-redux';
 

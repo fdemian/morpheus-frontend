@@ -8,7 +8,7 @@ import Navbar from '../Navbar';
 import NavbarMobile from '../NavbarMobile';
 import NavbarMenuMobile from '../Mobile/MobileMenu';
 
-import NotificationsHeader from '../Mobile/NotificationsHeader';
+import NotificationsHeader from '../AccountMenu/NotificationsMenu/NotificationsMenuHeader';
 import LoginMenu from '../Mobile/LoginMenu';
 import AccountMenu from '../Mobile/AccountMenu';
 import MobileMenu from '../Mobile/MobileMenu';
