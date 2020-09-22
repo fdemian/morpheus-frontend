@@ -30,11 +30,12 @@ const getFormattedDate = (dateSTR) => {
     minute: 'numeric',
     hour12: false
   };
-  const date = new Date(dateSTR);
+  const formattedDate = dateSTR.replace(" ", "T");
+  const date = new Date(formattedDate);
   const storyDate = new Intl.DateTimeFormat("es", options)
-                    .format(date).toString() + " hs";
+                    .format(date).toString();
 
-  return storyDate;
+  return storyDate + " hs";
 }
 
 const StoryItem = (props) => {
@@ -84,7 +85,7 @@ const StoryItem = (props) => {
         </Suspense>
         }
         extra={storyDate}
-        >
+      >
        <div className="item-container">
          <List.Item.Meta
           avatar={
@@ -124,7 +125,7 @@ const StoryItem = (props) => {
       </div>
     </List.Item>
   </Suspense>
-  )
+  );
 }
 
 export default StoryItem;
