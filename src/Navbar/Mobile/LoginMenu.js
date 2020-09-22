@@ -37,7 +37,7 @@ const LoginMenu = ({ closeDrawer }) => {
         </Menu>
       </div>
   </Suspense>
-  )
+  );
 };
 
 export default LoginMenu;

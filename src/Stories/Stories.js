@@ -14,7 +14,7 @@ const pagination = {
   pageSize: 10,
   current: 1,
   total: 1,
-  onChange: null,
+  onChange: null
 };
 
 const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
@@ -54,21 +54,21 @@ const Stories = (props) =>
 
     <div className="StoryListContainer">
      <Suspense fallback={<Spin />}>
-    	<List
-    	  itemLayout="vertical"
-    	  size="default"
-        pagination={pagination}
-        dataSource={stories}
-        renderItem={item =>
-          <StoryItem
-            item={item}
-            editFn={onEditClick}
-            deleteFn={onDelete}
-            loggedIn={loggedIn}
-            stories={stories}
-          />
-        }
-    	/>
+      	<List
+      	  itemLayout="vertical"
+      	  size="default"
+          pagination={pagination}
+          dataSource={stories}
+          renderItem={item =>
+            <StoryItem
+              item={item}
+              editFn={onEditClick}
+              deleteFn={onDelete}
+              loggedIn={loggedIn}
+              stories={stories}
+            />
+          }
+      	/>
       </Suspense>
     </div>
   </div>

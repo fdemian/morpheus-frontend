@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/';
 import { faTrash, faEdit, faComment }  from '@fortawesome/free-solid-svg-icons';
 
 import format_title_string from '../utils/formats';
+import { getFormattedDate } from '../utils/time';
 import './Stories.css';
 
 // Lazy imports.
@@ -19,24 +20,6 @@ const ActionButton = lazy(() => import('./ActionButton'));
 
 const getAvatarLink = (author) => "/users/" + author.id + "/" + author.name;
 const defaultCategory = { id: -1, name: "Uncategorized" };
-
-// Format date.
-const getFormattedDate = (dateSTR) => {
-  const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false
-  };
-  const formattedDate = dateSTR.replace(" ", "T");
-  const date = new Date(formattedDate);
-  const storyDate = new Intl.DateTimeFormat("es", options)
-                    .format(date).toString();
-
-  return storyDate + " hs";
-}
 
 const StoryItem = (props) => {
 

@@ -11,9 +11,10 @@ const imports = [
     libraryDirectory: 'lib',
     style: 'css',
     camel2DashComponentName: false,
-  }
+  },
 ];
 
 module.exports = override(
-   fixBabelImports('antd', imports)
+   fixBabelImports('antd', imports),
+   new AntdDayjsWebpackPlugin()
 );
