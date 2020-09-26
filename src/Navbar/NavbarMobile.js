@@ -3,16 +3,21 @@ import React, {
   useState,
   Suspense
 } from 'react';
+
+//Ant. design.
 import Drawer from 'antd/lib/drawer';
 import Row  from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Spin from 'antd/lib/spin';
+
+// Other imports.
 import { Link } from 'react-router-dom'; // Replace
 import logo from '../logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css';
 
+// Lazy imports.
 const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
 const NavbarMenu = lazy(() => import('./Mobile/MobileMenu'));
 
@@ -40,7 +45,7 @@ const Navbar = (props) => {
        onClose={closeDrawer}
        title={
          loggedIn ?
-         <>
+         <Suspense fallback={<Spin />}>
              <AccountAvatar
                avatar={user.avatar}
                username={user.username}
@@ -49,7 +54,7 @@ const Navbar = (props) => {
              <strong className="menu-title">
                 {user.username}
              </strong>
-         </>
+          </Suspense>
          : null
        }
        className="drawer-navbar"
