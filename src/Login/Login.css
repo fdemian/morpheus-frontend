@@ -83,7 +83,7 @@
 
 .mobile .icon-header
 {
-  margin-left: 18%;
+  margin-left: 40%;
   margin-bottom: 30px;
 }
 
@@ -135,4 +135,8 @@
 
 .login-container .ant-popover-placement-right {
   left: 398px !important;
+}
+
+.login-button {
+  width: 560px;
 }
