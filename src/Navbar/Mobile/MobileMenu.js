@@ -1,6 +1,10 @@
-import React from 'react';
-import LoginMenu from './LoginMenu';
-import AccountMenu from './AccountMenu';
+import React, {
+  lazy,
+  Suspense
+} from 'react';
+
+const LoginMenu = lazy(() => import('./LoginMenu'));
+const AccountMenu = lazy(() => import('./AccountMenu'));
 
 const NavbarMenu = (props) => {
 
@@ -11,22 +15,28 @@ const NavbarMenu = (props) => {
     notificationsEnabled,
     user,
     clearFn,
-    setDrawerVisible
+    closeDrawer
   } = props;
 
   if(loggedIn)
     return(
-    <AccountMenu
-      user={user}
-      logoutFn={logoutFn}
-      notifications={notifications}
-      notificationsEnabled={notificationsEnabled}
-      clearFn={clearFn}
-      setDrawerVisible={setDrawerVisible}
-    />
-    )
+    <Suspense fallback={<p>Loading</p>}>
+      <AccountMenu
+        user={user}
+        logoutFn={logoutFn}
+        notifications={notifications}
+        notificationsEnabled={notificationsEnabled}
+        clearFn={clearFn}
+        closeDrawer={closeDrawer}
+      />
+    </Suspense>
+    );
 
-   return <LoginMenu setDrawerVisible={setDrawerVisible} />;
+   return (
+  <Suspense fallback={<p>Loading</p>}>
+     <LoginMenu closeDrawer={closeDrawer} />
+  </Suspense>
+   );
 }
 
 export default NavbarMenu;

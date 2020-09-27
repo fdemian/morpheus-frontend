@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from 'antd';
+import Badge from 'antd/lib/badge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBell,

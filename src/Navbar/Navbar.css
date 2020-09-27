@@ -17,9 +17,13 @@ span.invisible, li.ant-menu-item.invisible {
 }
 
 .navbar-logo-mobile {
-  width: 40px;
-  height: 40px;
-  margin-left: 13px;
+  height: 30px;
+  margin-left: 15px;
+}
+
+.navbar-mobile .menu-title {
+  margin-left: '5px';
+  font-size: '15px';
 }
 
 .navbar-text-mobile {
@@ -85,6 +89,18 @@ span.register-link {
 .userName
 {
   margin-left: 10px;
+}
+
+/* Navbar mobile */
+
+.sidemenu-mobile {
+  width: 256px;
+  margin-left: -24px;
+}
+
+.sidemenu-inline .sidemenu-style-title {
+  margin-left: 5px;
+  font-size: 15px;
 }
 
 /* Sider styles */

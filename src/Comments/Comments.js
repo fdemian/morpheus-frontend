@@ -6,16 +6,26 @@ import { Comment, Tooltip, List } from 'antd';
 import { DefaultRenderer }  from 'elementary-editor';
 import AccountAvatar from '../UserAvatar/UserAvatar';
 import './Comments.css';
-import moment from 'moment';
+import getRelativeTime from '../utils/time';
 
 const DateComponent = ({commentDate}) => {
 
-  const formattedDate = moment(commentDate).format("Do MMM YYYY HH:mm:ss");
+  const locale = 'es-AR';
+  const options = {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric"
+  };
+  const _date = new Date(commentDate);
+  const formattedDate = new Intl.DateTimeFormat(locale, options).format(_date);
+  const relTime = getRelativeTime(+new Date(_date));
 
   return(
   <Tooltip title={formattedDate}>
    <span>
-     {moment(commentDate).fromNow()}
+     {relTime}
    </span>
   </Tooltip>
   );

@@ -28,7 +28,11 @@ describe("<Composer />", () => {
       story: undefined
     };
 
-    const component = mount(<Composer {...props} />);
+    const component = mount(
+    <StaticRouter>
+      <Composer {...props} />
+    </StaticRouter>
+    );
 
     expect(component.contains(Composer));
    })

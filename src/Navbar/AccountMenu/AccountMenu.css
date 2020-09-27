@@ -69,9 +69,18 @@
   margin: 2px;
 }
 
-.SearchArea
-{
-  width: 300px;
-  height: 40px;
-  font-size: 15px;
+
+.AccountDropdownMenu .username-menu-text {
+  text-align: center;
+  color: rgba(0,0,0,.65);
+  font-size: 20px;
+  margin-left: 10px;
+  vertical-align: text-bottom;
+}
+
+.AccountDropdownMenu .divider {
+  height: 12px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

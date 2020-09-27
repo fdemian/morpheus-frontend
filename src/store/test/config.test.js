@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   blogName: "",
+  description: "",
   options: [],
   oauth: [],
   notificationsEnabled: false,
@@ -53,6 +54,7 @@ describe('Store > Reducers > User', () => {
     .toStrictEqual({
       blogName: "",
       options: [],
+      description: "",
       oauth: [],
       notificationsEnabled: false,
       isFetching: true,
@@ -65,6 +67,7 @@ describe('Store > Reducers > User', () => {
     expect(reducer({
       blogName: "",
       options: [],
+      description: "",
       oauth: [],
       notificationsEnabled: false,
       isFetching: true,
@@ -78,6 +81,7 @@ describe('Store > Reducers > User', () => {
         name: "Oauth Provider 1",
         key: "123456abcdef"
       }],
+      description: undefined,
       notificationsEnabled: false,
       isFetching: true,
       error: false,
@@ -88,6 +92,7 @@ describe('Store > Reducers > User', () => {
   it('RECEIVE_CONFIG_FAILURE', () => {
     expect(reducer({
       options: [],
+      description: "",
       oauth: [],
       notificationsEnabled: false,
       isFetching: true,
@@ -98,6 +103,7 @@ describe('Store > Reducers > User', () => {
     ))
     .toStrictEqual({
       options: [],
+      description: "",
       oauth: [],
       notificationsEnabled: false,
       isFetching: false,

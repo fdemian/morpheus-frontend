@@ -1,4 +1,5 @@
-const { override, fixBabelImports } = require('customize-cra');
+const { override, useBabelRc, fixBabelImports } = require('customize-cra');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 const imports = [
   {
@@ -11,9 +12,10 @@ const imports = [
     libraryDirectory: 'lib',
     style: 'css',
     camel2DashComponentName: false,
-  }
+  },
+  new AntdDayjsWebpackPlugin()
 ];
 
 module.exports = override(
-   fixBabelImports('antd', imports)
+   fixBabelImports('antd', imports),
 );

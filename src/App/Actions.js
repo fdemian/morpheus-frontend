@@ -94,8 +94,6 @@ export function initializeWebsocketConnection(dispatch, user_id) {
     socket.onmessage = (message) => dispatch(newMessage(message));
   }
   catch(error) {
-    console.clear()
-    console.log(error)
     dispatch({ type: INITIALIZE_WEBSOCKET_FAILURE, error: error});
   }
 }

@@ -31,10 +31,11 @@ const Composer = (props) => {
 
   const editorContainer = useRef(null);
 
-  const _title = story !== null ? story.name : null;
-  const _category = story !== null ? story.category : null;
-  const _content = story !== null ? story.content : null;
-  const _tags = story !== null ? story.tags : [];
+  const isDefined = story !== null && story !== undefined;
+  const _title = isDefined ? story.name : null;
+  const _category = isDefined ? story.category : null;
+  const _content = isDefined ? story.content : null;
+  const _tags = isDefined ? story.tags : [];
 
   const [title, setTitle] = useState(_title);
   const [category, setCategory ] = useState(_category);
@@ -91,7 +92,7 @@ const Composer = (props) => {
   }
 
   const mobileClass = mobile ? "Mobile" : "Desktop";
-  const isDraft = (!editing || story.isDraft === true);
+  const isDraft = isDefined && (!editing || story.isDraft === true);
   const postStoryAdDraft = () => postStoryContent(true);
   const postContentFn = () => postStoryContent(false);
 

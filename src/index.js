@@ -6,7 +6,7 @@ import AppRoute from './Routes/AppRoute';
 import { Provider } from 'react-redux';
 import store from './store/Configure';
 import { REQUEST_CONFIG_DATA } from './App/Actions';
-import register from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
 
 const {App} = ApplicationRoutes;
 const {Routes} = ApplicationRoutes;
@@ -28,8 +28,8 @@ const Morpheus = () => {
                 path={route.path}
                 component={route.component}
                 isPrivate={route.private}
-                key={route.path}
-                />
+                key={route.path ? route.path.toString() : "-"}
+              />
              )}
              </Switch>
            </App>
@@ -41,4 +41,4 @@ const Morpheus = () => {
 
 ReactDOM.render(<Morpheus />, document.getElementById('root'));
 
-register();
+serviceWorker.register();

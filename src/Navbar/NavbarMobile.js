@@ -1,19 +1,31 @@
-import React, { useState } from 'react';
-import { Drawer, Row, Col } from 'antd';
+import React, {
+  lazy,
+  useState,
+  Suspense
+} from 'react';
+
+//Ant. design.
+import Drawer from 'antd/lib/drawer';
+import Row  from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Spin from 'antd/lib/spin';
+
+// Other imports.
 import { Link } from 'react-router-dom'; // Replace
 import logo from '../logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import NavbarMenu from './Mobile/MobileMenu';
-import AccountAvatar from '../UserAvatar/UserAvatar';
-
 import './Navbar.css';
 
-const menuTitleStyle = {marginLeft: '5px', fontSize:'15px'};
+// Lazy imports.
+const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
+const NavbarMenu = lazy(() => import('./Mobile/MobileMenu'));
 
 const Navbar = (props) => {
 
  const [drawerVisible, setDrawerVisible] = useState(false);
+ const closeDrawer = () => setDrawerVisible(false);
+ const openDrawer = () => setDrawerVisible(true);
 
  const {
    loggedIn,
@@ -25,57 +37,66 @@ const Navbar = (props) => {
  } = props;
 
  return (
- <div className="navbar-container">
-   <Drawer
-     visible={drawerVisible}
-     placement="right"
-     onClose={() => setDrawerVisible(false)}
-     title={
-       loggedIn ?
-       <React.Fragment>
-         <AccountAvatar
-           avatar={user.avatar}
-           username={user.username}
-           size='small'
+ <Suspense fallback={<Spin />}>
+   <div className="navbar-container navbar-mobile">
+     <Drawer
+       visible={drawerVisible}
+       placement="right"
+       onClose={closeDrawer}
+       title={
+         loggedIn ?
+         <Suspense fallback={<Spin />}>
+             <AccountAvatar
+               avatar={user.avatar}
+               username={user.username}
+               size='small'
+             />
+             <strong className="menu-title">
+                {user.username}
+             </strong>
+          </Suspense>
+         : null
+       }
+       className="drawer-navbar"
+     >
+      <Suspense fallback={<Spin />}>
+         <NavbarMenu
+           logoutFn={logoutFn}
+           loggedIn={loggedIn}
+           notifications={notifications}
+           notificationsEnabled={notificationsEnabled}
+           user={user}
+           clearFn={dismissNotifications}
+           closeDrawer={closeDrawer}
+           setDrawerVisible={setDrawerVisible}
          />
-         <strong style={menuTitleStyle}>
-            {user.username}
-         </strong>
-       </React.Fragment>
-       : null
-     }
-     className="drawer-navbar"
-   >
-     <NavbarMenu
-       logoutFn={logoutFn}
-       loggedIn={loggedIn}
-       notifications={notifications}
-       notificationsEnabled={notificationsEnabled}
-       user={user}
-       clearFn={dismissNotifications}
-       setDrawerVisible={setDrawerVisible}
-     />
-   </Drawer>
-   <Row gutter={4}>
-     <Col className="gutter-row" span={20}>
-       <Link to="/" className="topnav header-logo">
-         <img src={logo} alt="Blog logo" className="navbar-logo-mobile" />
-         <h1 className="navbar-text-mobile">{props.blogName}</h1>
-       </Link>
-     </Col>
-     <Col className="gutter-row" span={4}>
-     </Col>
-     <Col className="gutter-row" span={4}>
-       <span onClick={() => setDrawerVisible(true)}>
-         <FontAwesomeIcon
-             icon={faBars}
-             size="lg"
-             color="gainsboro"
-          />
-       </span>
-     </Col>
-   </Row>
- </div>
+       </Suspense>
+     </Drawer>
+     <Row gutter={4}>
+       <Col className="gutter-row" span={4}>
+        <Suspense fallback={<Spin />}>
+           <Link to="/" className="topnav header-logo">
+             <img
+                src={logo}
+                alt={props.blogName + " logo"}
+                className="navbar-logo-mobile"
+              />
+           </Link>
+        </Suspense>
+       </Col>
+       <Col className="gutter-row" span={16}></Col>
+       <Col className="gutter-row" span={4}>
+         <span onClick={openDrawer}>
+           <FontAwesomeIcon
+               icon={faBars}
+               size="lg"
+               color="gainsboro"
+            />
+         </span>
+       </Col>
+     </Row>
+   </div>
+ </Suspense>
  );
 
 }

@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { Menu } from 'antd';
+import React, {
+  useState,
+  lazy,
+  Suspense
+} from 'react';
+import { Menu, Spin } from 'antd';
+import './AccountSettings.css';
 
 // Views.
-import BaseView from './Profile/Container';
+const Profile = lazy(() => import('./Profile/Container'));
+const SecurityView = lazy(() => import('./Security/Container'));
 //import BindingView from './BindingView';
-import SecurityView from './Security/Container';
 //import NotificationView from './NotificationView'
-import GridContent from '../PageHeaderWrapper/GridContent';
-
-import './Info.css';
 
 const { Item } = Menu;
 
 const getmenu = (menuMap) => {
   return Object.keys(menuMap).map(item =>
-    <Item key={item}>{menuMap[item].name}
-  </Item>
+    <Item key={item}>
+      {menuMap[item].name}
+    </Item>
   );
 };
 
@@ -24,11 +27,19 @@ const AccountSettings = () => {
   const menuMap = {
     'base': {
       name: "Profile",
-      component: <BaseView />
+      component:(
+      <Suspense fallback={<Spin />}>
+        <Profile />
+      </Suspense>
+      )
     },
     'security': {
       name: "Security",
-      component:  <SecurityView />
+      component:(
+      <Suspense fallback={<Spin />}>
+        <SecurityView />
+      </Suspense>
+      )
     }/*,
     'binding': {
       name:"Binding Accounts",
@@ -49,7 +60,6 @@ const AccountSettings = () => {
 
   return (
   <div className="settings-container">
-    <GridContent>
       <div className="info-main">
         <div className="leftmenu">
           <Menu
@@ -62,10 +72,9 @@ const AccountSettings = () => {
         </div>
         <div className="right">
           <div className="title">{title}</div>
-            {childComponent}
+          {childComponent}
         </div>
       </div>
-    </GridContent>
   </div>
   );
 }

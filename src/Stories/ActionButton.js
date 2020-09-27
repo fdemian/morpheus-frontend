@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip } from 'antd';
+import Tooltip from 'antd/lib/tooltip';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

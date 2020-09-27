@@ -2,7 +2,8 @@ import React from 'react';
 import { Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import './Story.css';
-import moment from 'moment';
+
+const current_locale = 'es-AR';
 
 const StoryTitle = ({title, category, author, date, isDraft}) => {
 
@@ -15,8 +16,15 @@ const StoryTitle = ({title, category, author, date, isDraft}) => {
     "warning"
   ]
 
+  // Format date.
+  const _date = new Date(date);
+  const dateOpts = {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  };
+  const formattedDate = new Intl.DateTimeFormat(current_locale, dateOpts).format(_date);
   const categoryColor = colors[category.id%colors.length]
-  const formattedDate = moment(date).format("Do MMM YYYY");
 
   return(
   <div>
@@ -37,7 +45,7 @@ const StoryTitle = ({title, category, author, date, isDraft}) => {
       :
 	 	 (
       <div className="TopicDate">
-       Posted <span>{formattedDate}</span>
+        {formattedDate}
 	 	  </div>
       )
     }

@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
-import AvatarUpload from './AvatarUpload';
-import AccountAvatar from '../../UserAvatar/UserAvatar';
-import MediaQuery from 'react-responsive';
+import React, {
+  useState,
+  lazy,
+  Suspense
+} from 'react';
+import { Form, Input, Button, Spin } from 'antd';
+import { useMediaQuery } from 'react-responsive';
 
 import './Profile.css';
 
+const AvatarModify = lazy(() => import('./AvatarModify'));
 const FormItem = Form.Item;
 
 //Form.create()
-const BaseView = (props) => {
+const Profile = (props) => {
 
   const {
     user,
     isFetching,
     postFile
   } = props;
-  const avatarLink = '/static/avatars/' + user.avatar;
 
   const _fullname = user.name === undefined ? "" : user.name;
   const _about = user.about === undefined ? "" : user.about;
@@ -27,6 +29,8 @@ const BaseView = (props) => {
   const [fullname, setFullname] = useState(_fullname);
   const [ about, setAbout ] = useState(_about);
   const [ signature, setSignature ] = useState(user.signature);
+
+  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
 
   const onUsernameChange = (evt) => {
     setUsername(evt.target.value)
@@ -60,20 +64,18 @@ const BaseView = (props) => {
   return(
   <div className='baseView'>
     <div className='left'>
-      <MediaQuery maxDeviceWidth={1224}>
-        <AccountAvatar
-          avatar={user.avatar}
-          username={user.username}
-          size={150}
-          shape="square"
-        />
-        <AvatarUpload
-            imageUrl={avatarLink}
+      {
+        isMobile ?
+        <Suspense fallback={<Spin />}>
+          <AvatarModify
+            user={user}
             postFile={postFile}
-            uploading={isFetching}
-        />
-        <br />
-      </MediaQuery>
+            isFetching={isFetching}
+          />
+          <br />
+        </Suspense>
+        : null
+      }
       <Form layout="vertical" hideRequiredMark>
         <FormItem label="Username">
             <Input
@@ -118,26 +120,21 @@ const BaseView = (props) => {
         </Button>
       </Form>
     </div>
-
-    <MediaQuery minDeviceWidth={1224} >
-      <div className='right'>
-        <AccountAvatar
-          avatar={user.avatar}
-          username={user.username}
-          size={150}
-          shape="square"
-        />
-        <AvatarUpload
-            imageUrl={avatarLink}
+    {isMobile ? null :
+      <Suspense fallback={<Spin />}>
+        <div className='right'>
+          <AvatarModify
+            user={user}
             postFile={postFile}
-            uploading={isFetching}
-        />
-      </div>
-    </MediaQuery>
-
+            isFetching={isFetching}
+          />
+          <br />
+        </div>
+      </Suspense>
+    }
   </div>
   );
 
 }
 
-export default BaseView;
+export default Profile;

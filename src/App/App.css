@@ -1,6 +1,10 @@
 @import '~antd/dist/antd.css';
 @import '~ant-design-pro/dist/ant-design-pro.css';
 
+.ant-layout {
+  background: white !important;
+}
+
 .App {
   text-align: center;
   font-size: 20px;
@@ -51,9 +55,4 @@
 
 .Invisible {
   visibility: hidden;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

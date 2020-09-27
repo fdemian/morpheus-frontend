@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import ActionButton from '../ActionButton';
-import GridContent from '../../PageHeaderWrapper/GridContent';
 import Stories from '../Stories';
 import testStories from './data';
 
@@ -71,7 +70,6 @@ describe("<Stories />", () => {
     </StaticRouter>
     );
     const storyContainer = component.find('.stories-container');
-    const gridContainer = storyContainer.find(GridContent);
     const storyList = component.find('.StoryListContainer');
 
     expect(storyList.length).toBe(1);

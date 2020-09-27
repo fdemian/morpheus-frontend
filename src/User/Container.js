@@ -37,7 +37,6 @@ const UserContainer = (props) => {
   }, [props, props.id]);
 
   return <User {...props} />;
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);

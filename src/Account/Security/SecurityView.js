@@ -130,7 +130,8 @@ const SecurityView = (props) => {
       {
         title: 'Allow comments',
         description:
-        (<RadioGroup name="radiogroup" defaultValue={defaultCommentOpt}>
+        (
+          <RadioGroup name="radiogroup" defaultValue={defaultCommentOpt}>
           <Radio style={radioStyle} value={1} onClick={setCommentRadio} disabled={isFetchingConfig}>
             Off
           </Radio>
@@ -143,7 +144,8 @@ const SecurityView = (props) => {
             Require registration
           </Radio>
           <em>Only registered users or contributors can comment on stories. </em>
-        </RadioGroup>),
+        </RadioGroup>
+      ),
         actions: [],
       }/*,
       {

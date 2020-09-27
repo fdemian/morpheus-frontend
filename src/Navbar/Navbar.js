@@ -1,9 +1,14 @@
-import React from 'react';
-import NavbarDesktop from './NavbarDesktop';
-import NavbarMobile from './NavbarMobile';
+import React, {
+  lazy,
+  Suspense
+} from 'react';
+import { Spin } from 'antd';
+
+const NavbarDesktop = lazy(() => import('./NavbarDesktop'));
+const NavbarMobile = lazy(() => import('./NavbarMobile'));
 
 const Navbar = (props) => {
-  
+
   if(props.loggedIn) {
     props.initializeWS();
   }
@@ -11,9 +16,17 @@ const Navbar = (props) => {
   const { mobile } = props;
 
   if(mobile)
-    return <NavbarMobile {...props} />;
+    return (
+    <Suspense fallback={<Spin />}>
+      <NavbarMobile {...props} />
+    </Suspense>
+    ) ;
 
-  return <NavbarDesktop {...props} />;
+    return (
+    <Suspense fallback={<Spin />}>
+      <NavbarDesktop {...props} />
+    </Suspense>
+  );
 
 }
 

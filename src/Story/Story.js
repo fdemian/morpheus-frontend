@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BackTop } from 'antd';
 import { Helmet } from "react-helmet";
 
@@ -8,7 +8,6 @@ import Comments from '../Comments/Comments';
 import StoryFooter from './StoryFooter';
 import CommentSpace from './CommentSpace';
 import LoadingIndicator from '../Loading/LoadingIndicator';
-import GridContent from '../PageHeaderWrapper/GridContent';
 
 import './Story.css';
 
@@ -38,11 +37,9 @@ const Story = (props) => {
       <meta name="og:title" content={story.title} />
     </Helmet>
 
-    <GridContent>
-
-        <div className="BackToTop">
-          <BackTop />
-        </div>
+    <div className="BackToTop">
+      <BackTop />
+    </div>
 
         <div className="StoryTitleContainer">
           <StoryTitle
@@ -62,7 +59,7 @@ const Story = (props) => {
 
        {story.isDraft ? null :
         (
-        <Fragment>
+        <>
           <div className="CommentSpace">
             <CommentSpace
               loggedIn={loggedIn}
@@ -79,11 +76,9 @@ const Story = (props) => {
                 loggedIn={loggedIn}
              />
           </div>
-        </Fragment>
+        </>
         )
         }
-
-    </GridContent>
   </div>
   );
 }
