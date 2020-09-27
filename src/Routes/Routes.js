@@ -2,11 +2,11 @@ import React from "react";
 import App from '../App/Container';
 
 const Composer = React.lazy(() => import('../Composer/Container'));
-const Home = React.lazy(() => import('../Stories/Container'));
+const Home = React.lazy(() => import('../Stories/SWRComponent'));
 const Authentication = React.lazy(() => import('../Authentication/Container'));
 const Categories = React.lazy(() => import('../Categories/Container'));
 const Story = React.lazy(() => import( '../Story/Container'));
-const Login = React.lazy(() => import('../Login2/Container'));
+const Login = React.lazy(() => import('../Login/Container'));
 const Category = React.lazy(() => import('../Category/Container'));
 const User = React.lazy(() => import('../User/Container'));
 const Profile = React.lazy(() => import('../Account/Profile/Container'));
