@@ -86,7 +86,7 @@ const Navbar = (props) => {
         </Col>
         <Col span={8}></Col>
         <Col span={8}>
-          <span>
+          <span className="login-items">
            {
              isFetching ? <Spin /> :
              (
