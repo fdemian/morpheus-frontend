@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import ModifyPasswordModal from './ModifyPassword/ModifyPasswordModal';
 import ModifyEmailModal from './ModifyEmailModal';
 import {
@@ -88,10 +88,10 @@ const SecurityView = (props) => {
     {
       title: 'Password',
       description: (
-      <Fragment>
+      <>
         Current password:
         ******
-      </Fragment>
+      </>
       ),
       actions: [
        <button
@@ -173,7 +173,7 @@ const SecurityView = (props) => {
     const buttonText = isFetchingConfig ? "Updating information" : "Update information";
 
     return (
-    <Fragment>
+    <>
       <List
         itemLayout="horizontal"
         dataSource={viewItems}
@@ -236,7 +236,7 @@ const SecurityView = (props) => {
       >
         {buttonText}
       </Button>
-    </Fragment>
+    </>
     );
 }
 

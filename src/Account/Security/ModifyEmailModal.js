@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import {Input, Button, Alert, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -54,7 +54,7 @@ const ModifyEmailModal = (props) => {
     );
 
     return(
-    <Fragment>
+    <>
       <p>Current email: <span className="email-desc">{user.email}</span></p>
       <Alert
       message="Warning"
@@ -77,7 +77,7 @@ const ModifyEmailModal = (props) => {
         </Button>
       </div>
       <ErrorLayer error={error} />
-    </Fragment>
+    </>
     );
 }
 

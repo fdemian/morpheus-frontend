@@ -1,24 +1,28 @@
-import React, { Suspense, Fragment } from 'react';
+import React, { Suspense } from 'react';
 import Navbar from '../Navbar/Container';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
 import { Layout, Affix, Spin } from 'antd';
+import initialData from './initialData';
+import useSWR from 'swr';
 import './App.css';
 
-const {Content, Header } = Layout;
+const { Content, Header } = Layout;
 
 const App = (props) => {
 
-  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+  const { data, error } = useSWR('/api/config', { initialData: initialData});
   const { children } = props;
-
+  const { description, blogName } = data;
+  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+  
   return (
-  <Fragment>
+  <>
 
      <Helmet>
        <meta charset="utf-8" />
-       <meta name="description" content={props.description} />
-       <title>{props.blogName}</title>
+       <meta name="description" content={description} />
+       <title>{blogName}</title>
      </Helmet>
 
      <Suspense fallback={<Spin />}>
@@ -37,7 +41,7 @@ const App = (props) => {
 
       </Suspense>
 
-  </Fragment>
+  </>
   );
 
 }

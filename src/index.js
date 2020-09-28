@@ -5,19 +5,22 @@ import ApplicationRoutes from './Routes/Routes';
 import AppRoute from './Routes/AppRoute';
 import { Provider } from 'react-redux';
 import store from './store/Configure';
-import { REQUEST_CONFIG_DATA } from './App/Actions';
 import * as serviceWorker from './serviceWorker';
+import { SWRConfig } from 'swr';
+import Fetch from './store/Fetch';
 
 const {App} = ApplicationRoutes;
 const {Routes} = ApplicationRoutes;
 
+const swrOptions = {
+  suspense: true,
+  fetcher: Fetch.GET
+};
+
 const Morpheus = () => {
 
-  // Initial configuration.
-  store.dispatch({ type: REQUEST_CONFIG_DATA });
-
   return(
-  <div>
+  <SWRConfig {...swrOptions}>
     <Provider store={store}>
       <Router>
           <App>
@@ -34,8 +37,8 @@ const Morpheus = () => {
              </Switch>
            </App>
        </Router>
-    </Provider>
-  </div>
+     </Provider>
+  </SWRConfig>
   );
 };
 

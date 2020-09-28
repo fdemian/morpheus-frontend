@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { List } from 'antd';
 import './AccountSettings.css';
 
@@ -31,7 +31,7 @@ const bindData = [
 ];
 
 const BindingView = () => (
-<Fragment>
+<>
   <List
     itemLayout="horizontal"
     dataSource={bindData}
@@ -45,7 +45,7 @@ const BindingView = () => (
       </List.Item>
     )}
   />
-</Fragment>
+</>
 )
 
 export default BindingView;

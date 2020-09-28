@@ -1,5 +1,5 @@
 import React from "react";
-import App from '../App/Container';
+import App from '../App/App';
 
 const Composer = React.lazy(() => import('../Composer/Container'));
 const Home = React.lazy(() => import('../Stories/SWRComponent'));

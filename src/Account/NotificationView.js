@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Switch, List } from 'antd';
 
 const Action = (<Switch disabled checkedChildren="On" unCheckedChildren="Off" />);
@@ -11,7 +11,7 @@ const notificationData = [
 ];
 
 const NotificationView = () => (
-  <Fragment>
+  <>
     <List
       itemLayout="horizontal"
       dataSource={notificationData}
@@ -21,7 +21,7 @@ const NotificationView = () => (
         </List.Item>
       )}
     />
-  </Fragment>
+  </>
 );
 
 export default NotificationView;

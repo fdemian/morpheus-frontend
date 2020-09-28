@@ -43,7 +43,7 @@ const ModifyPasswordModal = (props) => {
   }
 
   return(
-  <React.Fragment>
+  <>
     <Form
        onSubmit={null}
        className="modify-password-form"
@@ -120,7 +120,7 @@ const ModifyPasswordModal = (props) => {
       </div>
 
     </Form>
-  </React.Fragment>
+  </>
   )
 
 }
