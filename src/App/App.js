@@ -15,7 +15,10 @@ const App = (props) => {
   const { children } = props;
   const { description, blogName } = data;
   const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
-  
+
+  if(error)
+    return null;
+
   return (
   <>
 

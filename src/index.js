@@ -7,14 +7,14 @@ import { Provider } from 'react-redux';
 import store from './store/Configure';
 import * as serviceWorker from './serviceWorker';
 import { SWRConfig } from 'swr';
-import Fetch from './store/Fetch';
+import { fetcher }  from './store/utils';
 
 const {App} = ApplicationRoutes;
 const {Routes} = ApplicationRoutes;
 
 const swrOptions = {
   suspense: true,
-  fetcher: Fetch.GET
+  fetcher: fetcher
 };
 
 const Morpheus = () => {

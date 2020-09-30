@@ -29,13 +29,6 @@ export default function* loadCategories() {
   }
 }
 
-export function requestDeleteCategory(id){
-    return {
-      type: DELETE_CATEGORY,
-      id: id
-    };
-}
-
 export function* deleteCategory(action) {
 
   const state = yield select();
@@ -50,14 +43,6 @@ export function* deleteCategory(action) {
   catch(error) {
     yield put({type: DELETE_CATEGORY_FAILURE, error: error});
   }
-}
-
-export function requestCreateCategory(categoryName, categoryDescription){
-    return {
-      type: CREATE_CATEGORY,
-      name: categoryName,
-      description: categoryDescription
-    }
 }
 
 export function* createCategory(action) {

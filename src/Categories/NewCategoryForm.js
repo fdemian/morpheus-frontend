@@ -26,7 +26,7 @@ const NewCategoryForm = (props) => {
   }
 
   const createCategory = () => {
-    props.createFn(name, description);
+    props.createFn(name, description, props.token);
     setFormVisible(false);
   }
 

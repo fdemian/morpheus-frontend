@@ -81,9 +81,17 @@ function * doRequest (params){
     const jsonResponse = yield response.json();
 
     if(!response.ok)
-      throw new Error("error");      
+      throw new Error("error");
 
     return jsonResponse;
+}
+
+
+function doRequestSync (params){
+    const response = fetch(params.endpoint, params.headers)
+                    .then(res => res.json());
+
+    return response;
 }
 
 class Fetch {
@@ -95,7 +103,7 @@ class Fetch {
 
   static POST(endpoint, types, content, options) {
     const req = request('POST', endpoint, content, options);
-    return doRequest(req);
+    return doRequestSync(req);
   }
 
   static PUT(endpoint, types, content, options) {
@@ -105,7 +113,7 @@ class Fetch {
 
   static DELETE(endpoint, types, content, options) {
     const req = request('DELETE', endpoint, content, options);
-    return doRequest(req);
+    return doRequestSync(req);
   }
 
 }
