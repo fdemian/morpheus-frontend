@@ -6,7 +6,6 @@ import List from 'antd/lib/list';
 import Spin from 'antd/lib/spin';
 import StoryItem from './StoriesItem';
 import useSWR from 'swr';
-import { fetcher } from '../store/utils';
 
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
@@ -22,7 +21,7 @@ const noStoriesText = "There are currently no stories on this blog.";
 
 const Stories = (props) => {
 
-   const { data, error } = useSWR("/api/stories", fetcher, { suspense: true });
+   const { data, error } = useSWR("/api/stories");
 
    const onDelete = () => console.log("onDelete");
    const onEditClick = () => console.log("onEditClick");
