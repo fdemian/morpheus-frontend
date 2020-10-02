@@ -33,25 +33,6 @@ const wsOptions = {
 
 const wssURL = wsOptions.protocol + wsOptions.base + wsOptions.path;
 
-export default function* loadConfig(dispatch) {
-  const state = yield select();
-  const { config } = state;
-  const { options } = config;
-
-  if(options.length >= 0){
-    yield cancelled();
-  }
-
-  try {
-    const config = yield call(Fetch.GET, '/api/config');
-    yield put({type: RECEIVE_CONFIG_DATA, data: config});
-    yield loadAppOptions();
-  }
-  catch(error) {
-    yield put({type: RECEIVE_CONFIG_FAILURE, error: error})
-  }
-}
-
 /* ----------------- LOAD NOTIFICATIONS ----------------- */
 
 export function* loadWebsocket(dispatch, enabled) {
