@@ -24,7 +24,6 @@ const Categories = (props) => {
 
   const removeCategory = (id, token) => {
       const resp = deleteCategory(id,token);
-
       const newData = data.items.filter(c => c.id !== id);
       mutate('/api/categories', newData)
   }
