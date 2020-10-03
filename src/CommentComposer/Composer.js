@@ -4,6 +4,8 @@ import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
 import ComposerEditorHeading from './ComposerEditorHeading';
+import postComment from './Api';
+import { useSWR } from 'swr';
 import './Composer.css';
 
 const Composer = (props) => {
@@ -17,11 +19,22 @@ const Composer = (props) => {
   }
 
   const postComment = () => {
-    const editor = editorContainer.current;
-    const { postComment } = props;
-    const content = editor.getContent();
 
-    postComment(content);
+    const { storyId, user, token } = props;
+
+    const editor = editorContainer.current;
+    const content = editor.getContent();
+    const commentParams = {
+      user: user,
+      comment: content,
+      token: token
+    };
+
+    // Post comment to the server.
+    postComment(storyId, commentParams);
+    //TODO: mutate
+
+    // Clear comment editor.
     toggleComposer();
     editor.clear();
   }
@@ -29,7 +42,7 @@ const Composer = (props) => {
   const userlink = "/users/" + user.id + "/" + user.username;
 
   return (
-  <React.Fragment>
+  <>
     <ComposerHeader toggle={toggleComposer} />
     <Drawer
       title={<DrawerHeader userlink={userlink} user={user} />}
@@ -53,8 +66,7 @@ const Composer = (props) => {
          </div>
        </div>
    </Drawer>
-
- </React.Fragment>
+ </>
  );
 
 }

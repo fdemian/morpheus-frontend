@@ -19,9 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     authenticate: (user, password) => {
 	    dispatch(login(user, password));
 	  },
-    register: (type, code, values, redirectURL) => {
+    /*register: (type, code, values, redirectURL) => {
       dispatch(requestRegister(type, code, values, redirectURL));
-    }
+    }*/
   }
 }
 

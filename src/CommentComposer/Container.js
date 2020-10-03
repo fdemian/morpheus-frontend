@@ -14,7 +14,9 @@ const mapStateToProps = (state) => {
     /*posting: state.comments.posting
     posted: state.comments.posted*/
     user: session.user,
-    commentsEnabled: getCommentOptions(config.options)
+    storyId: state.story.id,
+    commentsEnabled: getCommentOptions(config.options),
+    token: state.session.token
   }
 }
 
@@ -26,9 +28,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const ConnectedCommentBox = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Composer)
+const ConnectedCommentBox = connect(mapStateToProps, null)(Composer)
 
 export default ConnectedCommentBox;
