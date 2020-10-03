@@ -10,6 +10,8 @@ import {
   Switch,
   Radio
 } from 'antd';
+import useSWR from 'swr';
+import getOptionsValues from '../../utils/misc';
 
 const RadioGroup = Radio.Group;
 
@@ -32,6 +34,9 @@ const commentOptionsArray = [
   {id: 3, text: 'AUTHENTICATED'}
 ];
 
+
+const getCommentOptions = (config) => getOptionsValues(config.options, 'comments');
+
 const SecurityView = (props) => {
 
   const {
@@ -39,17 +44,19 @@ const SecurityView = (props) => {
     user,
     modifyPassword,
     clearPasswordErrors,
-    isFetching,
-    isFetchingConfig,
-    error,
     validated,
-    commentsEnabled
   }  = props;
 
-  const filterOpts = commentOptionsArray.filter(c => c.text === commentsEnabled);
-  const defaultCommentOpt = filterOpts[0].id;
+  const isFetching = false;
+  const isFetchingConfig = false;
+
+  const { data:config, error } = useSWR('/api/options');
+  const commentsEnabled = config ? getCommentOptions(config): null;
   const [ paswordModalOpen, setPaswordModalOpen ] = useState(false);
   const [ emailModalOpen, setEmailModalOpen ] = useState(false);
+
+  const filterOpts = commentOptionsArray.filter(c => c.text === commentsEnabled);
+  const defaultCommentOpt = commentsEnabled ? filterOpts[0].id : null;
   const [ commentOptions, setCommentOptions ] = useState(defaultCommentOpt);
 
   const toggleModifyPasswordModal = () => {
@@ -170,6 +177,9 @@ const SecurityView = (props) => {
       }*/
     ];
 
+    if(!config && !error)
+      return <p>Loading...</p>;
+
     const buttonText = isFetchingConfig ? "Updating information" : "Update information";
 
     return (
@@ -202,7 +212,7 @@ const SecurityView = (props) => {
         <ModifyPasswordModal
           modifyPassword={modifyPassword}
           clearErrorsFn={clearPasswordErrors}
-          isFetching={isFetching}
+          isFetching={false}
           error={error}
           validated={validated}
         />

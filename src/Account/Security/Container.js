@@ -3,16 +3,12 @@ import { connect } from 'react-redux';
 import { requestChangePassword, clearPasswordErrors } from './Actions';
 import { requestUpdateUser } from '../Profile/Actions';
 import { requestUpdateSec } from './Actions';
-import getOptionsValues from '../../utils/misc';
+
 
 const mapStateToProps = (state) => {
   return {
   	user: state.session.user,
-    isFetching: state.session.isFetching,
-    isFetchingConfig: state.config.isFetching,
-    error: state.session.error,
     validated: state.session.validated,
-    commentsEnabled: getOptionsValues(state.config.options, 'comments'),
   }
 }
 
