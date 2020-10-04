@@ -3,6 +3,8 @@ import React, {
   Suspense
 } from 'react';
 import { Spin } from 'antd';
+import { useUser } from '../Login/Actions';
+import { getLoginData } from '../Login/utils';
 
 const NavbarDesktop = lazy(() => import('./NavbarDesktop'));
 const NavbarMobile = lazy(() => import('./NavbarMobile'));
@@ -13,18 +15,22 @@ const Navbar = (props) => {
     props.initializeWS();
   }
 
+  const userId = getLoginData();
+  const loggedIn = userId !== null;
+  const user = useUser(userId);
+
   const { mobile } = props;
 
   if(mobile)
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarMobile {...props} />
+      <NavbarMobile {...props} user={user} loggedIn={loggedIn} />
     </Suspense>
     ) ;
 
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarDesktop {...props} />
+      <NavbarDesktop {...props} user={user} loggedIn={loggedIn} />
     </Suspense>
   );
 

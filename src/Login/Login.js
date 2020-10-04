@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import TopIcon from './TopIcon';
 import Loading from '../Loading/LoadingIndicator';
+import { newLogin, useUser } from './Actions';
+import { isLoggedIn, setLoginData} from './utils';
+
 import './Login.css';
 
 const layout = {
@@ -19,7 +22,6 @@ const layout = {
 const LoginScreen = (props) => {
 
   const {
-    loggedIn,
     loading,
     authenticate,
     /*oauthServices,
@@ -33,11 +35,16 @@ const LoginScreen = (props) => {
   };
 
   //const [type, setType] = useState('login');
+  const [userId, setUserId] = useState(-1);
   const [login, setLogin] = useState(initialLoginState);
 
-  const onFinish = values => {
+  const useForm = async values => {
     const { username, password } = values;
-    authenticate(username, password);
+    const data = await newLogin(username, password);
+    const { id } = data;
+
+    setUserId(id);
+    setLoginData(id);
   };
 
   // TODO: show error message here.
@@ -59,10 +66,12 @@ const LoginScreen = (props) => {
     });
   }
 
-  if(loggedIn)
+  const { user } = useUser(userId);
+
+  if(user && isLoggedIn())
     return <Redirect to="/"/>;
 
-  if(loading)
+  if(user && userId>=0)
     return <Loading />;
 
   return (
@@ -73,7 +82,7 @@ const LoginScreen = (props) => {
       name="login-form"
       className="login-form"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      onFinish={useForm}
       onFinishFailed={onFinishFailed}
    >
      <Form.Item

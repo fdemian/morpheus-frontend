@@ -9,3 +9,7 @@ export function getMethodFromProps(props) {
 
   return method;
 }
+
+export const isLoggedIn = () => localStorage.getItem('loggedInUser') !== null;
+export const getLoginData = () => localStorage.getItem('loggedInUser');
+export const setLoginData = (id) => localStorage.setItem('loggedInUser', id);

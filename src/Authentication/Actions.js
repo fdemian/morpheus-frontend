@@ -30,7 +30,6 @@ export default function* signIn(action){
 
   const { data } = action;
   const endpoint = "/api/auth";
-
   const jsonData = JSON.stringify({
      code: data.token,
      type: data.type,

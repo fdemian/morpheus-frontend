@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import login, {requestRegister}  from './Actions';
+import login from './Actions';
 import Login from './Login';
 
 const mapStateToProps = (state) => {
@@ -18,10 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     authenticate: (user, password) => {
 	    dispatch(login(user, password));
-	  },
-    /*register: (type, code, values, redirectURL) => {
-      dispatch(requestRegister(type, code, values, redirectURL));
-    }*/
+	  }
   }
 }
 

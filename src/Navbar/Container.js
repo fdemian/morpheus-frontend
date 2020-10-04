@@ -11,8 +11,6 @@ import { REQUEST_INITIALIZE_WS } from '../App/Actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loggedIn: state.session.loggedIn,
-	  user: state.session.user,
     isFetching: state.session.isFetching,
     notifications: state.session.notifications,
     notificationsEnabled: state.config.notificationsEnabled,

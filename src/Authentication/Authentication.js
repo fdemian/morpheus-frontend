@@ -55,7 +55,7 @@ const AuthenticationScreen = (props) => {
      performAuth(parsedParams.service, parsedParams.code, BASE_URL, username, password);
    }
    else {
-     performRegistration(parsedParams.service, parsedParams.code, BASE_URL);
+     // Register.
    }
 
    return <Redirect to={redirectURL} />;

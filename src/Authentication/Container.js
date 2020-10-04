@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import Authentication from './Authentication';
 import { startAuth } from './Actions';
-import { requestRegister } from '../Login/Actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,10 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     performAuth: (type, token, redirectURL, username, password) => {
 	    dispatch(startAuth(type, token, redirectURL, username, password));
-	  },
-    performRegistration: (type, token, redirectURL) => {
-      dispatch(requestRegister(type, token, null, redirectURL));
-    }
+	  }
   }
 }
 

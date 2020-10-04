@@ -10,7 +10,7 @@ import './App.css';
 const { Content, Header } = Layout;
 
 const App = (props) => {
-
+  
   const { data, error } = useSWR('/api/config', { initialData: initialData});
   const { children } = props;
   const { description, blogName } = data;
