@@ -19,17 +19,17 @@ const Categories = (props) => {
     token
   } = props;
 
-  const { data, error } = useSWR('/api/categories', { initialData: _data });
+  const { data } = useSWR('/api/categories', { initialData: _data });
   const categories = data.items;
 
   const removeCategory = (id, token) => {
-      const resp = deleteCategory(id,token);
+      deleteCategory(id,token);
       const newData = data.items.filter(c => c.id !== id);
-      mutate('/api/categories', newData)
+      mutate('/api/categories', newData);
   }
 
   const addCategory = async (name, description) => {
-    const resp = createCategory(name, description, token);
+    createCategory(name, description, token);
     const newItem = {
       id: 0,
       name: name,

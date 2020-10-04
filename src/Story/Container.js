@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { REQUEST_STORY, REGISTER_TEMP_USER } from './Actions';
 import Story from './SWRComponent';

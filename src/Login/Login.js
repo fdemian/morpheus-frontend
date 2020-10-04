@@ -22,8 +22,6 @@ const layout = {
 const LoginScreen = (props) => {
 
   const {
-    loading,
-    authenticate,
     /*oauthServices,
     register,*/
     error
@@ -35,13 +33,19 @@ const LoginScreen = (props) => {
   };
 
   //const [type, setType] = useState('login');
+
+  const [loggingIn, setLoggingIn] = useState(false);
   const [userId, setUserId] = useState(-1);
   const [login, setLogin] = useState(initialLoginState);
 
   const useForm = async values => {
     const { username, password } = values;
+
+    setLoggingIn(true);
     const data = await newLogin(username, password);
+
     const { id } = data;
+    setLoggingIn(false);
 
     setUserId(id);
     setLoginData(id);
@@ -66,13 +70,14 @@ const LoginScreen = (props) => {
     });
   }
 
-  const { user } = useUser(userId);
+  const { user, isLoading } = useUser(userId);
+  const _isLoading = loggingIn || (userId>=0 && isLoading);
+
+  if(_isLoading)
+    return <Loading />;
 
   if(user && isLoggedIn())
     return <Redirect to="/"/>;
-
-  if(user && userId>=0)
-    return <Loading />;
 
   return (
   <div className="login-grid-container">

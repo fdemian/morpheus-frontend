@@ -2,10 +2,11 @@ import React, { Suspense } from "react";
 import Loading from '../Loading/LoadingIndicator';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { isLoggedIn } from '../Login/utils';
 
-const AppRoute = ({exact, path, component, isPrivate, isAuthenticated, key}) => {
+const AppRoute = ({exact, path, component, isPrivate, key}) => {
 
-  if(isPrivate && !isAuthenticated)
+  if(isPrivate && !isLoggedIn())
     return  <Redirect to='/login' />;
   else return (
   <Suspense fallback={<Loading />}>
@@ -19,10 +20,4 @@ const AppRoute = ({exact, path, component, isPrivate, isAuthenticated, key}) => 
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.session.loggedIn
-  }
-}
-
-export default connect(mapStateToProps, null)(AppRoute);
+export default AppRoute;

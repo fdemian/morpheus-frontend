@@ -11,7 +11,6 @@ import { REQUEST_INITIALIZE_WS } from '../App/Actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isFetching: state.session.isFetching,
     notifications: state.session.notifications,
     notificationsEnabled: state.config.notificationsEnabled,
     blogName: state.config.blogName
@@ -20,9 +19,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    logoutFn: () => {
-      dispatch(logout());
-    },
     markNotificationsAsRead: () => {
       dispatch(markNotificationsAsRead());
     },

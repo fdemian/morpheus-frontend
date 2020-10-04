@@ -20,14 +20,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    postComment: (content) => {
-      dispatch(requestPostComment(content));
-    }
-  }
-}
-
 const ConnectedCommentBox = connect(mapStateToProps, null)(Composer)
 
 export default ConnectedCommentBox;

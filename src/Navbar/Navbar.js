@@ -5,6 +5,7 @@ import React, {
 import { Spin } from 'antd';
 import { useUser } from '../Login/Actions';
 import { getLoginData } from '../Login/utils';
+import { logout } from '../Login/utils';
 
 const NavbarDesktop = lazy(() => import('./NavbarDesktop'));
 const NavbarMobile = lazy(() => import('./NavbarMobile'));
@@ -17,20 +18,31 @@ const Navbar = (props) => {
 
   const userId = getLoginData();
   const loggedIn = userId !== null;
-  const user = useUser(userId);
+  const { user, isLoading } = useUser(userId);
 
   const { mobile } = props;
+
+  const newProps = {
+    user: user ? user.user : null,
+    loggedIn: loggedIn,
+    isFetching: isLoading && userId!==null,
+    logoutFn: logout
+  };
+
+  console.clear();
+  console.log(":::::");
+  console.log(newProps);
 
   if(mobile)
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarMobile {...props} user={user} loggedIn={loggedIn} />
+      <NavbarMobile {...props} {...newProps} />
     </Suspense>
     ) ;
 
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarDesktop {...props} user={user} loggedIn={loggedIn} />
+      <NavbarDesktop {...props} {...newProps} />
     </Suspense>
   );
 
