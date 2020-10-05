@@ -26,6 +26,10 @@ const Story = (props) => {
   const { params } = match;
   const { data, error } = useSWR(`/api/stories?id=${params.id}`);
 
+
+  if(error)
+    return <p>error</p>;
+
   if(!data)
     return <LoadingIndicator />;
 

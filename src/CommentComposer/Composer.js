@@ -4,8 +4,8 @@ import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
 import ComposerEditorHeading from './ComposerEditorHeading';
-import postComment from './Api';
-import { useSWR } from 'swr';
+//import postComment from './Api';
+//import { useSWR } from 'swr'; //TODO
 import './Composer.css';
 
 const Composer = (props) => {

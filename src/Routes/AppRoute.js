@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import Loading from '../Loading/LoadingIndicator';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { isLoggedIn } from '../Login/utils';
 
 const AppRoute = ({exact, path, component, isPrivate, key}) => {

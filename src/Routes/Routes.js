@@ -3,11 +3,10 @@ import App from '../App/App';
 
 const Composer = React.lazy(() => import('../Composer/Container'));
 const Home = React.lazy(() => import('../Stories/SWRComponent'));
-const Authentication = React.lazy(() => import('../Authentication/Container'));
 const Categories = React.lazy(() => import('../Categories/Container'));
 const Category = React.lazy(() => import('../Category/SWRComponent'));
 const Story = React.lazy(() => import( '../Story/Container'));
-const Login = React.lazy(() => import('../Login/Container'));
+const Login = React.lazy(() => import('../Login/Login'));
 const User = React.lazy(() => import('../User/Container'));
 const Profile = React.lazy(() => import('../Account/Profile/Container'));
 const NotFound = React.lazy(() => import('../Errors/NotFound'));
@@ -20,7 +19,6 @@ const ApplicationRoutes = {
    App: App,
    Routes: [
     {path: "/", exact: true, component: Home, private: false},
-    {path: "/auth", exact: true, component: Authentication, private: false},
     {path: "/login", exact: true, component: Login, private: false},
     {path: "/login/:method", exact: true, component: Login, private: false},
     {path: '/stories/:id/:name', exact: true, component: Story, private: false},

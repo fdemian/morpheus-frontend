@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import Composer from './Composer';
 //import {updateCommentText, postNewComment, updateQuoteFn} from './Actions';
-import { requestPostComment } from './Actions';
 
 const getCommentOptions = (options) => {
   const val = options.filter(o => o.key === 'comments')[0].value;

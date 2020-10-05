@@ -1,5 +1,7 @@
 import Fetch from '../store/Fetch';
-import { put, call, select, cancelled } from 'redux-saga/effects';
+import { put, call, select } from 'redux-saga/effects';
+import initialData from './initialData';
+import useSWR from 'swr';
 
 export const REQUEST_CONFIG_DATA = 'REQUEST_CONFIG_DATA';
 export const RECEIVE_CONFIG_DATA = 'RECEIVE_CONFIG_DATA';
@@ -91,17 +93,12 @@ export function newMessage(message) {
    return {type: NEW_NOTIFICATION, data: message.data };
 }
 
-/*
-export function getNotifications() {
+export const useConfig = () => {
+  const { data, error } = useSWR('/api/config', { initialData: initialData});
 
-   const endpoint = "alerts";
-   const types = [REQUEST_NOTIFICATIONS, RECEIVE_NOTIFICATIONS, REQUEST_NOTIFICATIONS_FAILURE];
-
-   return (dispatch, getState) => {
-      const state = getState();
-      const token = state.session.token;
-
-      dispatch(Fetch.GET(endpoint, types, {token: token}));
-    }
+  return {
+    config: data,
+    isLoading: !error && !data,
+    isError: error
+  }
 }
-*/

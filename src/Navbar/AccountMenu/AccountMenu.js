@@ -12,9 +12,12 @@ import {
   faSignOutAlt as signOut,
   faPenNib as draftIcon
 } from '@fortawesome/free-solid-svg-icons';
+import { logout } from '../../Login/utils';
+import { useUser } from '../../Login/Actions';
 import './AccountMenu.css';
 
-const AccountMenu = ({ logoutFn, user, isFetching }) => {
+const AccountMenu = ({ mutate, user, isFetching }) => {
+
 
   const menu = (
     <Menu className="AccountDropdownMenu">
@@ -71,7 +74,10 @@ const AccountMenu = ({ logoutFn, user, isFetching }) => {
         </Link>
       </Menu.Item>
       <Menu.Item key="account:logout">
-        <span onClick={() => logoutFn()}>
+        <span onClick={() => {
+          logout();
+          mutate(null);
+        }}>
           <FontAwesomeIcon
             icon={signOut}
             className="MenuIcon"

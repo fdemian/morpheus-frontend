@@ -70,7 +70,9 @@ const LoginScreen = (props) => {
     });
   }
 
-  const { user, isLoading } = useUser(userId);
+  const { user, mutate, isLoading } = useUser(userId);
+  mutate();
+
   const _isLoading = loggingIn || (userId>=0 && isLoading);
 
   if(_isLoading)

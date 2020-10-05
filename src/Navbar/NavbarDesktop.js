@@ -29,9 +29,9 @@ const Navbar = (props) => {
     /*notificationsEnabled,*/
     markReadNotification,
     isFetching,
-    logoutFn,
     dismissNotifications,
-    blogName
+    blogName,
+    mutateUser
   } = props;
 
   if(loggedIn)
@@ -57,10 +57,7 @@ const Navbar = (props) => {
           />
        </span>
        <span>
-          <AccountMenu
-            user={user}
-            logoutFn={logoutFn}
-          />
+          <AccountMenu user={user} mutate={mutateUser} />
        </span>
     </Menu>
   </Suspense>

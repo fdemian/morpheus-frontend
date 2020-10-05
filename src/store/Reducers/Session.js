@@ -8,24 +8,6 @@ import
   REQUEST_NOTIFICATIONS_FAILURE
 } from '../../App/Actions';
 
-import
-{
-  AUTH_START,
-  AUTH_SUCCESS,
-  AUTH_FAILURE,
-  LOGOUT_START,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAILURE
-} from '../../Authentication/Actions';
-
-/*
-import
-{
-   REGISTER_START,
-   REGISTER_SUCCESS,
-   REGISTER_FAILURE
- } from '../../LoginForm/Actions';*/
-
  import
  {
    POST_AVATAR,
@@ -89,50 +71,6 @@ export function session(state = initialState, action) {
 
    case REGISTER_TEMP_USER:
       return {...state, user: action.data };
-
-    /*
-    -- Register user
-    case REGISTER_START:
- 	    return { ...state, isFetching: true };
-    case REGISTER_SUCCESS:
-        const reg_user = action.data.validated ? action.data.user : state.user;
-        const reg_token = action.data.validated ? action.data.token : state.token;
-        const reg_type = action.data.validated ? action.data.type : state.authType;
-		    const loggedIn = action.data.validated ? true : false;
- 	    return {
-          ...state,
-          isFetching: false,
-          error: false,
-          user: reg_user,
-          token: reg_token,
-          authType: reg_type,
-          loggedIn: loggedIn,
-          registered: true,
-          validated: action.data.validated
-      };
-    case REGISTER_FAILURE:
-      return { ...state, isFetching: false, error: true};
-    */
-
-    /* Authenticate user (login) */
-    case AUTH_START:
-	    return { ...state, isFetching: true };
-    case AUTH_SUCCESS:
-        const jwt_token = action.data.token;
-        const _user = action.data.user;
-        _user.loaded = true;
-        const _authType = action.data.type;
-	    return { ...state, user: _user, token: jwt_token, authType: _authType, isFetching: false, loggedIn:true };
-    case AUTH_FAILURE:
-      return { ...state, isFetching: false, error: true, errorMessage: action.data.message};
-
-    /* Logout */
-    case LOGOUT_START:
-	    return { ...state, isFetching: true };
-    case LOGOUT_SUCCESS:
-	    return initialState;
-    case LOGOUT_FAILURE:
-      return { ...state, isFetching: false, error: true};
 
       /* Logout */
       case POST_AVATAR:

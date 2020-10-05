@@ -1,6 +1,6 @@
 import Fetch from '../store/Fetch';
 import { select, put, call } from 'redux-saga/effects';
-import { LOGOUT_SUCCESS } from '../Authentication/Actions';
+//import { LOGOUT_SUCCESS } from '../Authentication/Actions';
 
 export const POST_COMMENT = 'POST_COMMENT';
 export const POST_COMMENT_OK = 'POST_COMMENT_OK';
@@ -37,9 +37,6 @@ export default function* postComment(action) {
   try {
    const data = yield call(Fetch.POST, endpoint, [], jsonData, {token: _token });
    yield put({type: POST_COMMENT_OK, data: data});
-
-   if(user.role === 'guest')
-     yield put({type: LOGOUT_SUCCESS})
 
   }
   catch(error) {
