@@ -5,9 +5,9 @@ import SocialLinks from '../SocialLinks/SocialLinks';
 import Stories from '../Stories/Stories';
 
 const links = [
-  { name: "facebook", url: "http://https://www.facebook.com/bleakroseinmortal" },
-  { name: "twitter", url: "http://twitter.com/_fede_c" },
-  { name: "github",  url: "http://https://github.com/fdemian" },
+  { name: "facebook", url: "http://https://www.facebook.com/<User_id>" },
+  { name: "twitter", url: "http://twitter.com/<User_id>" },
+  { name: "github",  url: "http://https://github.com/<User_id>" },
 ];
 
 const User = ({stories, isFetching, error, user}) => {

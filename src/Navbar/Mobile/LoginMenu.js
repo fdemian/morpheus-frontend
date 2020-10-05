@@ -21,14 +21,14 @@ const LoginMenu = ({ closeDrawer }) => {
           mode="inline"
         >
           <Menu.Item key="1" onClick={closeDrawer}>
-            <Link to="/login/login">
+            <Link to="/login">
               <FontAwesomeIcon icon={signIn} />
               &nbsp;
               Log in
             </Link>
           </Menu.Item>
          <Menu.Item key="2" onClick={closeDrawer}>
-           <Link to="/login/register">
+           <Link to="/register">
              <FontAwesomeIcon icon={userPlus} />
              &nbsp;
              Register

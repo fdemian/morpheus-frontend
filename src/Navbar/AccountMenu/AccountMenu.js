@@ -13,7 +13,6 @@ import {
   faPenNib as draftIcon
 } from '@fortawesome/free-solid-svg-icons';
 import { logout } from '../../Login/utils';
-import { useUser } from '../../Login/Actions';
 import './AccountMenu.css';
 
 const AccountMenu = ({ mutate, user, isFetching }) => {

@@ -8,24 +8,24 @@ import Comments from '../Comments/Comments';
 import StoryFooter from './StoryFooter';
 import CommentSpace from './CommentSpace';
 import LoadingIndicator from '../Loading/LoadingIndicator';
+import getOptionsValues from '../utils/misc';
+import { isLoggedIn } from '../Login/utils';
+import { useConfig } from '../App/Actions';
 import useSWR from 'swr';
 
 import './Story.css';
 
 const Story = (props) => {
 
-  const {
-    loggedIn,
-    oauthServices,
-    commentOptions,
-    userExists,
-    match,
-    setAnonymousUser,
-  } = props;
-
+  const { match } = props;
   const { params } = match;
+  const loggedIn = isLoggedIn();
   const { data, error } = useSWR(`/api/stories?id=${params.id}`);
-
+  const { data: config } = useConfig();
+  const oauthServices = [];
+  const commentOptions = getOptionsValues(config.options, 'comments');
+  const userExists = true;
+  const setAnonymousUser = () => alert("NOT IMPLEMENTED");
 
   if(error)
     return <p>error</p>;
