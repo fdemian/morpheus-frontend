@@ -6,6 +6,8 @@ import List from 'antd/lib/list';
 import Spin from 'antd/lib/spin';
 import StoryItem from './StoriesItem';
 import useSWR from 'swr';
+import { isLoggedIn } from '../Login/utils';
+import { deleteStory } from './Actions';
 
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
@@ -21,11 +23,19 @@ const noStoriesText = "There are currently no stories on this blog.";
 
 const Stories = (props) => {
 
-   const { data, error } = useSWR("/api/stories");
+   const loggedIn = isLoggedIn();
+   const { data, mutate, error } = useSWR("/api/stories");
 
    const onDelete = () => console.log("onDelete");
    const onEditClick = () => console.log("onEditClick");
-   const loggedIn = false;
+
+   const deleteFn = (id) => {
+     deleteStory(id);
+
+     const _items = data.items.filter(s => s.id !== id);
+     const newData = { page: 1, items: _items };
+     mutate("/api/stories", newData);
+   }
 
    if(error)
     return (
@@ -41,6 +51,8 @@ const Stories = (props) => {
    </Suspense>
    );
 
+  console.clear();
+  console.log(data);
   const stories = data.items;
 
 	return(
@@ -61,7 +73,7 @@ const Stories = (props) => {
             <StoryItem
               item={item}
               editFn={onEditClick}
-              deleteFn={onDelete}
+              deleteFn={(id) => deleteFn(id)}
               loggedIn={loggedIn}
               stories={stories}
             />

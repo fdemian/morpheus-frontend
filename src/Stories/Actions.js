@@ -14,40 +14,12 @@ export const DELETE_STORY_FAILURE = 'DELETE_STORY_FAILURE';
 export const EDIT_STORY = "EDIT_STORY";
 export const EDIT_STORY_OK = "EDIT_STORY_OK";
 
-export function requestStories(){
-  return {
-    type: GET_STORIES
-  };
-}
-
-export function requestDeleteStory(id){
-  return {
-    type: DELETE_STORY,
-    id: id
-  };
-}
-
-export default function* loadStories(){
-  try {
-    const stories = yield call(Fetch.GET, '/api/stories');
-    yield put({type: RECEIVE_STORIES, data: stories});
-  }
-  catch(error) {
-    yield put({type: RECEIVE_STORIES_FAILURE, error: error})
-  }
-}
-
-export function* deleteStory(action){
-
-   const state = yield select();
-   const token = state.session.token;
-   const options = { token: token };
-   try {
-    const data = yield call(Fetch.DELETE,'/api/stories/' + action.id, [], null, options);
-    yield put({type: DELETE_STORY_OK, data: data});
+export function deleteStory(id) {
+  try{
+    Fetch.DELETE(`/api/stories/${id}`, [], null, {});
   }
   catch(error){
-    yield put({type: DELETE_STORY_FAILURE});
+    console.log(error);
   }
 }
 

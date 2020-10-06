@@ -3,7 +3,7 @@ import App from '../App/App';
 
 const Composer = React.lazy(() => import('../Composer/Container'));
 const Home = React.lazy(() => import('../Stories/SWRComponent'));
-const Categories = React.lazy(() => import('../Categories/Container'));
+const Categories = React.lazy(() => import('../Categories/SWRComponent'));
 const Category = React.lazy(() => import('../Category/SWRComponent'));
 const Story = React.lazy(() => import( '../Story/SWRComponent'));
 const Login = React.lazy(() => import('../Login/Login'));
@@ -12,7 +12,7 @@ const Profile = React.lazy(() => import('../Account/Profile/Container'));
 const NotFound = React.lazy(() => import('../Errors/NotFound'));
 //const Activation = React.lazy(() => import('../Activation/Activation'));
 const Settings  = React.lazy(() => import('../Account/AccountSettings'));
-const Drafts = React.lazy(() => import('../Drafts/Container'));
+const Drafts = React.lazy(() => import('../Drafts/Drafts'));
 const Draft = React.lazy(() => import('../Draft/SWRContainer'));
 
 const ApplicationRoutes = {

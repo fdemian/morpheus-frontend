@@ -3,11 +3,17 @@ import { Table } from 'antd';
 import DraftLink from './DraftLink';
 import CategoryLink from './DraftCategoryLink';
 import DeleteRow from './DeleteRow';
+import { useUser } from '../Login/Actions';
+import { isLoggedIn } from '../Login/utils';
+import { deleteStory } from '../Stories/Actions';
+import useSWR from 'swr';
 import './Drafts.css';
 
-const Drafts = (props) => {
+const Drafts = () => {
 
-  const { drafts, loggedIn, deleteFn } = props;
+  const loggedIn = isLoggedIn();
+  const { data: drafts, error } = useSWR('/api/drafts');
+
   const columns = [
     {
         title: 'Name',
@@ -25,7 +31,12 @@ const Drafts = (props) => {
         title: ' ',
         dataIndex: '',
         key: 'x',
-        render: (row) => <DeleteRow id={row.id} deleteFn={deleteFn} loggedIn={loggedIn} />
+        render: (row) =>
+        <DeleteRow
+          id={row.id}
+          deleteFn={deleteStory}
+          loggedIn={loggedIn}
+        />
     }
   ];
 

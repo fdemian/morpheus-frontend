@@ -35,33 +35,43 @@ const Navbar = (props) => {
   } = props;
 
   if(loggedIn)
-   return(
-   <Suspense fallback={<Spin />}>
-     <Menu mode="horizontal" key="parent.menu.logged">
-       <Menu.Item key="item.empty.logged"></Menu.Item>
-       <span className="logo-item-desktop" key="logo-item-desktop">
-         <Link to="/" className="topnav header-logo">
-           <img
-             src={logo}
-             alt={blogName + " logo"}
-             className="blog-logo"
-           />
-         </Link>
-       </span>
-       <span className="pull-right" >
+  return(
+  <Suspense fallback={<Spin />}>
+    <Menu mode="horizontal" key="parent.menu.not.logged">
+      <Row>
+        <Col span={8}>
+          <Menu.Item key="item.empty.logged"></Menu.Item>
+          <span className="logo-item-desktop" key="logo-item-desktop">
+             <Link to="/" className="topnav header-logo">
+                <Suspense fallback={<Spin />}>
+                 <img
+                   src={logo}     
+                   alt={blogName + " logo"}
+                   className="blog-logo"
+                 />
+                </Suspense>
+             </Link>
+          </span>
+        </Col>
+        <Col span={8}></Col>
+        <Col span={8}>
+         <span className="account-nav-items">
           <Notifications
              notifications={notifications}
              clearFn={dismissNotifications}
              markRead={markReadNotification}
              dismiss={dismissNotifications}
-          />
-       </span>
-       <span>
-          <AccountMenu user={user} mutate={mutateUser} />
-       </span>
+           />
+           <span>
+             <AccountMenu user={user} mutate={mutateUser} />
+           </span>
+         </span>
+        </Col>
+      </Row>
     </Menu>
   </Suspense>
   );
+
 
   return(
   <Suspense fallback={<Spin />}>

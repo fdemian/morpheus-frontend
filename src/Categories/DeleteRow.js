@@ -3,7 +3,7 @@ import Button from 'antd/lib/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash as trash} from '@fortawesome/free-solid-svg-icons';
 
-const DeleteRow = ({id, token, loggedIn, deleteFn}) => {
+const DeleteRow = ({id, loggedIn, deleteFn}) => {
     if(!loggedIn)
       return null;
 
@@ -17,7 +17,7 @@ const DeleteRow = ({id, token, loggedIn, deleteFn}) => {
          size="lg"
        />
       }
-      onClick={() => deleteFn(id, token)}
+      onClick={() => deleteFn(id)}
     />
     );
 }

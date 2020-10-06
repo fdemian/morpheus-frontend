@@ -5,6 +5,7 @@ import React, {
 import List from 'antd/lib/list';
 import Spin from 'antd/lib/spin';
 import Skeleton from 'antd/lib/skeleton';
+import ActionButton from './ActionButton';
 
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,14 +17,13 @@ import './Stories.css';
 
 // Lazy imports.
 const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
-const ActionButton = lazy(() => import('./ActionButton'));
 
 const getAvatarLink = (author) => "/users/" + author.id + "/" + author.name;
 const defaultCategory = { id: -1, name: "Uncategorized" };
 
 const StoryItem = (props) => {
 
-  const { item, editFn, deleteFn, loggedIn, stories  } = props;
+  const { item, editFn, deleteFn, stories, loggedIn } = props;
   const commentsLink = "/stories/" + item.id + "/" + format_title_string(item.name) + "#comments";
 
   const itemActions = [
@@ -62,11 +62,7 @@ const StoryItem = (props) => {
     }>
      <List.Item
         key={item.id}
-        actions={
-        <Suspense fallback={<Spin />}>
-          {mappedActions}
-        </Suspense>
-        }
+        actions={mappedActions}
         extra={storyDate}
       >
        <div className="item-container">

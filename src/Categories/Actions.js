@@ -28,39 +28,3 @@ export default function* loadCategories() {
     yield put({type: RECEIVE_CATEGORIES_FAILURE, error: error});
   }
 }
-
-export function* deleteCategory(action) {
-
-  const state = yield select();
-  const _token = state.session.token;
-  const options = { token: _token };
-  const endpoint = '/api/categories/' + action.id;
-
-  try {
-    const data = yield call(Fetch.DELETE, endpoint, [], null, options);
-    yield put({type: DELETE_CATEGORY_OK, data: data});
-  }
-  catch(error) {
-    yield put({type: DELETE_CATEGORY_FAILURE, error: error});
-  }
-}
-
-export function* createCategory(action) {
-
-  const state = yield select();
-  const _token = state.session.token;
-  const options = { token: _token };
-
-  const jsonData = JSON.stringify({
-     name: action.name,
-     description: action.description
-  });
-
-  try {
-    const data = yield call(Fetch.POST, '/api/categories', [], jsonData, options);
-    yield put({type: CREATE_CATEGORY_OK, data: data});
-  }
-  catch(error) {
-    yield put({type: CREATE_CATEGORY_FAILURE, error: error});
-  }
-}

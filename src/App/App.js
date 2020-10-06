@@ -58,9 +58,9 @@ const App = (props) => {
        <Layout>
 
         <Header className="page-header-container">
-           <Affix>
-           <Navbar {...navProps} />
-           </Affix>
+          <Affix>
+            <Navbar {...navProps} />
+          </Affix>
         </Header>
 
         <Content className={"content-container" + isMobile ? "mobile": ""}>

@@ -3,7 +3,7 @@ import Story from '../Story/Story';
 import useSWR from 'swr';
 import { isLoggedIn } from '../Login/utils';
 
-const Drafts = () => {
+const Drafts = (props) => {
 
   const { params } = props.match
   const {id } = params;
@@ -13,7 +13,7 @@ const Drafts = () => {
   if(!loggedIn)
     return <h1>Must be logged in to view drafts</h1>;
 
-  const props = {
+  const storyProps = {
     story: data,
     isFetching: false,
     error: error,
@@ -23,5 +23,5 @@ const Drafts = () => {
     commentOptions: [],
   };
 
-  return <Story {...props} />;
+  return <Story {...storyProps} />;
 }

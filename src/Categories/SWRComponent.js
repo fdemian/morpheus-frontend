@@ -9,27 +9,24 @@ import DeleteRow from './DeleteRow';
 import CategoryLink from './CategoryLink';
 import NewCategoryForm from './NewCategoryForm';
 import useSWR, { mutate } from 'swr';
+import { isLoggedIn } from '../Login/utils';
 
 import './Categories.css';
 
 const Categories = (props) => {
 
-  const {
-    loggedIn,
-    token
-  } = props;
-
+  const loggedIn = isLoggedIn();
   const { data } = useSWR('/api/categories', { initialData: _data });
   const categories = data.items;
 
   const removeCategory = (id, token) => {
-      deleteCategory(id,token);
+      deleteCategory(id);
       const newData = data.items.filter(c => c.id !== id);
       mutate('/api/categories', newData);
   }
 
   const addCategory = async (name, description) => {
-    createCategory(name, description, token);
+    createCategory(name, description);
     const newItem = {
       id: 0,
       name: name,
@@ -64,7 +61,6 @@ const Categories = (props) => {
           id={row.id}
           deleteFn={removeCategory}
           loggedIn={loggedIn}
-          token={token}
         />
     }];
 
@@ -77,7 +73,6 @@ const Categories = (props) => {
         <NewCategoryForm
           loggedIn={loggedIn}
           createFn={addCategory}
-          token={token}
         />
 
         <div className="CategoriesTable">
