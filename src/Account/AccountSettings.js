@@ -7,7 +7,7 @@ import { Menu, Spin } from 'antd';
 import './AccountSettings.css';
 
 // Views.
-const Profile = lazy(() => import('./Profile/Container'));
+const Profile = lazy(() => import('./Profile/Profile'));
 const SecurityView = lazy(() => import('./Security/Container'));
 //import BindingView from './BindingView';
 //import NotificationView from './NotificationView'

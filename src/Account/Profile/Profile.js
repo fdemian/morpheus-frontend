@@ -5,6 +5,10 @@ import React, {
 } from 'react';
 import { Form, Input, Button, Spin } from 'antd';
 import { useMediaQuery } from 'react-responsive';
+import { useUser } from '../../Login/Actions';
+import { getLoginData } from '../../Login/utils';
+import {postFile, updateUser } from './Actions';
+import { getBase64 } from './utils';
 
 import './Profile.css';
 
@@ -12,54 +16,52 @@ const AvatarModify = lazy(() => import('./AvatarModify'));
 const FormItem = Form.Item;
 
 //Form.create()
-const Profile = (props) => {
+const Profile = () => {
 
-  const {
-    user,
-    isFetching,
-    postFile
-  } = props;
+  // Fetch user data.
+  const userId = getLoginData();
+  const loggedIn = userId !== null;
+  let { user, mutate, isLoading } = useUser(userId);
+  user = user.user ? user.user : null;
 
-  const _fullname = user.name === undefined ? "" : user.name;
-  const _about = user.about === undefined ? "" : user.about;
+  //TODDO: Fullname and about should be added to the model.
+  let _fullname = "";
+  let _about = "";
+  if(user) {
+    _fullname = user.name === undefined ? "" : user.name;
+    _about = user.about === undefined ? "" : user.about;
+  }
 
-  const [id] = useState(user.id);
-  const [email] = useState(user.email);
-  const [username, setUsername ] = useState(user.username);
+  // Setup hooks.
+  const [id] = useState(user ? user.id : null);
+  const [email] = useState(user ? user.email: null);
+  const [username, setUsername ] = useState(user ? user.username : null);
   const [fullname, setFullname] = useState(_fullname);
   const [ about, setAbout ] = useState(_about);
-  const [ signature, setSignature ] = useState(user.signature);
+  const [ signature, setSignature ] = useState(user ? user.signature : null);
 
-  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
-
-  const onUsernameChange = (evt) => {
-    setUsername(evt.target.value)
-  }
-
-  const onNameChange = (evt) => {
-    setFullname(evt.target.value);
-  }
-
-  const onAboutChange = (evt) => {
-    setAbout(evt.target.value);
-  }
-
-  const onSignatureChange = (evt) => {
-    setSignature(evt.target.value);
-  }
+  // Onchange functions (set state)
+  const onUsernameChange = (evt) => setUsername(evt.target.value);
+  const onNameChange = (evt) => setFullname(evt.target.value);
+  const onAboutChange = (evt) => setAbout(evt.target.value);
+  const onSignatureChange = (evt) => setSignature(evt.target.value);
 
   const updateUserInfo = () => {
-    const userInfo = {
+    let userInfo = {
       id: id,
       email: email,
       username: username,
       fullname: fullname,
       about: about,
       signature: signature
-    }
-
-    props.updateUser(userInfo);
+    };
+    updateUser(userInfo);
+    userInfo.avatar = user.avatar;
+    userInfo.name = fullname;
+    mutate({user: userInfo});
   }
+
+  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
 
   return(
   <div className='baseView'>
@@ -70,7 +72,7 @@ const Profile = (props) => {
           <AvatarModify
             user={user}
             postFile={postFile}
-            isFetching={isFetching}
+            isFetching={isLoading}
           />
           <br />
         </Suspense>
@@ -82,7 +84,7 @@ const Profile = (props) => {
               placeholder="Username"
               value={username}
               onChange={onUsernameChange}
-              disabled={isFetching}
+              disabled={isLoading}
             />
         </FormItem>
         <FormItem label="Full name">
@@ -90,7 +92,7 @@ const Profile = (props) => {
               placeholder="Full name"
               value={fullname}
               onChange={onNameChange}
-              disabled={isFetching}
+              disabled={isLoading}
             />
         </FormItem>
         <FormItem label="Signature">
@@ -99,7 +101,7 @@ const Profile = (props) => {
              value={signature}
              rows={4}
              onChange={onSignatureChange}
-             disabled={isFetching}
+             disabled={isLoading}
            />
         </FormItem>
         <FormItem label="About me">
@@ -108,13 +110,13 @@ const Profile = (props) => {
               value={about}
               rows={4}
               onChange={onAboutChange}
-              disabled={isFetching}
+              disabled={isLoading}
             />
         </FormItem>
         <Button
           type="primary"
           onClick={updateUserInfo}
-          loading={isFetching}
+          loading={isLoading}
         >
           Update Information
         </Button>
@@ -125,8 +127,18 @@ const Profile = (props) => {
         <div className='right'>
           <AvatarModify
             user={user}
-            postFile={postFile}
-            isFetching={isFetching}
+            postFile={async (formData, username, image) => {
+              postFile(formData, username);
+              const _user = JSON.parse(JSON.stringify(user));
+              const b64 = await getBase64(image, (e)=> {
+                console.clear();
+                console.log(_user);
+                _user.avatar = e
+                mutate(_user);
+              });
+             }
+           }
+            isFetching={isLoading}
           />
           <br />
         </div>

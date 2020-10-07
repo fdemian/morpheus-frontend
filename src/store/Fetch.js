@@ -108,7 +108,7 @@ class Fetch {
 
   static PUT(endpoint, types, content, options) {
     const req = request('PUT', endpoint, content, options);
-    return doRequest(req);
+    return doRequestSync(req);
   }
 
   static DELETE(endpoint, types, content, options) {

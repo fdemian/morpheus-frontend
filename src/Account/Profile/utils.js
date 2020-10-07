@@ -10,7 +10,7 @@ export const getBase64 = (img, callback) => {
   reader.readAsDataURL(img);
 }
 
-export const beforeUpload = (file, postFile) => {
+export const beforeUpload = (file, postFile, username) => {
 
   const isJPG = file.type === 'image/jpeg';
   const isPNG = file.type === 'image/png';
@@ -29,9 +29,8 @@ export const beforeUpload = (file, postFile) => {
   const formData = new FormData();
   formData.append('avatar', file);
 
-  postFile(formData);
+  postFile(formData, username, file);
 
-  //
   return false;
 }
 

@@ -13,7 +13,7 @@ const uploadURL = "/api/uploads";
 const AvatarUpload = (props) => {
 
   const [imageUrl, setImageUrl] = useState(null);
-  const { postFile } = props;
+  const { postFile, username } = props;
 
   return (
   <Upload
@@ -21,7 +21,7 @@ const AvatarUpload = (props) => {
     name="avatar"
     showUploadList={false}
     action={uploadURL}
-    beforeUpload={(file) => beforeUpload(file, postFile)}
+    beforeUpload={(file) => beforeUpload(file, postFile, username)}
     onChange={(info) => handleChange(info, setImageUrl)}
   >
     { imageUrl ?

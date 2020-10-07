@@ -17,6 +17,8 @@ import './AccountMenu.css';
 
 const AccountMenu = ({ mutate, user, isFetching }) => {
 
+  if(user === undefined)
+    return <Spin />;
 
   const menu = (
     <Menu className="AccountDropdownMenu">

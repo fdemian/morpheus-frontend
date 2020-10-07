@@ -8,7 +8,7 @@ const Category = React.lazy(() => import('../Category/SWRComponent'));
 const Story = React.lazy(() => import( '../Story/SWRComponent'));
 const Login = React.lazy(() => import('../Login/Login'));
 const User = React.lazy(() => import('../User/Container'));
-const Profile = React.lazy(() => import('../Account/Profile/Container'));
+const Profile = React.lazy(() => import('../Account/Profile/Profile'));
 const NotFound = React.lazy(() => import('../Errors/NotFound'));
 //const Activation = React.lazy(() => import('../Activation/Activation'));
 const Settings  = React.lazy(() => import('../Account/AccountSettings'));

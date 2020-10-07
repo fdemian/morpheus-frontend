@@ -10,20 +10,25 @@ const AvatarModify = (props) => {
     isFetching
   } = props;
 
-  const avatarLink = '/static/avatars/' + user.avatar;
+  let username = user ? user.username : "";
+  let avatar = user ? user.avatar: "";
+  let avatarUrl = user ? `/static/avatars/${avatar}` : '';
 
   return (
   <>
+    { isFetching ? null :
     <AccountAvatar
-      avatar={user.avatar}
-      username={user.username}
+      avatar={avatar}
+      username={username}
       size={150}
       shape="square"
     />
+    }
     <AvatarUpload
-      imageUrl={avatarLink}
+      imageUrl={avatarUrl}
       postFile={postFile}
       uploading={isFetching}
+      username={username}
     />
   </>
   );

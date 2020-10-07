@@ -1,7 +1,7 @@
 import SecurityView from './SecurityView';
 import { connect } from 'react-redux';
 import { requestChangePassword, clearPasswordErrors } from './Actions';
-import { requestUpdateUser } from '../Profile/Actions';
+//import { requestUpdateUser } from '../Profile/Actions';
 import { requestUpdateSec } from './Actions';
 
 
@@ -20,9 +20,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
      clearPasswordErrors(){
        dispatch(clearPasswordErrors());
      },
+     /*
      updateUser(user){
        dispatch(requestUpdateUser(user));
-     },
+     },*/
      updateSecInfo(secInfo){
        dispatch(requestUpdateSec(secInfo));
      }
