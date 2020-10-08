@@ -4,11 +4,13 @@ import React, {
   Suspense
 } from 'react';
 import { Menu, Spin } from 'antd';
+import { useUser } from '../Login/Actions';
+import { getLoginData } from '../Login/utils';
 import './AccountSettings.css';
 
 // Views.
 const Profile = lazy(() => import('./Profile/Profile'));
-const SecurityView = lazy(() => import('./Security/Container'));
+const SecurityView = lazy(() => import('./Security/SecurityView'));
 //import BindingView from './BindingView';
 //import NotificationView from './NotificationView'
 
@@ -24,12 +26,23 @@ const getmenu = (menuMap) => {
 
 const AccountSettings = () => {
 
+  // Fetch user data.
+  const userId = getLoginData();
+  const loggedIn = userId !== null;
+  let { user, mutate, isLoading } = useUser(userId);
+
+  const props = {
+    user: user.user,
+    mutate: mutate,
+    isLoading: isLoading
+  };
+
   const menuMap = {
     'base': {
       name: "Profile",
       component:(
       <Suspense fallback={<Spin />}>
-        <Profile />
+        <Profile  {...props} />
       </Suspense>
       )
     },
@@ -37,7 +50,7 @@ const AccountSettings = () => {
       name: "Security",
       component:(
       <Suspense fallback={<Spin />}>
-        <SecurityView />
+        <SecurityView {...props} />
       </Suspense>
       )
     }/*,
@@ -58,6 +71,9 @@ const AccountSettings = () => {
   const title = menuItem.name;
   const childComponent = menuItem.component;
 
+  if(isLoading)
+    return <Spin />;
+
   return (
   <div className="settings-container">
       <div className="info-main">
@@ -72,7 +88,7 @@ const AccountSettings = () => {
         </div>
         <div className="right">
           <div className="title">{title}</div>
-          {childComponent}
+           {childComponent}
         </div>
       </div>
   </div>

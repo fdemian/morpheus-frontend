@@ -18,8 +18,5 @@ export const postFile = (formData, username) => {
 export const updateUser = (user) => {
   const options = { isFile: false };
   const endpoint = `/api/users/${user.id}`;
-  console.clear();
-  console.log(user);
-  console.log(":::::::");
   Fetch.PUT(endpoint, [], user, options);
 }

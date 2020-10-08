@@ -37,6 +37,7 @@ const ModifyEmailModal = (props) => {
   const text = `By changing your email you will no longer recieve notifications
   to your older email. Please make sure you will not use this email anymore.`;
 
+
   if(isFetching)
    return <Spin size="large" className="modal-spin" />;
 

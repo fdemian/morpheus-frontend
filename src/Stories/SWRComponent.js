@@ -51,10 +51,8 @@ const Stories = (props) => {
    </Suspense>
    );
 
-  console.clear();
-  console.log(data);
   const stories = data.items;
-
+  
 	return(
   <div className="stories-container">
 

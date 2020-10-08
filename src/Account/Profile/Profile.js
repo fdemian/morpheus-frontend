@@ -5,9 +5,7 @@ import React, {
 } from 'react';
 import { Form, Input, Button, Spin } from 'antd';
 import { useMediaQuery } from 'react-responsive';
-import { useUser } from '../../Login/Actions';
-import { getLoginData } from '../../Login/utils';
-import {postFile, updateUser } from './Actions';
+import { postFile, updateUser } from './Actions';
 import { getBase64 } from './utils';
 
 import './Profile.css';
@@ -16,13 +14,7 @@ const AvatarModify = lazy(() => import('./AvatarModify'));
 const FormItem = Form.Item;
 
 //Form.create()
-const Profile = () => {
-
-  // Fetch user data.
-  const userId = getLoginData();
-  const loggedIn = userId !== null;
-  let { user, mutate, isLoading } = useUser(userId);
-  user = user.user ? user.user : null;
+const Profile = ({ user, mutate, isLoading }) => {
 
   //TODDO: Fullname and about should be added to the model.
   let _fullname = "";

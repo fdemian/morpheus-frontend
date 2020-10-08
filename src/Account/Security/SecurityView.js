@@ -10,7 +10,11 @@ import {
   Switch,
   Radio
 } from 'antd';
+import { useUser } from '../../Login/Actions';
+import { getLoginData } from '../../Login/utils';
+
 import useSWR from 'swr';
+import { updateUser } from '../Profile/Actions';
 import getOptionsValues from '../../utils/misc';
 
 const RadioGroup = Radio.Group;
@@ -40,17 +44,17 @@ const getCommentOptions = (config) => getOptionsValues(config.options, 'comments
 const SecurityView = (props) => {
 
   const {
-    updateUser,
     user,
+    isLoading,
     modifyPassword,
     clearPasswordErrors,
-    validated,
+    validated=true,
   }  = props;
 
   const isFetching = false;
   const isFetchingConfig = false;
-
   const { data:config, error } = useSWR('/api/options');
+
   const commentsEnabled = config ? getCommentOptions(config): null;
   const [ paswordModalOpen, setPaswordModalOpen ] = useState(false);
   const [ emailModalOpen, setEmailModalOpen ] = useState(false);
@@ -71,10 +75,14 @@ const SecurityView = (props) => {
     });
   }
 
-  const updateEmail = (email) => {
+  const updateEmail = async (email) => {
     const newUser = JSON.parse(JSON.stringify(user));
     newUser.email = email;
-    updateUser(newUser);
+
+    console.clear();
+    console.log(newUser);
+    console.log(".........");
+    //const update = await updateUser(newUser);
   }
 
   const setCommentRadio = (e) =>{
@@ -90,6 +98,10 @@ const SecurityView = (props) => {
 
     props.updateSecInfo(securityInfo);
   }
+
+
+  if((!config && !error) || isLoading)
+    return <p>Loading...</p>;
 
   const viewItems = [
     {
@@ -176,9 +188,6 @@ const SecurityView = (props) => {
         ]
       }*/
     ];
-
-    if(!config && !error)
-      return <p>Loading...</p>;
 
     const buttonText = isFetchingConfig ? "Updating information" : "Update information";
 
