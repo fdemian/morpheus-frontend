@@ -26,7 +26,6 @@ const Stories = (props) => {
    const loggedIn = isLoggedIn();
    const { data, mutate, error } = useSWR("/api/stories");
 
-   const onDelete = () => console.log("onDelete");
    const onEditClick = () => console.log("onEditClick");
 
    const deleteFn = (id) => {
@@ -52,7 +51,7 @@ const Stories = (props) => {
    );
 
   const stories = data.items;
-  
+
 	return(
   <div className="stories-container">
 

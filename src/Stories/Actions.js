@@ -1,5 +1,5 @@
 import Fetch from '../store/Fetch';
-import { select, put, call } from 'redux-saga/effects';
+import { select, put } from 'redux-saga/effects';
 
 export const REQUEST_STORY_EDIT = 'REQUEST_STORY_EDIT';
 

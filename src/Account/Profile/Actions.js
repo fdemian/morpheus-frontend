@@ -1,5 +1,4 @@
 import Fetch from '../../store/Fetch';
-import { select, put, call } from 'redux-saga/effects';
 
 export const POST_AVATAR = 'POST_AVATAR';
 export const POST_AVATAR_SUCESS = 'POST_AVATAR_SUCESS';

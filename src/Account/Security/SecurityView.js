@@ -8,8 +8,6 @@ import {
   Switch,
   Radio
 } from 'antd';
-import { useUser } from '../../Login/Actions';
-import { getLoginData } from '../../Login/utils';
 
 import useSWR from 'swr';
 import { updateUser, updatePassword } from '../Profile/Actions';
@@ -69,7 +67,7 @@ const SecurityView = (props) => {
 
     setIsFetching(true);
     mutate({user: newUser});
-    const update = await updateUser(newUser);
+    await updateUser(newUser);
     setIsFetching(false);
     setEmailModalOpen(!emailModalOpen);
   }

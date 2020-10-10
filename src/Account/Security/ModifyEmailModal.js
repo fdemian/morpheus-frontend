@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Input, Button, Alert, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Security.css';
 
 const ErrorLayer = ({error}) => {
@@ -28,7 +28,6 @@ const ModifyEmailModal = (props) => {
     user,
     isFetching,
     error,
-    validated,
     updateEmail
   } = props;
   const { email } = user;

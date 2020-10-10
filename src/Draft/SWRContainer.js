@@ -25,3 +25,5 @@ const Drafts = (props) => {
 
   return <Story {...storyProps} />;
 }
+
+export default Drafts;

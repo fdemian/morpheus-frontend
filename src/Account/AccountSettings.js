@@ -26,7 +26,6 @@ const AccountSettings = () => {
 
   // Fetch user data.
   const userId = getLoginData();
-  const loggedIn = userId !== null;
   let { user, mutate, isLoading } = useUser(userId);
 
   const props = {

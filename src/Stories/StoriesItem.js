@@ -3,7 +3,6 @@ import React, {
   Suspense
 } from 'react';
 import List from 'antd/lib/list';
-import Spin from 'antd/lib/spin';
 import Skeleton from 'antd/lib/skeleton';
 import ActionButton from './ActionButton';
 

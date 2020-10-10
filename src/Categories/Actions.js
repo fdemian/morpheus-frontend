@@ -1,5 +1,5 @@
 import Fetch from '../store/Fetch';
-import { select, put, call } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 
 export const GET_CATEGORIES= 'GET_CATEGORIES';
 export const RECEIVE_CATEGORIES_OK = 'RECEIVE_CATEGORIES_OK';

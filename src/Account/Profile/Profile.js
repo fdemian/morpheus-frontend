@@ -122,15 +122,13 @@ const Profile = ({ user, mutate, isLoading }) => {
             postFile={async (formData, username, image) => {
               postFile(formData, username);
               const _user = JSON.parse(JSON.stringify(user));
-              const b64 = await getBase64(image, (e)=> {
-                console.clear();
-                console.log(_user);
+               await getBase64(image, (e)=> {
                 _user.avatar = e
                 mutate(_user);
               });
              }
            }
-            isFetching={isLoading}
+           isFetching={isLoading}
           />
           <br />
         </div>
