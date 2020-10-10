@@ -11,8 +11,6 @@ import './AccountSettings.css';
 // Views.
 const Profile = lazy(() => import('./Profile/Profile'));
 const SecurityView = lazy(() => import('./Security/SecurityView'));
-//import BindingView from './BindingView';
-//import NotificationView from './NotificationView'
 
 const { Item } = Menu;
 
@@ -42,7 +40,7 @@ const AccountSettings = () => {
       name: "Profile",
       component:(
       <Suspense fallback={<Spin />}>
-        <Profile  {...props} />
+        <Profile {...props} />
       </Suspense>
       )
     },
@@ -53,15 +51,7 @@ const AccountSettings = () => {
         <SecurityView {...props} />
       </Suspense>
       )
-    }/*,
-    'binding': {
-      name:"Binding Accounts",
-      component:  <BindingView />
-    },
-    'notification': {
-      name: "Notifications",
-      component: <NotificationView />
-    }*/
+    }
   };
 
   const [selectKey, setSelectKey] = useState('base');

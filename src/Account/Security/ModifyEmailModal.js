@@ -41,6 +41,7 @@ const ModifyEmailModal = (props) => {
   if(isFetching)
    return <Spin size="large" className="modal-spin" />;
 
+  /*
   if(validated)
    return(
    <div className="security-view password-success-layer">
@@ -52,7 +53,7 @@ const ModifyEmailModal = (props) => {
      />
      <p className="ValidatedText">Successfully updated email!</p>
     </div>
-    );
+  );*/
 
     return(
     <>

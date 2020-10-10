@@ -17,13 +17,12 @@ const ModifyPasswordModal = (props) => {
   const [ message, setMessage] = useState('');
   const [ passwordStatusVisible] = useState(false);
 
-  const { modifyPassword, clearErrorsFn } = props;
+  const { modifyPassword } = props;
   const errorClass = error ? " input-error" : "";
 
   function clearError(){
     setError(false);
     setMessage('');
-    clearErrorsFn();
   }
 
   function onSubmit(){
@@ -115,7 +114,7 @@ const ModifyPasswordModal = (props) => {
        />
        <ModifyError
          error={error}
-         closeFn={clearErrorsFn}
+         closeFn={clearError}
        />
       </div>
 

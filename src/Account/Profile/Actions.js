@@ -20,3 +20,10 @@ export const updateUser = (user) => {
   const endpoint = `/api/users/${user.id}`;
   Fetch.PUT(endpoint, [], user, options);
 }
+
+export const updatePassword = (currentPass, password, userId) => {
+  const sendData = { 'password': currentPass, 'newpass': password };
+  const endpoint = `/api/account/${userId}`;
+
+  Fetch.PUT(endpoint, [], JSON.stringify(sendData), {});
+}
