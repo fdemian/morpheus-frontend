@@ -8,6 +8,7 @@ import StoryItem from './StoriesItem';
 import useSWR from 'swr';
 import { isLoggedIn } from '../Login/utils';
 import { deleteStory } from './Actions';
+import { setIsEditingState } from './utils';
 
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
@@ -26,7 +27,7 @@ const Stories = (props) => {
    const loggedIn = isLoggedIn();
    const { data, mutate, error } = useSWR("/api/stories");
 
-   const onEditClick = () => console.log("onEditClick");
+   const onEditClick = () => setIsEditingState();
 
    const deleteFn = (id) => {
      deleteStory(id);
@@ -72,7 +73,6 @@ const Stories = (props) => {
               editFn={onEditClick}
               deleteFn={(id) => deleteFn(id)}
               loggedIn={loggedIn}
-              stories={stories}
             />
           }
       	/>

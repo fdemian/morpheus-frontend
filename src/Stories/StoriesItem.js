@@ -17,20 +17,20 @@ import './Stories.css';
 // Lazy imports.
 const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
 
-const getAvatarLink = (author) => "/users/" + author.id + "/" + author.name;
+const getAvatarLink = (author) => `/users/${author.id}/${author.name}`;
 const defaultCategory = { id: -1, name: "Uncategorized" };
 
 const StoryItem = (props) => {
 
-  const { item, editFn, deleteFn, stories, loggedIn } = props;
-  const commentsLink = "/stories/" + item.id + "/" + format_title_string(item.name) + "#comments";
+  const { item, editFn, deleteFn, loggedIn } = props;
+  const commentsLink = `/stories/${item.id}/${format_title_string(item.name)}#comments`;
 
   const itemActions = [
       <ActionButton
         title="Edit"
-        linkURL="stories/new"
+        linkURL={`stories/${item.id}`}
         icon={faEdit}
-        clickFn={() => editFn(item.id, stories)}
+        clickFn={editFn}
         id={item.id}
         className="IconRight EditStoryIcon"
       />,
