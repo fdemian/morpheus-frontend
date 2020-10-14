@@ -30,7 +30,7 @@ const App = (props) => {
       props.initializeWS();
     }*/
 
-  if(error)
+  if(error || !config)
     return null;
 
   const navProps = {

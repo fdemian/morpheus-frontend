@@ -1,4 +1,17 @@
 import Fetch from '../store/Fetch';
+import _data from './initialData';
+import useSWR from 'swr';
+
+export const useCategories = () => {
+  const { data, mutate, error } = useSWR('/api/categories', { initialData: _data });
+
+  return {
+    categories: data.items,
+    isLoading: !error && !data,
+    isError: error,
+    mutate
+  }
+}
 
 export const createCategory = async (name, description, token) => {
   try {

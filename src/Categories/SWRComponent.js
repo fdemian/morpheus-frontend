@@ -1,14 +1,14 @@
 import React from 'react';
 import { Table } from 'antd';
-import _data from './initialData';
 import {
   createCategory,
-  deleteCategory
+  deleteCategory,
+  useCategories
  } from './Api';
 import DeleteRow from './DeleteRow';
 import CategoryLink from './CategoryLink';
 import NewCategoryForm from './NewCategoryForm';
-import useSWR, { mutate } from 'swr';
+import { mutate } from 'swr';
 import { isLoggedIn } from '../Login/utils';
 
 import './Categories.css';
@@ -16,12 +16,11 @@ import './Categories.css';
 const Categories = (props) => {
 
   const loggedIn = isLoggedIn();
-  const { data } = useSWR('/api/categories', { initialData: _data });
-  const categories = data.items;
-
+  const { categories } = useCategories();
+  
   const removeCategory = (id, token) => {
       deleteCategory(id);
-      const newData = data.items.filter(c => c.id !== id);
+      const newData = categories.filter(c => c.id !== id);
       mutate('/api/categories', newData);
   }
 
@@ -32,7 +31,7 @@ const Categories = (props) => {
       name: name,
       description: description
     };
-    const _newItems = data.items.concat(newItem);
+    const _newItems = categories.concat(newItem);
     const _newData = {
       page:0,
       items: _newItems

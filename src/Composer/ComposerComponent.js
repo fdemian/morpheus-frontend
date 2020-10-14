@@ -4,6 +4,7 @@ import React, {
   useEffect
 } from 'react';
 import format_title_string from '../utils/formats.js';
+import { useMediaQuery } from 'react-responsive';
 import { Redirect } from 'react-router-dom';
 import { Editor } from 'elementary-editor';
 import TitleEditor from './TitleEditor';
@@ -11,24 +12,19 @@ import CategoriesDropdown from './CategoriesDropdown';
 import EditableTagGroup from './EditableTagGroup';
 import Loading from '../Loading/LoadingIndicator';
 import ConfirmButtons from './ConfirmButtons';
-
+import { useCategories } from '../Categories/Api';
+import { useUser } from '../Login/Actions';
+import { getLoginData } from '../Login/utils';
+import { postStory, editStory } from './Actions';
 import './Composer.css';
 
 const Composer = (props) => {
 
-  const {
-    story,
-    editing,
-    posting,
-    posted,
-    id,
-    editStory,
-    postStory,
-    clearComposer,
-    categories,
-    mobile
-  } = props;
-
+  const story = null;
+  const userId = getLoginData();
+  const { categories } = useCategories();
+  const { user } = useUser(userId);
+	const mobile = useMediaQuery({query: '(max-device-width: 1224px)'});
   const editorContainer = useRef(null);
 
   const isDefined = story !== null && story !== undefined;
@@ -37,18 +33,18 @@ const Composer = (props) => {
   const _content = isDefined ? story.content : null;
   const _tags = isDefined ? story.tags : [];
 
+  const [id, setId] = useState(null); // TODO: change for editing.
   const [title, setTitle] = useState(_title);
   const [category, setCategory ] = useState(_category);
-  const [content] = useState(_content);
+  const [content, setContent] = useState(_content);
   const [tags, setTags ] = useState(_tags);
 
-  useEffect(() => {
-    return function cleanup() {
-      clearComposer();
-    };
-  }, [id, clearComposer]);
+  //
+  const [posted, setPosted] = useState(false);
+  const [posting, setPosting] = useState(false);
+  const [editing, setEditing] = useState(false);
 
-  const postStoryContent = (isDraft) => {
+  const postStoryContent = async (isDraft) => {
 
     const editor = editorContainer.current;
     const content = editor.getContent();
@@ -60,32 +56,37 @@ const Composer = (props) => {
       category: category,
       tags: tags,
       content: content,
-      isDraft: isDraft
+      isDraft: isDraft,
+      userId: user.user.id
     };
 
     if(editing) {
-      editStory(storyObj);
+      setEditing(true);
+      const editedStory = await editStory(storyObj);
+      setEditing(false);
+      setPosted(true);
     }
     else {
-      postStory(storyObj);
+      setPosting(true);
+      const postedStory = await postStory(storyObj);
+      setId(postedStory.id);
+      setPosting(false);
+      setPosted(true);
+
+      console.clear();
+      console.log(postedStory);
+      console.log(".............****");
     }
   }
 
-  const updateCategoryFn = (value) => {
-    setCategory(value);
-  }
-
-  const updateTitleFn = (evt) => {
-    setTitle(evt.target.value);
-  }
-
+  const updateCategoryFn = (value) => setCategory(value);
+  const updateTitleFn = (evt) => setTitle(evt.target.value);
   const updateTags = (tags) => setTags(tags);
 
-  if(posting)
+  if(!user || posting)
     return <Loading />;
 
   if(posted && !posting){
-    clearComposer();
     const formattedTitle = format_title_string(title);
     const redirectURL = "/stories/" + id + "/" + formattedTitle;
     return <Redirect to={redirectURL} />;
@@ -97,7 +98,7 @@ const Composer = (props) => {
   const postContentFn = () => postStoryContent(false);
 
   return(
-  <div>
+  <div className="composer-container">
 
     <div className="ComposerTitle">
       <p className="ComposerTitleText">Create new story</p>

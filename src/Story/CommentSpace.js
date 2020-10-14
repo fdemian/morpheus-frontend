@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import CommentComposer from '../CommentComposer/Container';
 import CommentLogin from '../Comments/CommentLogin';
 import LoadingIndicator from '../Loading/LoadingIndicator';
@@ -28,36 +28,29 @@ const CommentSpace = (props) => {
 
   if(commentOptions === "ANONYMOUS" && !userExists)
     return (
-    <Fragment>
+    <>
       <AnonymousUserForm setUser={setAnonymousUser} />
       <CommentLogin
         storyName={storyTitle}
         storyId={storyId}
         providers={oauthServices}
       />
-    </Fragment>
+    </>
     );
 
   if(userExists){
     if(loggedIn)
-      return(
-      <CommentComposer
-        storyTitle={storyTitle}
-        type={commentOptions}
-      />);
+      return <CommentComposer storyTitle={storyTitle} />;
 
     return (
-    <Fragment>
-      <CommentComposer
-        storyTitle={storyTitle}
-        type={commentOptions}
-      />
+    <>
+      <CommentComposer storyTitle={storyTitle} />
       <CommentLogin
   		  storyName={storyTitle}
         storyId={storyId}
      	  providers={oauthServices}
     	/>
-    </Fragment>
+    </>
     )
 
   }
