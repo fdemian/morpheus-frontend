@@ -1,20 +1,4 @@
 import Fetch from '../store/Fetch';
-import { select, put, call } from 'redux-saga/effects';
-
-export const SEND_STORY = 'SEND_STORY';
-export const SEND_STORY_OK = 'SEND_STORY_OK';
-export const SEND_STORY_FAILURE = 'SEND_STORY_FAILURE';
-
-export const REQUEST_STORY_EDIT = 'REQUEST_STORY_EDIT';
-
-export const EDIT_STORY = 'EDIT_STORY';
-export const EDIT_STORY_OK = 'EDIT_STORY_OK';
-export const EDIT_STORY_FAILURE = 'EDIT_STORY_FAILURE';
-
-export const CLEAR_COMPOSER = 'CLEAR_COMPOSER';
-
-export const NEW_STORY = 'NEW_STORY';
-
 
 export const postStory = async (props) => {
 

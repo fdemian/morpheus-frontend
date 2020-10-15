@@ -3,9 +3,9 @@ import Navbar from '../Navbar/Navbar';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
 import { Layout, Affix, Spin } from 'antd';
-import {useConfig } from './Actions';
+import { useConfig } from './Actions';
 import { useUser } from '../Login/Actions';
-import { getLoginData } from '../Login/utils';
+import { getLoginData, isLoggedIn } from '../Login/utils';
 import './App.css';
 
 const { Content, Header } = Layout;
@@ -14,10 +14,10 @@ const App = (props) => {
 
   // Fetch user data.
   const userId = getLoginData();
-  const loggedIn = userId !== null;
+  const loggedIn = isLoggedIn();
   const { user, mutate, isLoading } = useUser(userId);
 
-    // Fetch config data.
+  // Fetch config data.
   const { config, error } = useConfig();
 
   //
@@ -30,7 +30,7 @@ const App = (props) => {
       props.initializeWS();
     }*/
 
-  if(error || !config)
+  if(error || !config || (loggedIn && !user))
     return null;
 
   const navProps = {

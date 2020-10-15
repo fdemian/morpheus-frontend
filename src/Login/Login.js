@@ -6,7 +6,7 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import TopIcon from './TopIcon';
 import Loading from '../Loading/LoadingIndicator';
 import { newLogin, useUser } from './Actions';
-import { isLoggedIn, setLoginData} from './utils';
+import { isLoggedIn, logout, setLoginData} from './utils';
 
 import './Login.css';
 
@@ -19,13 +19,7 @@ const layout = {
   },
 };
 
-const LoginScreen = (props) => {
-
-  const {
-    /*oauthServices,
-    register,*/
-    error
-  } = props;
+const LoginScreen = () => {
 
   const initialLoginState = {
     username: null,
@@ -37,6 +31,7 @@ const LoginScreen = (props) => {
   const [loggingIn, setLoggingIn] = useState(false);
   const [userId, setUserId] = useState(-1);
   const [login, setLogin] = useState(initialLoginState);
+  const [error, setError] = useState(false);
 
   const useForm = async values => {
     const { username, password } = values;
@@ -44,11 +39,20 @@ const LoginScreen = (props) => {
     setLoggingIn(true);
     const data = await newLogin(username, password);
 
-    const { id } = data;
-    setLoggingIn(false);
+    if(data.id) {
+      const { id } = data;
+      setError(false);
+      setLoggingIn(false);
+      setUserId(id);
+      setLoginData(id);
+    }
+    else {
+      // An error arrived from the server.
+      setError(true);
+      setLoggingIn(false);
+      logout();
+    }
 
-    setUserId(id);
-    setLoginData(id);
   };
 
   // TODO: show error message here.

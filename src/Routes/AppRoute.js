@@ -3,8 +3,7 @@ import Loading from '../Loading/LoadingIndicator';
 import { Route, Redirect } from 'react-router-dom';
 import { isLoggedIn } from '../Login/utils';
 
-const AppRoute = ({exact, path, component, isPrivate, key}) => {
-
+const AppRoute = ({exact, path, component, isPrivate, key}) => {  
   if(isPrivate && !isLoggedIn())
     return  <Redirect to='/login' />;
   else return (

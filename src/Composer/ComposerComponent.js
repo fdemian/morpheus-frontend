@@ -24,6 +24,7 @@ const Composer = (props) => {
   const userId = getLoginData();
   const { categories } = useCategories();
   const { user } = useUser(userId);
+
 	const mobile = useMediaQuery({query: '(max-device-width: 1224px)'});
   const editorContainer = useRef(null);
 
@@ -32,7 +33,7 @@ const Composer = (props) => {
   const _category = isDefined ? story.category : null;
   const _content = isDefined ? story.content : null;
   const _tags = isDefined ? story.tags : [];
-
+  
   const [id, setId] = useState(null); // TODO: change for editing.
   const [title, setTitle] = useState(_title);
   const [category, setCategory ] = useState(_category);
@@ -60,25 +61,16 @@ const Composer = (props) => {
       userId: user.user.id
     };
 
-    if(editing) {
-      setEditing(true);
-      const editedStory = await editStory(storyObj);
-      setEditing(false);
-      setPosted(true);
-    }
-    else {
-      setPosting(true);
-      const postedStory = await postStory(storyObj);
-      setId(postedStory.id);
-      setPosting(false);
-      setPosted(true);
-
-      console.clear();
-      console.log(postedStory);
-      console.log(".............****");
-    }
+    const storyFn = editing ? editStory : postStory;
+    //
+    setEditing(true);
+    const _postedStory = await storyFn(storyObj);
+    setId(_postedStory.id);
+    setEditing(false);
+    setPosted(true);
   }
 
+  //
   const updateCategoryFn = (value) => setCategory(value);
   const updateTitleFn = (evt) => setTitle(evt.target.value);
   const updateTags = (tags) => setTags(tags);

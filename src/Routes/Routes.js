@@ -20,6 +20,7 @@ const ApplicationRoutes = {
    Routes: [
     {path: "/", exact: true, component: Home, private: false},
     {path: "/login", exact: true, component: Login, private: false},
+    {path: "/stories/edit/:id", exact: true, component: Composer, private: true},
     {path: '/stories/:id/:name', exact: true, component: Story, private: false},
     {path: "/stories/new", exact: true, component: Composer, private: true},
     {path: "/categories", exact: true, component: Categories, private: false},

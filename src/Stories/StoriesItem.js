@@ -22,27 +22,26 @@ const defaultCategory = { id: -1, name: "Uncategorized" };
 
 const StoryItem = (props) => {
 
-  const { item, editFn, deleteFn, loggedIn } = props;
+  const { item, deleteFn, loggedIn } = props;
   const commentsLink = `/stories/${item.id}/${format_title_string(item.name)}#comments`;
 
   const itemActions = [
-      <ActionButton
-        title="Edit"
-        linkURL={`stories/${item.id}`}
-        icon={faEdit}
-        clickFn={editFn}
-        id={item.id}
-        className="IconRight EditStoryIcon"
-      />,
-      <ActionButton
-        title="Delete"
-        linkURL="#"
-        icon={faTrash}
-        clickFn={deleteFn}
-        id={item.id}
-        cssClass="DeleteStoryIcon"
-      />
-    ];
+    <ActionButton
+      title="Edit"
+      linkURL={`/stories/edit/${item.id}`}
+      icon={faEdit}
+      id={item.id}
+      className="IconRight EditStoryIcon"
+    />,
+    <ActionButton
+      title="Delete"
+      linkURL="#"
+      icon={faTrash}
+      clickFn={deleteFn}
+      id={item.id}
+      cssClass="DeleteStoryIcon"
+    />
+   ];
 
    const mappedActions = loggedIn ? itemActions : [];
    let category = item.category != null ? item.category : defaultCategory;

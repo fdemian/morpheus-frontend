@@ -15,7 +15,7 @@ export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 const DATABASE_TYPE = "database";
 
 export const useUser = (id) => {
-  const shouldFetch = id >= 0 && id!= null;
+  const shouldFetch = id >= 0 && id!== null && id!== undefined;
   const { data, mutate, error } = useSwr(shouldFetch ? `/api/users/${id}` : null);
 
   return {

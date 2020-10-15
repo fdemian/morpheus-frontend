@@ -62,7 +62,6 @@ const Stories = (props) =>
           renderItem={item =>
             <StoryItem
               item={item}
-              editFn={onEditClick}
               deleteFn={onDelete}
               loggedIn={loggedIn}
               stories={stories}
@@ -71,6 +70,7 @@ const Stories = (props) =>
       	/>
       </Suspense>
     </div>
+
   </div>
 	);
 
