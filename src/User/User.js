@@ -8,11 +8,12 @@ import { useUser } from '../Login/Actions';
 
 import useSWR from 'swr';
 
+/*
 const links = [
   { name: "facebook", url: "http://https://www.facebook.com/<User_id>" },
   { name: "twitter", url: "http://twitter.com/<User_id>" },
   { name: "github",  url: "http://https://github.com/<User_id>" },
-];
+];*/
 
 const User = (props) => {
 

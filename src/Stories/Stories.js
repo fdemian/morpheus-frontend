@@ -26,8 +26,7 @@ const Stories = (props) =>
    const {
      stories,
      error,
-     onDelete,
-     onEditClick,
+     onDelete,     
      loggedIn
    } = props;
 

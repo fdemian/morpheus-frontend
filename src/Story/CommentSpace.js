@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentComposer from '../CommentComposer/Container';
+import CommentComposer from '../CommentComposer/Composer';
 import CommentLogin from '../Comments/CommentLogin';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import AnonymousUserForm from './AnonymousUserForm';
