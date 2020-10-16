@@ -2,12 +2,13 @@ import React from "react";
 import App from '../App/App';
 
 const Composer = React.lazy(() => import('../Composer/ComposerComponent'));
+const ComposerEdit = React.lazy(() => import('../Composer/EditingComposer'));
 const Home = React.lazy(() => import('../Stories/SWRComponent'));
 const Categories = React.lazy(() => import('../Categories/SWRComponent'));
 const Category = React.lazy(() => import('../Category/SWRComponent'));
 const Story = React.lazy(() => import( '../Story/SWRComponent'));
 const Login = React.lazy(() => import('../Login/Login'));
-const User = React.lazy(() => import('../User/Container'));
+const User = React.lazy(() => import('../User/User'));
 const Profile = React.lazy(() => import('../Account/Profile/Profile'));
 const NotFound = React.lazy(() => import('../Errors/NotFound'));
 //const Activation = React.lazy(() => import('../Activation/Activation'));
@@ -20,7 +21,7 @@ const ApplicationRoutes = {
    Routes: [
     {path: "/", exact: true, component: Home, private: false},
     {path: "/login", exact: true, component: Login, private: false},
-    {path: "/stories/edit/:id", exact: true, component: Composer, private: true},
+    {path: "/stories/edit/:id", exact: true, component: ComposerEdit, private: true},
     {path: '/stories/:id/:name', exact: true, component: Story, private: false},
     {path: "/stories/new", exact: true, component: Composer, private: true},
     {path: "/categories", exact: true, component: Categories, private: false},

@@ -10,6 +10,7 @@ import CommentSpace from './CommentSpace';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import getOptionsValues from '../utils/misc';
 import { isLoggedIn } from '../Login/utils';
+import { useStory } from './Actions';
 import useSWR from 'swr';
 
 import './Story.css';
@@ -19,7 +20,7 @@ const Story = (props) => {
   const { match } = props;
   const { params } = match;
   const loggedIn = isLoggedIn();
-  const { data, error } = useSWR(`/api/stories?id=${params.id}`);
+  const { story, error } = useStory(params.id);
   const configData = useSWR('/api/options');
 
   // Will just assume these, for now.
@@ -30,12 +31,11 @@ const Story = (props) => {
   if(error)
     return <p>error</p>;
 
-  if(!data || !configData.data)
+  if(!story || !configData.data)
     return <LoadingIndicator />;
 
   const { options } = configData.data;
   const commentOptions = getOptionsValues(options, 'comments');
-  const story = data;
   const datepart = story.date.split('.')[0];
 
   return (

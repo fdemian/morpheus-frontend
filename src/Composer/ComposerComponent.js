@@ -14,27 +14,30 @@ import Loading from '../Loading/LoadingIndicator';
 import ConfirmButtons from './ConfirmButtons';
 import { useCategories } from '../Categories/Api';
 import { useUser } from '../Login/Actions';
+import { useStory } from '../Story/Actions';
 import { getLoginData } from '../Login/utils';
 import { postStory, editStory } from './Actions';
 import './Composer.css';
 
 const Composer = (props) => {
 
-  const story = null;
+  // Initial values.
   const userId = getLoginData();
   const { categories } = useCategories();
   const { user } = useUser(userId);
+  const { isEditing, story } = props;
 
 	const mobile = useMediaQuery({query: '(max-device-width: 1224px)'});
   const editorContainer = useRef(null);
 
-  const isDefined = story !== null && story !== undefined;
-  const _title = isDefined ? story.name : null;
-  const _category = isDefined ? story.category : null;
-  const _content = isDefined ? story.content : null;
-  const _tags = isDefined ? story.tags : [];
-  
-  const [id, setId] = useState(null); // TODO: change for editing.
+  //
+  const _title = isEditing ? story.title : null;
+  const _category = isEditing ? story.category : null;
+  const _content = isEditing ? story.content : null;
+  const _tags = isEditing ? story.tags : [];
+  const _id = isEditing ? story.id : null;
+
+  const [id, setId] = useState(_id); // TODO: change for editing.
   const [title, setTitle] = useState(_title);
   const [category, setCategory ] = useState(_category);
   const [content, setContent] = useState(_content);
@@ -50,7 +53,7 @@ const Composer = (props) => {
     const editor = editorContainer.current;
     const content = editor.getContent();
 
-    const storyObjId = editing ? story.id : -1;
+    const storyObjId = isEditing ? story.id : -1;
     const storyObj = {
       id: storyObjId,
       title: title,
@@ -61,11 +64,15 @@ const Composer = (props) => {
       userId: user.user.id
     };
 
-    const storyFn = editing ? editStory : postStory;
+    const storyFn = isEditing ? editStory : postStory;
     //
     setEditing(true);
     const _postedStory = await storyFn(storyObj);
-    setId(_postedStory.id);
+
+    if(!isEditing) {
+      setId(_postedStory.id);
+    }
+
     setEditing(false);
     setPosted(true);
   }
@@ -75,7 +82,7 @@ const Composer = (props) => {
   const updateTitleFn = (evt) => setTitle(evt.target.value);
   const updateTags = (tags) => setTags(tags);
 
-  if(!user || posting)
+  if((!user || posting) || (isEditing && !story))
     return <Loading />;
 
   if(posted && !posting){
@@ -85,7 +92,7 @@ const Composer = (props) => {
   }
 
   const mobileClass = mobile ? "Mobile" : "Desktop";
-  const isDraft = isDefined && (!editing || story.isDraft === true);
+  const isDraft = isEditing && (!editing || story.isDraft === true);
   const postStoryAdDraft = () => postStoryContent(true);
   const postContentFn = () => postStoryContent(false);
 
@@ -130,7 +137,7 @@ const Composer = (props) => {
     <div>
      <ConfirmButtons
         isDraft={isDraft}
-        editing={editing}
+        editing={isEditing}
         postStoryContent={postContentFn}
         postAsDraftFn={postStoryAdDraft}
      />

@@ -1,5 +1,5 @@
 import Fetch from '../store/Fetch';
-import useSwr from 'swr';
+import useSWR from 'swr';
 
 /* UPDATE FIELDS */
 export const EMAIL_CHANGED = 'EMAIL_CHANGED';
@@ -16,7 +16,7 @@ const DATABASE_TYPE = "database";
 
 export const useUser = (id) => {
   const shouldFetch = id >= 0 && id!== null && id!== undefined;
-  const { data, mutate, error } = useSwr(shouldFetch ? `/api/users/${id}` : null);
+  const { data, mutate, error } = useSWR(shouldFetch ? `/api/users/${id}` : null);
 
   return {
     user: data,
