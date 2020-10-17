@@ -10,18 +10,12 @@ import './Composer.css';
 
 const Composer = (props) => {
 
-  const { visible, user } = props;
+  const { visible, storyId, user, token } = props;
   const [composerVisible, setComposerVisible] = useState(visible);
   const editorContainer = useRef(null);
 
-  const toggleComposer = () => {
-    setComposerVisible(!composerVisible);
-  }
-
+  const toggleComposer = () =>  setComposerVisible(!composerVisible);
   const postComment = () => {
-
-    const { storyId, user, token } = props;
-
     const editor = editorContainer.current;
     const content = editor.getContent();
     const commentParams = {
@@ -39,13 +33,19 @@ const Composer = (props) => {
     editor.clear();
   }
 
-  const userlink = "/users/" + user.id + "/" + user.username;
+  if(!user)
+    return null;
 
-  return (
+  return(
   <>
     <ComposerHeader toggle={toggleComposer} />
     <Drawer
-      title={<DrawerHeader userlink={userlink} user={user} />}
+      title={
+        <DrawerHeader
+          userlink={`/users/${user.id}/${user.username}`}
+          user={user}
+        />
+      }
       className="ComposerDrawer"
       placement="bottom"
       closable={true}
