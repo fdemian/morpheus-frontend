@@ -58,9 +58,13 @@ const App = (props) => {
        <Layout>
 
         <Header className="page-header-container">
+          {!isMobile ?
           <Affix>
             <Navbar {...navProps} />
           </Affix>
+          :
+            <Navbar {...navProps} />
+          }
         </Header>
 
         <Content className={"content-container" + isMobile ? "mobile": ""}>
