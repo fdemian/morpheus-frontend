@@ -1,4 +1,3 @@
-import Fetch from '../store/Fetch';
 import useSWR from 'swr';
 
 export const useStory = (id) => {

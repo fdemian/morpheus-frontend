@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect
-} from 'react';
+import React, { useState, useRef } from 'react';
 import format_title_string from '../utils/formats.js';
 import { useMediaQuery } from 'react-responsive';
 import { Redirect } from 'react-router-dom';
@@ -14,7 +10,6 @@ import Loading from '../Loading/LoadingIndicator';
 import ConfirmButtons from './ConfirmButtons';
 import { useCategories } from '../Categories/Api';
 import { useUser } from '../Login/Actions';
-import { useStory } from '../Story/Actions';
 import { getLoginData } from '../Login/utils';
 import { postStory, editStory } from './Actions';
 import './Composer.css';
@@ -40,12 +35,12 @@ const Composer = (props) => {
   const [id, setId] = useState(_id); // TODO: change for editing.
   const [title, setTitle] = useState(_title);
   const [category, setCategory ] = useState(_category);
-  const [content, setContent] = useState(_content);
+  const [content] = useState(_content);
   const [tags, setTags ] = useState(_tags);
 
   //
   const [posted, setPosted] = useState(false);
-  const [posting, setPosting] = useState(false);
+  const [posting] = useState(false);
   const [editing, setEditing] = useState(false);
 
   const postStoryContent = async (isDraft) => {

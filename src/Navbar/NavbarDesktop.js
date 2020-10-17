@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSignInAlt as signIn,
-  faUserPlus as userPlus
+/*  faUserPlus as userPlus*/
 } from '@fortawesome/free-solid-svg-icons';
 import logo from '../logo.png';
 import './Navbar.css';
@@ -102,10 +102,10 @@ const Navbar = (props) => {
                     <FontAwesomeIcon icon={signIn} />
                     Login
                  </Link>
-                 <Link to="/login/register">
+                 {/*<Link to="/login/register">
                    <FontAwesomeIcon icon={userPlus} />
                    Register
-                 </Link>
+                 </Link>*/}
               </span>
               )
            }

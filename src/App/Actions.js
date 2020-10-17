@@ -1,7 +1,9 @@
-import Fetch from '../store/Fetch';
+//import Fetch from '../store/Fetch';
 import initialData from './initialData';
 import useSWR from 'swr';
 
+/* ----------------- LOAD NOTIFICATIONS ----------------- */
+/*
 // WSS helpers.
 const IS_DEV = process.env.NODE_ENV === "development";
 const LOCAL_URL = "localhost:8888/";
@@ -16,9 +18,7 @@ const wsOptions = {
 
 const wssURL = wsOptions.protocol + wsOptions.base + wsOptions.path;
 
-/* ----------------- LOAD NOTIFICATIONS ----------------- */
 
-/*
 export function* loadWebsocket(dispatch, enabled) {
  try{
 
