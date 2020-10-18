@@ -14,7 +14,7 @@ import CommentSpace from '../CommentSpace';
 import LoadingIndicator from '../../Loading/LoadingIndicator';
 import CommentLogin from '../../Comments/CommentLogin';
 import AnonymousUserForm from '../AnonymousUserForm';
-import CommentComposer from '../../CommentComposer/Container';
+import CommentComposer from '../../CommentComposer/Composer';
 
 import storyData from './data';
 
