@@ -91,7 +91,10 @@ const AccountMenu = ({ mutate, user, isFetching }) => {
   );
 
   return(
-  <Dropdown overlay={menu} placement="bottomCenter">
+  <Dropdown
+    overlay={menu}
+    placement="bottomCenter"
+  >
     <span className="UserMenuAvatar">
       <AccountAvatar
         avatar={user.avatar}
@@ -100,7 +103,7 @@ const AccountMenu = ({ mutate, user, isFetching }) => {
         shape='circle'
       />
       <span className="navbar-text">
-      {user.username}
+          {user.username}
       </span>
     </span>
   </Dropdown>

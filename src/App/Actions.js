@@ -18,19 +18,28 @@ const wsOptions = {
 
 const wssURL = wsOptions.protocol + wsOptions.base + wsOptions.path;
 
-export const loadWebsocket = (enabled, userId) => {
+export const loadWebsocket = (props) => {
+
+  const {
+    enabled,
+    userId,
+    successFn,
+    errorFn,
+    messageRecievedFn
+  } = props;
+
   if(enabled){
     try {
       const WS_URL = wssURL + "/" + userId;
       const socket = new WebSocket(WS_URL);
 
       // Socket functions.
-      socket.onopen = () => dispatch(initializeSucess());
-      socket.onerror = (error) => dispatch(initializeWSError(error));
-      socket.onmessage = (message) => dispatch(newMessage(message));
+      socket.onopen = () => successFn();
+      socket.onerror = (error) => errorFn(error);
+      socket.onmessage = (message) => messageRecievedFn(message);
     }
     catch(error) {
-      dispatch({ type: INITIALIZE_WEBSOCKET_FAILURE, error: error});
+      console.log(error);
     }
   }
 }
