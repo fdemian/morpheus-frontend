@@ -18,7 +18,7 @@ describe('Error components ', () => {
    expect(exception.length).toBe(1);
   })
 
-  it('404 - Not found', () => {
+  it('404 - Not found', async () => {
     const notFoundComponent = mount(
     <MemoryRouter>
       <NotFound />

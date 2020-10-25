@@ -1,7 +1,7 @@
 const initialData = {
   blogName: "",
   options: [],
-  description: "",
+  description: null,
   oauth: [],
   notificationsEnabled: false,
   isFetching: true,
