@@ -1,7 +1,4 @@
-import React, {
-  lazy,
-  Suspense
-} from 'react';
+import React, { lazy } from 'react';
 import { Button } from 'antd';
 import './Errors.css';
 
@@ -18,13 +15,11 @@ const Description = () => <h2 className="exception-description">You are not auth
 
 const exception = () => {
   return (
-  <Suspense fallback={<p>Error!</p>}>
-    <Exception
-      type="403"
-      actions={actions}
-      desc={<Description />}
-    />
-  </ Suspense>
+  <Exception
+    type="403"
+    actions={actions}
+    desc={<Description />}
+  />
   );
 }
 

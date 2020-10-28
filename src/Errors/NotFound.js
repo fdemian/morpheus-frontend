@@ -1,7 +1,4 @@
-import React, {
-  lazy,
-  Suspense
-} from 'react';
+import React, { lazy } from 'react';
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 import './Errors.css';
@@ -20,15 +17,13 @@ const Description = () => <h2 className="exception-description">The page you wer
 
 const exception = () => {
   return(
-  <Suspense fallback={<p>Error!</p>}>
-    <div className="NotFound">
-      <Exception
-        type="404"
-        actions={actions}
-        desc={<Description />}
-      />
-    </div>
-  </Suspense>
+  <div className="NotFound">
+    <Exception
+      type="404"
+      actions={actions}
+      desc={<Description />}
+    />
+  </div>
   );
 }
 

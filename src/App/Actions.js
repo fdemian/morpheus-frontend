@@ -18,28 +18,23 @@ const wsOptions = {
 
 const wssURL = wsOptions.protocol + wsOptions.base + wsOptions.path;
 
-export const loadWebsocket = (props) => {
+const initializeSucess = () => console.log("Notifications initialized!");
+const initializeWSError = (error) => console.log(error);
+const newMessage = (message) => console.log(message);
 
-  const {
-    enabled,
-    userId,
-    successFn,
-    errorFn,
-    messageRecievedFn
-  } = props;
-
+export const loadWebsocket = (enabled, userId) => {
   if(enabled){
     try {
       const WS_URL = wssURL + "/" + userId;
       const socket = new WebSocket(WS_URL);
 
       // Socket functions.
-      socket.onopen = () => successFn();
-      socket.onerror = (error) => errorFn(error);
-      socket.onmessage = (message) => messageRecievedFn(message);
+      socket.onopen = () => initializeSucess();
+      socket.onerror = (error) => initializeWSError(error);
+      socket.onmessage = (message) => newMessage(message);
     }
     catch(error) {
-      console.log(error);
+      console.log("Error");
     }
   }
 }

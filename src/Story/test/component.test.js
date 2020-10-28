@@ -1,9 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow, mount, render } from 'enzyme';
-import { Drawer, Avatar } from 'antd';
-
+import { Drawer, Avatar, BackTop } from 'antd';
 import { StaticRouter } from 'react-router';
-import { BackTop } from 'antd';
 
 import Story from '../Story';
 import StoryTitle from '../StoryTitle';
