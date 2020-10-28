@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 //const DEFAULT_API_ROOT = `${window.location.protocol}//${window.location.host}`;
 
 function inOptions(options, value) {
