@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
-import { Layout, Affix, Spin } from 'antd';
+import { Layout, Spin } from 'antd';
 import { useConfig } from './Actions';
 import { useUser } from '../Login/Actions';
 import { getLoginData, isLoggedIn } from '../Login/utils';
@@ -15,6 +15,7 @@ const App = (props) => {
   // Fetch user data.
   const userId = getLoginData();
   const loggedIn = isLoggedIn();
+
   const { user, mutate, isLoading } = useUser(userId);
 
   // Fetch config data.
@@ -55,23 +56,17 @@ const App = (props) => {
      </Helmet>
 
      <Suspense fallback={<Spin />}>
-       <Layout>
-
-        <Header className="page-header-container">
-          {!isMobile ?
-          <Affix>
-            <Navbar {...navProps} />
-          </Affix>
-          :
-            <Navbar {...navProps} />
-          }
-        </Header>
-
-        <Content className={"content-container" + isMobile ? "mobile": ""}>
-          {children}
-        </Content>
+       <Layout data-testid="app-layout">
+          <Header className="page-header-container">
+              <Navbar {...navProps} />
+          </Header>
+          <Content
+            className={"content-container" + isMobile ? "mobile": ""}
+            data-testid="content-container"
+          >
+            {children}
+          </Content>
        </Layout>
-
       </Suspense>
 
   </>

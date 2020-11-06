@@ -4,8 +4,8 @@ import ActivationSuccess from './ActivationSuccess';
 import './Activation.css';
 
 const Activation = () => (
-  <div className="ActivationContainer">
-	   <ActivationSuccess />
+  <div className="ActivationContainer" data-testid="success-container">
+	   <ActivationSuccess data-testid="success-screen" />
   </div>
 );
 

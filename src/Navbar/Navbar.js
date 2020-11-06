@@ -2,7 +2,7 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-import { Spin } from 'antd';
+import { Spin, Affix } from 'antd';
 
 const NavbarDesktop = lazy(() => import('./NavbarDesktop'));
 const NavbarMobile = lazy(() => import('./NavbarMobile'));
@@ -14,13 +14,15 @@ const Navbar = (props) => {
   if(mobile)
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarMobile {...props} />
+        <NavbarMobile {...props} />
     </Suspense>
     ) ;
 
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarDesktop {...props} />
+      <Affix>
+        <NavbarDesktop {...props} />
+      </Affix>
     </Suspense>
   );
 
