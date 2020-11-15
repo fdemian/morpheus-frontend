@@ -1,20 +1,17 @@
 import React from 'react';
 import { Route } from 'react-router';
 import {  Redirect } from 'react-router-dom';
+import { isLoggedIn } from '../Login/utils';
 
-const AdminRoute = ({ component: Component, store, ...rest }) => {
-
- const state = store.getState();
- const { session } = state;
- const { loggedIn, user } = session;
- const willRedirect = (loggedIn && user.role === "author");
+const AdminRoute = ({ component: Component, ...rest }) => {
+ const loggedIn = isLoggedIn();
 
  return(
  <Route
     {...rest}
     render={
-      props => willRedirect ? (<Component {...props}/>) :
-	    (<Redirect to={{pathname: '/login', state: { from: props.location }}} />)
+      props => loggedIn ? (<Component {...props}/>) :
+	    (<Redirect to={{pathname: '/login'}} />)
     }
   />
  );

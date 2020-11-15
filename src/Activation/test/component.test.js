@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '../../utils/testing-utils';
 import '@testing-library/jest-dom';
-import TestingWrapper from '../../utils/testingUtils';
 import Activation from '../Activation';
 import ActivationSuccess from '../ActivationSuccess';
 import ActivationFailure from '../ActivationFailure';
@@ -9,12 +8,12 @@ import ActivationFailure from '../ActivationFailure';
 describe('<Activation /> ', () => {
 
     it('Render sucessfull activation.', () => {
-      const { getByTestId, container } = render(<TestingWrapper Component={Activation} props={{}} />);
+      const { getByTestId } = render(<Activation  />);
       expect(getByTestId('success-container')).toBeTruthy();
     })
 
     it('Render activation failure', () => {
-     const { container } =  render(<TestingWrapper Component={ActivationFailure} props={{}} />);
+     const { container } = render(<ActivationFailure  />);
 
      // TODO: does not render anything useful.
      expect(container).toBeTruthy();

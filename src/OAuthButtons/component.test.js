@@ -1,8 +1,10 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import OauthButtons from './OauthButtons';
 import OAuthButton from './OAuthButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { render, screen  } from '../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
 
 import {
   faFacebook,
@@ -18,9 +20,9 @@ const BrandIcons = [
   faGoogle
 ];
 
-describe('<OauthButtons />', () => {
+describe('Oauth', () => {
 
-  it('Renders correctly', () => {
+  it('<OauthButtons />', () => {
 
     const props = {
       services:[{
@@ -36,9 +38,12 @@ describe('<OauthButtons />', () => {
       method: "login"
     }
 
-   const oauthButtons = mount(<OauthButtons {...props} />);
-   expect(oauthButtons.contains(OAuthButton));
-  })
+   const { getAllByTestId } = render(<OauthButtons {...props} />);
+
+   expect(getAllByTestId('oauth-buttons').length).toBe(2);
+
+   //expect(oauthButtons.contains(OAuthButton));
+ })
 
   it('<OAuthButton />', () => {
 
@@ -52,8 +57,8 @@ describe('<OauthButtons />', () => {
       icons: BrandIcons
     }
 
-   const oauthButtons = mount(<OAuthButton {...props} />);
-   expect(oauthButtons.contains(FontAwesomeIcon));
+   const { getByRole } = render(<OAuthButton {...props} />);
+   expect(getByRole('link')).toBeTruthy();
   })
 
 })

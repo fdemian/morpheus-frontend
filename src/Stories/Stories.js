@@ -2,11 +2,12 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-
 import List from 'antd/lib/list';
 import Spin from 'antd/lib/spin';
-
 import StoryItem from './StoriesItem';
+import { isLoggedIn } from '../Login/utils';
+import { deleteStory, useStories } from './Actions';
+import { setIsEditingState } from './utils';
 
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
@@ -20,29 +21,36 @@ const pagination = {
 const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
 const noStoriesText = "There are currently no stories on this blog.";
 
-const Stories = (props) =>
-{
+const Stories = () => {
 
-   const {
-     stories,
-     error,
-     onDelete,     
-     loggedIn
-   } = props;
+   const loggedIn = isLoggedIn();
+   const { data, mutate, error, isLoading } = useStories();
+
+   const onEditClick = () => setIsEditingState();
+
+   const deleteFn = (id) => {
+     deleteStory(id);
+
+     const _items = data.items.filter(s => s.id !== id);
+     const newData = { page: 1, items: _items };
+     mutate("/api/stories", newData);
+   }
 
    if(error)
     return (
     <Suspense fallback={<Spin />}>
       <NoStoriesNotice text={errorText} error={true} />
     </Suspense>
-    );
+   );
 
-   if(stories === null || stories.length === 0)
-   return (
+   if (isLoading)
+   return(
    <Suspense fallback={<Spin />}>
-      <NoStoriesNotice text={noStoriesText} error={false} />
-    </Suspense>
-    );
+     <NoStoriesNotice text={noStoriesText} error={false} />
+   </Suspense>
+   );
+
+  const stories = data.items;
 
 	return(
   <div className="stories-container">
@@ -61,15 +69,14 @@ const Stories = (props) =>
           renderItem={item =>
             <StoryItem
               item={item}
-              deleteFn={onDelete}
+              editFn={onEditClick}
+              deleteFn={(id) => deleteFn(id)}
               loggedIn={loggedIn}
-              stories={stories}
             />
           }
       	/>
       </Suspense>
     </div>
-
   </div>
 	);
 

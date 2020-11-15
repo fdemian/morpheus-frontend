@@ -31,21 +31,20 @@ const bindData = [
 ];
 
 const BindingView = () => (
-<>
-  <List
-    itemLayout="horizontal"
-    dataSource={bindData}
-    renderItem={item => (
-      <List.Item actions={item.actions}>
-        <List.Item.Meta
-          avatar={item.avatar}
-          title={item.title}
-          description={item.description}
-        />
-      </List.Item>
-    )}
-  />
-</>
-)
+<List
+  data-testid="binding-list"
+  itemLayout="horizontal"
+  dataSource={bindData}
+  renderItem={item => (
+   <List.Item actions={item.actions}>
+     <List.Item.Meta
+       avatar={item.avatar}
+       title={item.title}
+       description={item.description}
+      />
+    </List.Item>
+  )}
+ />
+ );
 
 export default BindingView;

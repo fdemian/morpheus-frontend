@@ -1,14 +1,20 @@
 import React from 'react';
 import Stories from '../Stories/Stories';
 import Loading from '../Loading/LoadingIndicator';
+import useSWR from 'swr';
+import { useCategory, useCategoryStories } from './Actions';
 import './Category.css';
 
-const Category = ({category, isFetching, error, loggedIn, stories}) => {
+const Category = (props) => {
 
-  stories.forEach(s => s['category'] = category);
+  const { params } = props.match;
+  const { category, error } = useCategory(params.id);
+  const { stories } = useCategoryStories(category ? category.id : null);
 
-  if(isFetching || category === null)
+  if((!category  && !error) || !stories)
     return <Loading />;
+
+  const _stories = stories.items;
 
   return(
   <div className="category-container">
@@ -19,7 +25,7 @@ const Category = ({category, isFetching, error, loggedIn, stories}) => {
 	   </div>
 
      <div className="CategoryTopics">
-        <Stories stories={stories} />
+        <Stories stories={_stories} />
      </div>
 
   </div>

@@ -3,10 +3,10 @@ import App from '../App/App';
 
 const Composer = React.lazy(() => import('../Composer/ComposerComponent'));
 const ComposerEdit = React.lazy(() => import('../Composer/EditingComposer'));
-const Home = React.lazy(() => import('../Stories/SWRComponent'));
+const Home = React.lazy(() => import('../Stories/Stories'));
 const Categories = React.lazy(() => import('../Categories/SWRComponent'));
-const Category = React.lazy(() => import('../Category/SWRComponent'));
-const Story = React.lazy(() => import( '../Story/SWRComponent'));
+const Category = React.lazy(() => import('../Category/Category'));
+const Story = React.lazy(() => import( '../Story/Story'));
 const Login = React.lazy(() => import('../Login/Login'));
 const User = React.lazy(() => import('../User/User'));
 const Profile = React.lazy(() => import('../Account/Profile/Profile'));

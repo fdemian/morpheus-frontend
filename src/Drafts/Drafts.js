@@ -5,13 +5,14 @@ import CategoryLink from './DraftCategoryLink';
 import DeleteRow from './DeleteRow';
 import { isLoggedIn } from '../Login/utils';
 import { deleteStory } from '../Stories/Actions';
-import useSWR from 'swr';
+import { useDrafts } from './Actions';
+
 import './Drafts.css';
 
 const Drafts = () => {
 
   const loggedIn = isLoggedIn();
-  const { data: drafts } = useSWR('/api/drafts');
+  const { drafts } = useDrafts();
 
   const columns = [
     {
@@ -45,7 +46,7 @@ const Drafts = () => {
   return(
   <div className="drafts-container">
       <div className="drafts-title">
-       <p>Drafts</p>
+       <p role="aria-readonly">Drafts</p>
       </div>
 
       <div className="drafts-table">
@@ -53,7 +54,7 @@ const Drafts = () => {
           dataSource={drafts}
           columns={columns}
           pagination={false}
-          locale={{emptyText:'There are no drafts.'}}
+          locale={{emptyText:"There are no drafts."}}
         />
       </div>
   </div>

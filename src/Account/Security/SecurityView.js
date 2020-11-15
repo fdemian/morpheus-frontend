@@ -12,6 +12,7 @@ import {
 import useSWR from 'swr';
 import { updateUser, updatePassword } from '../Profile/Actions';
 import getOptionsValues from '../../utils/misc';
+import { useOptions } from './Actions';
 
 const RadioGroup = Radio.Group;
 
@@ -38,7 +39,7 @@ const SecurityView = (props) => {
   }  = props;
 
   const isFetchingConfig = false;
-  const { data:config, error } = useSWR('/api/options');
+  const { config, isError } = useOptions();
 
   const commentsEnabled = config ? getCommentOptions(config): null;
   const [ paswordModalOpen, setPaswordModalOpen ] = useState(false);
@@ -86,7 +87,7 @@ const SecurityView = (props) => {
     props.updateSecInfo(securityInfo);
   }
 
-  if((!config && !error) || isLoading)
+  if((!config && !isError) || isLoading)
     return <p>Loading...</p>;
 
   const viewItems = [
@@ -178,6 +179,7 @@ const SecurityView = (props) => {
         footer={
         <Button
             type="button"
+            role="button"
             onClick={toggleModifyPasswordModal}
           >
            Close
@@ -187,7 +189,7 @@ const SecurityView = (props) => {
         <ModifyPasswordModal
           modifyPassword={modifyPassword}
           isFetching={false}
-          error={error}
+          error={isError}
         />
       </Modal>
       <Modal
@@ -196,6 +198,7 @@ const SecurityView = (props) => {
         footer={
          <Button
            type="button"
+           role="button"
            onClick={toggleEmailModal}
          >
           Close
@@ -206,13 +209,14 @@ const SecurityView = (props) => {
           user={user}
           updateEmail={updateEmail}
           isFetching={isFetching}
-          error={error}
+          error={isError}
         />
       </Modal>
       <br />
       <hr />
       <Button
         type="primary"
+        role="button"
         onClick={updateSecurityInfo}
         loading={isFetchingConfig}
       >

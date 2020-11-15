@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './Categories.css';
 
-const Form = ({updateName, updateDescription , createFn, cancelFn, visible }) => {
+const Form = ({ updateName, updateDescription , createFn, cancelFn, visible }) => {
 
     if(!visible)
       return null;
@@ -20,6 +20,7 @@ const Form = ({updateName, updateDescription , createFn, cancelFn, visible }) =>
         <span>
           Name &nbsp;
           <Input
+             data-testid="input-category-name"
              placeholder="A name for the new category"
              onChange={(e) => updateName(e.target.value)}
              className="FormInput FromInputLeft"
@@ -31,6 +32,7 @@ const Form = ({updateName, updateDescription , createFn, cancelFn, visible }) =>
           <span>
             Description &nbsp;
             <Input
+              data-testid="input-category-description"
               placeholder="What can be found inside this category"
               onChange={(e) => updateDescription(e.target.value)}
               className="FormInput"
@@ -39,7 +41,6 @@ const Form = ({updateName, updateDescription , createFn, cancelFn, visible }) =>
         </div>
 
         <div className="FormButtons">
-
           <Button
             onClick={() => cancelFn()}
             className="FormButtonRight"
@@ -55,7 +56,6 @@ const Form = ({updateName, updateDescription , createFn, cancelFn, visible }) =>
             <FontAwesomeIcon icon={check} size="lg" />
             &nbsp; Create
           </Button>
-
         </div>
 
       </div>

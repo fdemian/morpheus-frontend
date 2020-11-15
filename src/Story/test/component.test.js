@@ -1,7 +1,5 @@
 import React from 'react';
-import Enzyme, { shallow, mount, render } from 'enzyme';
 import { Drawer, Avatar, BackTop } from 'antd';
-import { StaticRouter } from 'react-router';
 
 import Story from '../Story';
 import StoryTitle from '../StoryTitle';
@@ -14,28 +12,37 @@ import CommentLogin from '../../Comments/CommentLogin';
 import AnonymousUserForm from '../AnonymousUserForm';
 import CommentComposer from '../../CommentComposer/Composer';
 
+import { render, screen, waitFor } from '../../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
+
 import storyData from './data';
+
+const actions = require('../Actions');
 
 describe("<Story />", () => {
 
     it("Renders <Story />", () => {
 
-      const props = {
-        story: storyData,
-        isFetching: false,
-        loggedIn: false,
-        oauthServices: [],
-        commentOptions: "OFF",
-        setAnonymousUser: jest.fn(),
-        userExists: false
-      };
+      jest.spyOn(actions, 'useOptions').mockImplementation(() => ({
+        options: [{commentOptions: 'ANONYMOUS'}],
+        error: false,
+        isLoading: false,
+        mutate: jest.fn()
+      }));
 
-      const component = mount(
-      <StaticRouter>
-        <Story {...props} />
-      </StaticRouter>
-      );
+      jest.spyOn(actions, 'useStory').mockImplementation(() => ({
+         story: storyData,
+         isLoading: false,
+         isError: error,
+         mutate: jest.fn()
+      }));
 
+
+      const { getByText } = render(<Story />);
+
+      console.log(getByText('boia'));
+
+      /*
       const backTop = component.find(BackTop);
       const storyTitle = component.find(StoryTitle);
       const storyText = component.find(StoryText);
@@ -49,8 +56,10 @@ describe("<Story />", () => {
       expect(storyFooter.length).toBe(1);
       expect(commentSpace.length).toBe(1);
       expect(commentComponent.length).toBe(1);
+      */
    })
 
+   /*
    it("<CommentSpace /> > User does not exist > Logged out", () => {
 
      const props = {
@@ -140,6 +149,6 @@ describe("<Story />", () => {
        const clicked = toggle.simulate('click');
 
        //TODO: get component after simulated click.
-    })
+    })*/
 
 })

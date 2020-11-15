@@ -43,9 +43,9 @@ const Comments = ({comments, loggedIn}) => {
 
 	  <div>
 	    <p className="CommentsTitle">
-		 Comments
-		 &nbsp;
-		 <FontAwesomeIcon icon={faComment} size="lg" />
+		    Comments
+		      &nbsp;
+		        <FontAwesomeIcon icon={faComment} size="lg" />
 		</p>
 	  </div>
     <br />

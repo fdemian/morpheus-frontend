@@ -70,7 +70,11 @@ const Profile = ({ user, mutate, isLoading }) => {
         </Suspense>
         : null
       }
-      <Form layout="vertical" hideRequiredMark>
+      <Form
+        layout="vertical"
+        hideRequiredMark
+        data-testid="profile-form"
+      >
         <FormItem label="Username">
             <Input
               placeholder="Username"

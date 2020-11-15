@@ -26,10 +26,11 @@ const App = (props) => {
   const { description, blogName } = config;
   const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
 
-    /*
-    if(loggedIn) {
-      props.initializeWS();
-    }*/
+  /*
+   *  if(loggedIn) {
+   * props.initializeWS();
+   * }
+  */
 
   if(error || !config || (loggedIn && !user))
     return null;

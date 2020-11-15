@@ -65,6 +65,7 @@ const Composer = (props) => {
     const _postedStory = await storyFn(storyObj);
 
     if(!isEditing) {
+      console.log(_postedStory); 
       setId(_postedStory.id);
     }
 

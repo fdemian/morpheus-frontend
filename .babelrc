@@ -1,16 +1,20 @@
 {
   "plugins": [
-    ["import", [
-      {
-        "libraryName": "antd",
-        "style": true,
-        "libraryDirectory": "es",
-      },
-      {
-        "libraryName": "ant-design-pro",
-        "style": true,
-        "libraryDirectory": "es",
-      }]],
-     "antd-dayjs-webpack-plugin"
-   ]
+    [
+      "import",
+      [
+        {
+          "libraryName": "antd",
+          "style": true,
+          "libraryDirectory": "es"
+        },
+        {
+          "libraryName": "ant-design-pro",
+          "style": true,
+          "libraryDirectory": "es"
+        }
+      ]
+    ],
+    "antd-dayjs-webpack-plugin"
+  ]
 }

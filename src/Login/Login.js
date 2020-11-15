@@ -91,6 +91,7 @@ const LoginScreen = () => {
     <Form
       {...layout}
       name="login-form"
+      role="form"
       className="login-form"
       initialValues={{ remember: true }}
       onFinish={useForm}
@@ -107,6 +108,8 @@ const LoginScreen = () => {
        ]}
      >
        <Input
+         role={"input"}
+         type="text"
          className="input-field"
          placeholder=" Enter your username"
          onChange={usernameChange}
@@ -116,6 +119,7 @@ const LoginScreen = () => {
      <Form.Item
        label=""
        name="password"
+       type="password"
        rules={[
          {
            required: true,
@@ -124,6 +128,7 @@ const LoginScreen = () => {
        ]}
      >
        <Input.Password
+         role={"input"}
          className="input-field"
          placeholder=" Enter password"
          onChange={passwordChange}

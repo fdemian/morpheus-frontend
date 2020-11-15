@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from 'antd';
-
 import DeleteRow from './DeleteRow';
 import CategoryLink from './CategoryLink';
 import NewCategoryForm from './NewCategoryForm';
@@ -9,7 +8,7 @@ import './Categories.css';
 
 const Categories = (props) => {
 
-  const {categories, loggedIn, deleteFn, createFn} = props;
+  const { categories, loggedIn, deleteFn, createFn } = props;
 
   const columns = [
     {
@@ -32,11 +31,15 @@ const Categories = (props) => {
 
     return(
     <div className="categories-container">
+
         <div className="CategoriesTitle">
          <p>Categories</p>
         </div>
 
-        <NewCategoryForm loggedIn={loggedIn} createFn={createFn} />
+        <NewCategoryForm
+          loggedIn={loggedIn}
+          createFn={createFn}
+        />
 
         <div className="CategoriesTable">
           <Table

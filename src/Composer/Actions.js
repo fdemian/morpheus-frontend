@@ -11,17 +11,14 @@ export const postStory = async (props) => {
       userId
     } = props;
 
-    const categoryId = (category === null ? null : category.id);
     const jsonData = JSON.stringify({
        is_draft: isDraft,
        title: title,
        tags: tags,
        content: content,
        author: userId,
-       category: categoryId
+       category: category
     });
-
-    console.log(jsonData);
 
     try {
       const data = await Fetch.POST('/api/stories', [], jsonData, {});

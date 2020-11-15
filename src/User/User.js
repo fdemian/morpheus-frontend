@@ -5,8 +5,7 @@ import Avatar from '../Avatar/Avatar';
 import Stories from '../Stories/Stories';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import { useUser } from '../Login/Actions';
-
-import useSWR from 'swr';
+import { useUserStories } from './Actions';
 
 /*
 const links = [
@@ -19,12 +18,12 @@ const User = (props) => {
 
   const { id } = props.match.params;
   const { user, isLoading } = useUser(id);
-  const { data } = useSWR(user ? `/api/users/${user.user.id}/stories`: null);
+  const { userStories } = useUserStories(user ? user.user.id : null);
 
-  if(!data || isLoading)
+  if(!userStories || isLoading)
     return <LoadingIndicator />;
 
-  const {stories} = data;
+  const { stories } = userStories;
   const avatarLink = "/static/avatars/" + user.user.avatar;
 
   return(

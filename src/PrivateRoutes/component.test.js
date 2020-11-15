@@ -1,33 +1,26 @@
 import React from 'react';
-import configureMockStore from 'redux-mock-store';
-import Enzyme, { mount } from 'enzyme';
 import { StaticRouter } from 'react-router';
 import { Route } from 'react-router';
 import AdminRoute from './AdminRoute';
+import { render, screen  } from '../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
 
-const mockStore = configureMockStore();
-
-const initialState = {
-  session: {
-    loggedIn: true,
-    user: {
-      role: 'admin'
-    }
-  }
-};
+const utils = require('../Login/utils');
 
 describe("<AdminRoute />", () => {
 
-  const store = mockStore(initialState);
+   it("AdminRoute redirects to component.", () => {
+     jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
+     const props = {component: () => <p>Component Test</p> };
+     const { getByText } = render(<AdminRoute {...props} />);
+     expect(getByText('Component Test')).toBeInTheDocument();
 
-   it("AdminRoute redirects.", () => {
-     const component = mount(
-      <StaticRouter >
-       <AdminRoute store={store} />
-      </StaticRouter>
-     );
-
-     expect(component.contains(Route));
    })
 
+   it("AdminRoute does not redirect to component.", () => {
+     jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (false));
+     const props = { component: () => <p>Component Test</p> };
+     const { queryByText } = render(<AdminRoute {...props} />);
+     expect(queryByText('Component Test')).not.toBeTruthy();
+   })
 })

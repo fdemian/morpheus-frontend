@@ -2,17 +2,6 @@ import Fetch from '../store/Fetch';
 import { select, put, call } from 'redux-saga/effects';
 //import { LOGOUT_SUCCESS } from '../Authentication/Actions';
 
-export const POST_COMMENT = 'POST_COMMENT';
-export const POST_COMMENT_OK = 'POST_COMMENT_OK';
-export const POST_COMMENT_FAILURE = 'POST_COMMENT_FAILURE';
-
-export function requestPostComment(commentContent){
-  return {
-     type: POST_COMMENT,
-     content: commentContent
-  };
-}
-
 export default function* postComment(action) {
 
   const state = yield select();

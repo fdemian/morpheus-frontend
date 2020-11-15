@@ -19,6 +19,7 @@ const AvatarUpload = (props) => {
   <Upload
     className="avatar-uploader"
     name="avatar"
+    data-testid="upload-component"
     showUploadList={false}
     action={uploadURL}
     beforeUpload={(file) => beforeUpload(file, postFile, username)}

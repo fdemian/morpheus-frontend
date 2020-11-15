@@ -1,17 +1,14 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
 import { Drawer, Avatar } from 'antd';
-
-import { StaticRouter } from 'react-router';
 import Composer from '../Composer';
-import DrawerHeader from '../DrawerHeader';
-import ComposerHeader from '../ComposerHeader';
-
-import ComposerEditorHeading from '../ComposerEditorHeading';
+import  { render, waitFor } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
 
 describe("<CommentComposer />", () => {
 
     it("Renders <Composer />", () => {
+
       const props = {
         visible:true,
         user:{
@@ -21,15 +18,11 @@ describe("<CommentComposer />", () => {
         }
       }
 
-      const composer = mount(
-      <StaticRouter>
-        <Composer {...props} />
-      </StaticRouter>
-      );
-
-      expect(composer.contains(ComposerHeader));
-      expect(composer.contains(Drawer));
-      expect(composer.contains(ComposerEditorHeading));
+      const { asFragment } = render(<Composer {...props} />);
+      console.log(asFragment());
+      //expect(composer.contains(ComposerHeader));
+      //expect(composer.contains(Drawer));
+      //expect(composer.contains(ComposerEditorHeading));
    })
 
   /* it("Renders <ComposerAvatar /> with guest user", () => {

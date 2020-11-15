@@ -6,6 +6,7 @@ const Avatar = ({src, username, size}) => {
   if(username === null)
   return(
    <img
+      role="img"
       src={src}
 	    width={size}
 	    height={size}
@@ -17,7 +18,7 @@ const Avatar = ({src, username, size}) => {
   if(username !== null)
   return(
   <span>
-    <img src={src} width={size} height={size} alt={username} className="Avatar" />
+    <img role="img" src={src} width={size} height={size} alt={username} className="Avatar" />
 	  <span className="AvatarText">{username}</span>
   </span>
   );

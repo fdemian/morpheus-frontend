@@ -8,24 +8,33 @@ import Comments from '../Comments/Comments';
 import StoryFooter from './StoryFooter';
 import CommentSpace from './CommentSpace';
 import LoadingIndicator from '../Loading/LoadingIndicator';
+import getOptionsValues from '../utils/misc';
+import { isLoggedIn } from '../Login/utils';
+import { useStory, useOptions } from './Actions';
+import useSWR from 'swr';
 
 import './Story.css';
 
 const Story = (props) => {
 
-  const {
-    story,
-    isFetching,
-    loggedIn,
-    oauthServices,
-    commentOptions,
-    setAnonymousUser,
-    userExists,
-  } = props;
+  const { match } = props;
+  const { params } = match;
+  const loggedIn = isLoggedIn();
+  const { story, error } = useStory(params.id);
+  const { options } = useOptions();
 
-  if(isFetching || story.content === null)
+  // Will just assume these, for now.
+  const oauthServices = [];
+  const userExists = true;
+  const setAnonymousUser = () => alert("NOT IMPLEMENTED");
+
+  if(error)
+    return <p>error</p>;
+
+  if(!story || !options)
     return <LoadingIndicator />;
 
+  const commentOptions = getOptionsValues(options, 'comments');
   const datepart = story.date.split('.')[0];
 
   return (
