@@ -2,7 +2,7 @@ import React from 'react';
 import './User.css';
 import Avatar from '../Avatar/Avatar';
 //import SocialLinks from '../SocialLinks/SocialLinks';
-import Stories from '../Stories/Stories';
+import StoriesList from '../Stories/StoriesList';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import { useUser } from '../Login/Actions';
 import { useUserStories } from './Actions';
@@ -13,6 +13,13 @@ const links = [
   { name: "twitter", url: "http://twitter.com/<User_id>" },
   { name: "github",  url: "http://https://github.com/<User_id>" },
 ];*/
+
+const pagination = {
+  pageSize: 10,
+  current: 1,
+  total: 1,
+  onChange: null
+};
 
 const User = (props) => {
 
@@ -40,7 +47,13 @@ const User = (props) => {
   	</div>
 
     <div className="UserStories">
-      <Stories stories={stories} />
+        <StoriesList
+          stories={stories}
+          pagination={pagination}
+          editFn={null}
+          deleteFn={null}
+          loggedIn={false}
+        />
     </div>
 
   </div>

@@ -21,21 +21,15 @@ const layout = {
 
 const LoginScreen = () => {
 
-  const initialLoginState = {
-    username: null,
-    password: null
-  };
-
-  //const [type, setType] = useState('login');
-
+  const initialLoginState = { username: null, password: null };
   const [loggingIn, setLoggingIn] = useState(false);
   const [userId, setUserId] = useState(-1);
   const [login, setLogin] = useState(initialLoginState);
   const [error, setError] = useState(false);
 
   const useForm = async values => {
-    const { username, password } = values;
 
+    const { username, password } = values;
     setLoggingIn(true);
     const data = await newLogin(username, password);
 
@@ -108,8 +102,10 @@ const LoginScreen = () => {
        ]}
      >
        <Input
-         role={"input"}
+         role="input"
+         name="username"
          type="text"
+         data-testid="username-input"
          className="input-field"
          placeholder=" Enter your username"
          onChange={usernameChange}
@@ -128,7 +124,9 @@ const LoginScreen = () => {
        ]}
      >
        <Input.Password
-         role={"input"}
+         role="password"
+         name="password"
+         data-testid="password-input"
          className="input-field"
          placeholder=" Enter password"
          onChange={passwordChange}

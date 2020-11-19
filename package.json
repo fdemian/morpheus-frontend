@@ -24,12 +24,12 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/index.js",
-      "!src/registerServiceWorker.js",
+      "!src/serviceWorker.js",
       "!src/Routes/*",
       "!src/sagas/*",
       "!src/store/Configure.js",
       "!src/store/Fetch.js",
-      "!src/store/Reducers.js",
+      "!src/store/utils.js",
       "!<rootDir>/node_modules/"
     ]
   },

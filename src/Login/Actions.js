@@ -1,17 +1,6 @@
 import Fetch from '../store/Fetch';
 import useSWR from 'swr';
 
-/* UPDATE FIELDS */
-export const EMAIL_CHANGED = 'EMAIL_CHANGED';
-export const NAME_CHANGED = 'NAME_CHANGED';
-export const USERNAME_CHANGED = 'USERNAME_CHANGED';
-export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
-
-/* REGISTER USER */
-export const REGISTER_START = 'REGISTER_START';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILURE = 'REGISTER_FAILURE';
-
 const DATABASE_TYPE = "database";
 
 export const useUser = (id) => {
