@@ -10,15 +10,15 @@
     "@fortawesome/free-solid-svg-icons": "5.15.1",
     "@fortawesome/react-fontawesome": "0.1.12",
     "ant-design-pro": "2.3.2",
-    "antd": "4.8.2",
-    "elementary-editor": "0.9.6",
+    "antd": "4.8.4",
+    "elementary-editor": "0.9.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-helmet": "6.1.0",
     "react-responsive": "8.1.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.0",
-    "swr": "0.3.8"
+    "swr": "0.3.9"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -31,17 +31,21 @@
       "!src/store/Fetch.js",
       "!src/store/utils.js",
       "!<rootDir>/node_modules/"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!@elementary-editor/)"
     ]
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@testing-library/jest-dom": "5.11.6",
-    "@testing-library/react": "11.1.2",
+    "@testing-library/react": "11.2.0",
     "antd-dayjs-webpack-plugin": "^1.0.1",
     "babel-plugin-import": "1.13.1",
     "customize-cra": "^1.0.0",
     "es-abstract": "1.18.0-next.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest-fetch-mock": "^3.0.3",
     "react-app-rewired": "^2.1.6"
   },

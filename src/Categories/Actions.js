@@ -1,30 +1,39 @@
 import Fetch from '../store/Fetch';
-import { put, call } from 'redux-saga/effects';
+import _data from './initialData';
+import useSWR from 'swr';
 
-export const GET_CATEGORIES= 'GET_CATEGORIES';
-export const RECEIVE_CATEGORIES_OK = 'RECEIVE_CATEGORIES_OK';
-export const RECEIVE_CATEGORIES_FAILURE = 'RECEIVE_CATEGORIES_FAILURE';
+export const useCategories = () => {
+  const { data, mutate, error } = useSWR('/api/categories', { initialData: _data });
 
-export const DELETE_CATEGORY = 'DELETE_CATEGORY';
-export const DELETE_CATEGORY_OK = 'DELETE_CATEGORY_OK';
-export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY_FAILURE';
-
-export const CREATE_CATEGORY = 'CREATE_CATEGORY';
-export const CREATE_CATEGORY_OK = 'CREATE_CATEGORY_OK';
-export const CREATE_CATEGORY_FAILURE = 'CREATE_CATEGORY_FAILURE';
-
-export function requestCategories(){
   return {
-    type: GET_CATEGORIES
-  };
+    categories: data.items,
+    isLoading: !error && !data,
+    isError: error,
+    mutate
+  }
 }
 
-export default function* loadCategories() {
+export const createCategory = async (name, description, token) => {
   try {
-    const categories = yield call(Fetch.GET, '/api/categories');
-    yield put({type: RECEIVE_CATEGORIES_OK, data: categories});
+    const options = { token: token };
+    const jsonData = JSON.stringify({ name: name,description: description});
+    const data = await Fetch.POST('/api/categories', [], jsonData, options);
+
+    return data;
   }
   catch(error) {
-    yield put({type: RECEIVE_CATEGORIES_FAILURE, error: error});
+    throw(error);
+  }
+}
+
+export const deleteCategory = async (id, token) => {
+  try {
+    const options = { token: token };
+    const endpoint = '/api/categories/' + id;
+
+    Fetch.DELETE(endpoint, [], null, options);
+  }
+  catch(error) {
+    throw(error);
   }
 }

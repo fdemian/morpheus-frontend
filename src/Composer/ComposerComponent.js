@@ -8,7 +8,7 @@ import CategoriesDropdown from './CategoriesDropdown';
 import EditableTagGroup from './EditableTagGroup';
 import Loading from '../Loading/LoadingIndicator';
 import ConfirmButtons from './ConfirmButtons';
-import { useCategories } from '../Categories/Api';
+import { useCategories } from '../Categories/Actions';
 import { useUser } from '../Login/Actions';
 import { getLoginData } from '../Login/utils';
 import { postStory, editStory } from './Actions';
@@ -65,7 +65,7 @@ const Composer = (props) => {
     const _postedStory = await storyFn(storyObj);
 
     if(!isEditing) {
-      console.log(_postedStory); 
+      console.log(_postedStory);
       setId(_postedStory.id);
     }
 

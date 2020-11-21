@@ -1,14 +1,19 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
 import Comments from './Comments';
-import { Comment } from 'antd';
-import CommentLogin from './CommentLogin';
-import OAuthButtons from '../OAuthButtons/OAuthButtons';
+import  { render, waitFor } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
+
+jest.mock('elementary-editor');
+
+const editor = require('elementary-editor');
 
 describe("<Comment />", () => {
 
   it("Renders with comments.", () => {
+
+    jest.spyOn(editor, 'DefaultRenderer').mockImplementation(props => <div>content</div>);
+    jest.spyOn(editor, 'Editor').mockImplementation(props => <div>content</div>);
 
    const emptyComment = "{\"blocks\":[{\"key\":\"99rvf\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}";
    const commentItems = [
@@ -44,6 +49,7 @@ describe("<Comment />", () => {
 
   })
 
+  /*
   it("Renders without comments.", () => {
 
    const props = {
@@ -67,7 +73,7 @@ describe("<Comment />", () => {
     };
 
     const commentLogin = render(<CommentLogin {...props} />);
-    expect(commentLogin.contains(OAuthButtons));*/
-  })
+    expect(commentLogin.contains(OAuthButtons));
+  })*/
 
 })

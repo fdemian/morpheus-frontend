@@ -4,7 +4,7 @@ import {
   createCategory,
   deleteCategory,
   useCategories
- } from './Api';
+} from './Actions';
 import DeleteRow from './DeleteRow';
 import CategoryLink from './CategoryLink';
 import NewCategoryForm from './NewCategoryForm';
@@ -17,7 +17,7 @@ const Categories = (props) => {
 
   const loggedIn = isLoggedIn();
   const { categories } = useCategories();
-  
+
   const removeCategory = (id, token) => {
       deleteCategory(id);
       const newData = categories.filter(c => c.id !== id);

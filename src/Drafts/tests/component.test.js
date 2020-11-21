@@ -7,62 +7,43 @@ import { useDrafts } from '../Actions';
 import { render, screen } from '../../utils/testing-utils';
 import '@testing-library/jest-dom/extend-expect';
 
+jest.mock('../Actions');
+
+const actions = require('../Actions');
 
 describe("<Drafts />", () => {
 
-  /*
-  it("Renders correctly.", () => {
+  it("Renders with drafts", () => {
 
-    jest.mock('../Actions', () => ({
-        useDrafts: () => ({
-          drafts: [{
-            id: 1,
-            name: "Draft 1",
-            category: { id: 1, name: "Category 1" }
-          }],
-          error: false,
-          isLoading: false
-        })
+    jest.spyOn(actions, 'useDrafts').mockImplementation(() => ({
+        drafts: [{
+          id: 1,
+          name: "Draft 1",
+          category: { id: 3, name: "User Name" }
+        }],
+        error: false,
+        isLoading: false
     }));
 
     const { getByText } = render(<Drafts />);
 
-    console.log(getByText("Draft 1"));
-    //const draftsTable = component.find('.drafts-table')
-      //                           .find(Table);
-
-    //expect(draftsTable.length).toBe(1);
-    expect(1).toStrictEqual(1);
-  });*/
-
-  it("Renders without drafts", () => {
-
-    jest.mock('../Actions', () => ({
-        useDrafts: () => ({
-          drafts: [],
-          error: false,
-          isLoading: false
-        })
-    }));
-
-    const { getByRole } = render(<Drafts />);
-    console.log(getByRole("aria-readonly"));
-    console.log("::::::");
-
+    expect(getByText('Drafts')).toBeInTheDocument();
+    expect(getByText('Draft 1')).toHaveAttribute('href', '/draft/1/draft-1');
+    expect(getByText('User Name')).toHaveAttribute('href', '/categories/3/user-name');
   })
 
   /*
-  it("<DeleteRow /> not logged in", () => {
+  it("Renders without drafts", () => {
 
-    const props = {
-      id:1,
-      loggedIn: false,
-      deleteFn: jest.fn()
-    };
+    jest.spyOn(actions, 'useDrafts').mockImplementation(() => ({
+        drafts: null,
+        error: false,
+        isLoading: false
+    }));
 
-    const { getByTestId } = render(<DeleteRow {...props} />);
-    console.log(getByTestId('trash-icon'));
-    //expect(component.type()).toEqual(null);
-  });*/
+    const container = render(<Drafts />);
+    expect(draft).not.toBeInTheDocument();
+
+  })*/
 
 });
