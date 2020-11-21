@@ -1,7 +1,7 @@
 import React from "react";
 import App from '../App/App';
 
-const Composer = React.lazy(() => import('../Composer/ComposerComponent'));
+const Composer = React.lazy(() => import('../Composer/Composer'));
 const ComposerEdit = React.lazy(() => import('../Composer/EditingComposer'));
 const Home = React.lazy(() => import('../Stories/Stories'));
 const Categories = React.lazy(() => import('../Categories/SWRComponent'));
