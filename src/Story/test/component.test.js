@@ -33,14 +33,15 @@ describe("<Story />", () => {
       jest.spyOn(actions, 'useStory').mockImplementation(() => ({
          story: storyData,
          isLoading: false,
-         isError: error,
+         isError: false,
          mutate: jest.fn()
       }));
 
+      const props = { match : { params: { id: 1 }}};
 
-      const { getByText } = render(<Story />);
+      const { getByText , debug } = render(<Story {...props} />);
 
-      console.log(getByText('boia'));
+      debug();
 
       /*
       const backTop = component.find(BackTop);

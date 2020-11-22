@@ -3,25 +3,69 @@ import Composer from '../Composer';
 import  { render, waitFor } from '../../utils/testing-utils';
 import '@testing-library/jest-dom';
 
+const actions = require('../Actions'); // postStory, editStory
+const categoryActions = require('../../Categories/Actions');
+const loginActions = require('../../Login/Actions');
+const loginUtils = require('../../Login/utils');
+
+//jest.spyOn(actions, 'postStory').mockImplementation(() => 1);
+//jest.spyOn(actions, 'postStory').mockImplementation(() => 1);
+
 describe("<Composer />", () => {
+
+  it("Loading", () => {
+
+   jest.spyOn(loginUtils, 'getLoginData').mockImplementation(() => 1);
+
+   jest.spyOn(loginActions, 'useUser').mockImplementation((id) => ({
+     user: null,
+     error: false,
+     isLoading: false,
+     mutate: jest.fn()
+   }));
+
+   jest.spyOn(categoryActions, 'useCategories').mockImplementation(() => ({
+     categories: [],
+     error: false,
+     isLoading: false,
+     mutate: jest.fn()
+   }));
+
+   const props = { isEditing: false, story: null };
+   const { getByText } = render(<Composer {...props} />);
+
+   expect(getByText('Loading...')).toHaveClass('ant-spin-text');
+
+  })
 
    it("<ComposerComponent />", () => {
 
-    const props = {
-      postStory: jest.fn(),
-      editStory: jest.fn(),
-      clearComposer: jest.fn(),
-      posting: false,
-      posted: false,
-      id: -1,
-      title: "",
-      categories: [],
-      story: undefined
-    };
+    jest.spyOn(loginUtils, 'getLoginData').mockImplementation(() => 1);
 
+    jest.spyOn(loginActions, 'useUser').mockImplementation((id) => ({
+      user: {
+        id: 1,
+        name:"The Admin",
+        username:"admin",
+        avatar: null
+      },
+      error: false,
+      isLoading: false,
+      mutate: jest.fn()
+    }));
+
+    jest.spyOn(categoryActions, 'useCategories').mockImplementation(() => ({
+      categories: [],
+      error: false,
+      isLoading: false,
+      mutate: jest.fn()
+    }));
+
+    const props = { isEditing: false, story: null };
     const { debug } = render(<Composer {...props} />);
 
-    debug()
+    debug();
+    
     //expect(component.contains(Composer));
    })
 
