@@ -5,7 +5,11 @@ import '@testing-library/jest-dom/extend-expect';
 
 describe("<NavbarDesktop />", () => {
 
-   it("Not logged in.", () => {
+   beforeAll(() => {
+     console.error = (msg) => {}; //no-op
+   })
+
+   it("Not logged in.", async () => {
 
      const navProps = {
        mobile: false,
@@ -21,15 +25,14 @@ describe("<NavbarDesktop />", () => {
 
      const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
 
-     waitFor(() => {
-        expect(getByText('Morpheus')).toBeInTheDocument();
+     await waitFor(() => {
         expect(getByRole('img')).toBeInTheDocument();
         expect(getByText('Login')).toBeInTheDocument();
       });
-      
-   });
 
-   it("Loading.", () => {
+   })
+
+   it("Loading.", async () => {
 
      const navProps = {
        mobile: false,
@@ -43,42 +46,68 @@ describe("<NavbarDesktop />", () => {
        mutateUser: jest.fn()
      };
 
-     const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
+     const { getByText, getByRole } = render(<Navbar {...navProps} />);
 
-     waitFor(() => {
-        expect(getByText('Morpheus')).toBeInTheDocument();
-        expect(getByRole('img')).toBeInTheDocument();
-        expect(getByText('Login')).toBeInTheDocument();
-      });
+     /*
+     await waitFor(() => {
+        expect(getByText('loading')).toBeInTheDocument();
+      });*/
 
-   });
+   })
 
-   it("Logged in.", () => {
+   it("Logged in.", async () => {
 
      const navProps = {
        mobile: false,
        config: {},
        user: {
+         id: 1,
          username: "adminuser",
          avatar: "avatar.png"
        },
        loggedIn: true,
        isFetching: false,
        blogName: "Morpheus",
-       notificationsEnabled: false,
-       notifications: [],
+       notificationsEnabled: true,
+       notifications: [{
+         id: 1,
+         link: "",
+         text: "MR.X has commented on your story.",
+         read: false
+       }],
        mutateUser: jest.fn()
      };
 
-     const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
+     const { getByText, getAllByRole } = render(<Navbar {...navProps} />);
 
-     waitFor(() => {
-       expect(getByText('Morpheus')).toBeInTheDocument();
-       expect(getByRole('img')).toBeInTheDocument();
-       expect(getByText('Login')).not.toBeInTheDocument();
+     await waitFor(() => {
+
+       const images = getAllByRole('img');
+       const altText = navProps.blogName + " logo";
+
+       const blogImage = images[0];
+       const userImage = images[1];
+
+       // Test blog image.
+       expect(blogImage).toHaveAttribute("alt", altText);
+
+       // Test user image.
+       expect(userImage).toHaveAttribute("src", `/static/avatars/${navProps.user.avatar}`);
+       expect(userImage).toHaveAttribute("alt", `Avatar for ：${navProps.user.username}`);
+
        expect(getByText('adminuser')).toBeInTheDocument();
+
+       /*
+       const bellButton = getByRole('button');
+       fireEvent.click(bellButton, { bubble: true});
+
+       debug()*/
+
+       //console.log(getByText(navProps.notifications[0].text));
      })
 
-   });
+   })
+
+
 
 })

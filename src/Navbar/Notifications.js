@@ -50,27 +50,28 @@ const Notifications = (props) => {
 
   return (
   <Suspense fallback={<Spin />}>
-    <NoticeIcon
-      bell={
-      <FontAwesomeIcon
-        icon={bell}
-        size='lg'
-        color="rgba(0,0,0,.65)"
-      />
-      }
-      className="notice-icon"
-      count={notificationsCount}
-      onItemClick={onItemClick}
-      onClear={clearFn}
-      popupAlign={{ offset: [20, -16] }}
-    >
-      <NoticeIcon.Tab
-        list={mappedNotifications}
-        title="Notifications"
-        emptyImage={emptyBellIcon}
-        emptyText="You have no unread notifications."
-      />
-    </NoticeIcon>
+    <div role="button">
+      <NoticeIcon
+        bell={
+        <FontAwesomeIcon
+          icon={bell}
+          size='lg'
+          color="rgba(0,0,0,.65)"
+        />
+        }
+        count={notificationsCount}
+        onItemClick={onItemClick}
+        onClear={clearFn}
+        popupAlign={{ offset: [20, -16] }}
+      >
+        <NoticeIcon.Tab
+          list={mappedNotifications}
+          title="Notifications"
+          emptyImage={emptyBellIcon}
+          emptyText="You have no unread notifications."
+        />
+      </NoticeIcon>
+    </div>
   </Suspense>
   );
 }

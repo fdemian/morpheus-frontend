@@ -62,6 +62,7 @@ describe("<Navbar /> > Mobile", () => {
          mobile: true,
          config: {},
          user: {
+           id: 1,
            user: "adminuser",
            avatar: "avatar.png"
          },
