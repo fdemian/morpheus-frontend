@@ -18,8 +18,10 @@ describe("<CommentComposer />", () => {
         }
       }
 
-      const { asFragment } = render(<Composer {...props} />);
-      console.log(asFragment());
+      const { debug } = render(<Composer {...props} />);
+
+      debug()
+
       //expect(composer.contains(ComposerHeader));
       //expect(composer.contains(Drawer));
       //expect(composer.contains(ComposerEditorHeading));

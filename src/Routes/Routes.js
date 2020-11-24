@@ -14,7 +14,7 @@ const NotFound = React.lazy(() => import('../Errors/NotFound'));
 //const Activation = React.lazy(() => import('../Activation/Activation'));
 const Settings  = React.lazy(() => import('../Account/AccountSettings'));
 const Drafts = React.lazy(() => import('../Drafts/Drafts'));
-const Draft = React.lazy(() => import('../Draft/SWRContainer'));
+const Draft = React.lazy(() => import('../Draft/Draft'));
 
 const ApplicationRoutes = {
    App: App,

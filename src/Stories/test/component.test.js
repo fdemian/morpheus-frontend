@@ -1,8 +1,4 @@
 import React from 'react';
-import { List, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ActionButton from '../ActionButton';
 import Stories from '../Stories';
 import testStories from './data';
 import { render, waitFor } from '../../utils/testing-utils';

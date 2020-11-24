@@ -1,21 +1,21 @@
 import React from 'react';
-import Story from '../Story/Story';
-import useSWR from 'swr';
+import StoryItem from '../Story/StoryItem';
+import { useDraft } from './Actions';
 import { isLoggedIn } from '../Login/utils';
 
-const Drafts = (props) => {
+const Draft = (props) => {
 
   const { params } = props.match
-  const {id } = params;
-  const { data, error } = useSWR(`/api/drafts?id=${id}`);
+  const { id } = params;
+  const { draft, error, isLoading } = useDraft(id);
   const loggedIn = isLoggedIn();
 
   if(!loggedIn)
     return <h1>Must be logged in to view drafts</h1>;
 
   const storyProps = {
-    story: data,
-    isFetching: false,
+    story: draft,
+    isFetching: isLoading,
     error: error,
     loggedIn: loggedIn,
     userExists: loggedIn,
@@ -23,7 +23,7 @@ const Drafts = (props) => {
     commentOptions: [],
   };
 
-  return <Story {...storyProps} />;
+  return <StoryItem {...storyProps} />;
 }
 
-export default Drafts;
+export default Draft;
