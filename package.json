@@ -32,7 +32,10 @@
       "!src/store/Configure.js",
       "!src/store/Fetch.js",
       "!src/store/utils.js",
-      "!<rootDir>/node_modules/"
+      "!<rootDir>/node_modules/",
+      "!src/Account/BindingView.js",
+      "!src/Account/NotificationView.js",
+      "!src/App/initialData.js"
     ],
     "transform": {
       "^.+\\.js$": "babel-jest"

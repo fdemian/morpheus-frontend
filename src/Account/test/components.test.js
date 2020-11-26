@@ -1,26 +1,44 @@
 import React from 'react';
 import { List, Menu } from 'antd';
+import AccountSettings from '../AccountSettings';
+
+/*
 import BindingView from '../BindingView';
 import AccountView from '../AccountSettings';
-import NotificationView from '../NotificationView';
-import { render } from '../../utils/testing-utils';
+import NotificationView from '../NotificationView';*/
+import { render, waitFor, fireEvent } from '../../utils/testing-utils';
 import '@testing-library/jest-dom';
+
+const loginUtils = require('../../Login/utils');
+const loginActions = require('../../Login/Actions');
 
 describe("<Account /> Views.", () => {
 
-    it("<BindingView /> Render", () => {
+    it("Renders default view", async () => {
 
-     const {container} = render(<BindingView />);
+     jest.spyOn(loginUtils, "getLoginData").mockImplementation(() => {1});
+     jest.spyOn(loginActions, "useUser").mockImplementation(() => ({
+        user: {
+          id: 1,
+          username: "ocelot",
+          name: "ocelot",
+          avatar: "avatar.png"
+        },
+        error: false,
+        isLoading: false,
+        mutate: jest.fn()
+     }));
+
+     const { debug, getAllByText } = render(<AccountSettings />);
      //const flsl = getByTestId('binding-list');
      //console.log(flsl);
 
-     expect(1).toStrictEqual(1);
-     /*
-     const bindingList = component.find(List);
-     const listItems = component.find(List.Item);
-     expect(bindingList.length).toBe(1);
-     expect(listItems.length).toBe(3);*/
+     await waitFor(() => {
+        const items = getAllByText('Profile', { hidden: true});
+        expect(items[1]).toHaveClass("title");
+     })
     })
+
 
     /*
     it("<NotificationView> > Render", () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import Draft from './Draft';
 import { render, waitFor } from '../utils/testing-utils';
 import '@testing-library/jest-dom/extend-expect';
+import { useDraft } from './Actions';
 import data from './data';
 
 const utils = require('../Login/utils');
@@ -25,7 +26,7 @@ describe("<Draft />", () => {
 
      //await waitFor(() => expect(getByText(errorText)).toBeTruthy());
      debug();
-      
+
     })
 
 })
