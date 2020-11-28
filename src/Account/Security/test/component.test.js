@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Button } from 'antd';
 import Security from '../SecurityView';
-import { render } from '../../../utils/testing-utils';
+import { render, fireEvent, waitFor } from '../../../utils/testing-utils';
 import '@testing-library/jest-dom';
 import { useOptions } from '../Actions';
 import ModifyEmailModal from '../ModifyEmailModal';
@@ -115,24 +115,50 @@ describe("<Security />", () => {
         updateEmail: jest.fn()
       }
 
-      const { container } = render(<ModifyEmailModal {...props} />);
-      expect(container).toBeTruthy();
+      const { getByText } = render(<ModifyEmailModal {...props} />);
+
+      expect(getByText("Change Email")).toBeInTheDocument();
+      expect(getByText(user.email)).toHaveClass("email-desc");
     })
 
-    /*
-    it("Modify password modal > Normal render", () => {
+    it("Modify password modal > Normal render", async () => {
+
+      const modifyFn = jest.fn();
 
       const props = {
-        modifyPassword: jest.fn(),
+        modifyPassword: modifyFn,
         clearErrorsFn: jest.fn()
       }
 
-      const { getByRole } = render(<ModifyPasswordModal {...props} />);
+      const { getAllByRole, getByRole, debug } = render(<ModifyPasswordModal {...props} />);
 
+      await waitFor(() => {
+
+        const passwords = getAllByRole('password');
+
+        // Set passwords.
+        fireEvent.change(passwords[0], { target: { value: 'password0' } });
+        fireEvent.change(passwords[1], { target: { value: 'password0' } });
+        fireEvent.change(passwords[2], { target: { value: 'password3' } });
+
+        debug();
+        /*
+        const submit = getByRole("button");
+        fireEvent.click(submit);
+        console.log(getByRole('form'));
+
+        expect(getByRole('form')).toHaveFormValues({
+          username: 'user1',
+          password: 'pass',
+        });*/
+
+      })
+
+      /*
       const inputs = getByRole('input');
 
-      expect(inputs.length).toBe(3);
-    })*/
+      expect(inputs.length).toBe(3);*/
+    })
 
     it("Password strength checker", () => {
 
