@@ -35,7 +35,10 @@
       "!<rootDir>/node_modules/",
       "!src/Account/BindingView.js",
       "!src/Account/NotificationView.js",
-      "!src/App/initialData.js"
+      "!src/App/initialData.js",
+      "!src/*/Actions.js",
+      "!src/*/*/Actions.js",
+      "!src/*/Api.js"
     ],
     "transform": {
       "^.+\\.js$": "babel-jest"
