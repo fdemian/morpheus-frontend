@@ -4,6 +4,7 @@ import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
 import ComposerEditorHeading from './ComposerEditorHeading';
+import { postComment } from './Actions';
 import './Composer.css';
 
 const Composer = (props) => {
@@ -14,7 +15,7 @@ const Composer = (props) => {
   const editorContainer = useRef(null);
   const toggleComposer = () => setComposerVisible(!composerVisible);
 
-  const postComment = () => {
+  const postFn = () => {
     const editor = editorContainer.current;
     const content = editor.getContent();
     const commentParams = {
@@ -54,7 +55,7 @@ const Composer = (props) => {
      >
        <ComposerEditorHeading
           toggleComposer={toggleComposer}
-          postComment={postComment}
+          postComment={postFn}
        />
        <div id="new-comment" className="CommentBox">
          <div className="EditorContainer">
