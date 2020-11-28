@@ -57,7 +57,7 @@ const ModifyPasswordModal = (props) => {
       <Input
         id="modify-password-form_password-current"
         role="password"
-        name="password-current"
+        name="passwordCurrent"
         className="input-field-security "
         placeholder=" Enter current password"
         onChange={(e) => setCurrentPass(e.target.value)}
@@ -85,7 +85,7 @@ const ModifyPasswordModal = (props) => {
       >
         <Input
           role="password"
-          name="password-new"
+          name="passwordNew"
           id="modify-password-form_password-new"
           className={"input-field-security " + errorClass}
           placeholder=" Enter new password"
@@ -111,7 +111,7 @@ const ModifyPasswordModal = (props) => {
         id="modify-password-form_password-repeat"
         className={"input-field-security " + errorClass}
         role="password"
-        name="password-repeat"
+        name="passwordRepeat"
         placeholder=" Confirm new password"
         onChange={(e) => setNewPassRepeat(e.target.value)}
         type="password"

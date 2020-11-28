@@ -5,6 +5,8 @@ import { Form, Input, Button, Avatar, Upload } from 'antd';
 import Profile from '../Profile';
 import { render } from '../../../utils/testing-utils';
 import AvatarUpload from '../AvatarUpload';
+import AvatarModify from '../AvatarModify';
+
 import user, { noAvatarUser } from './data';
 
 jest.mock('react-responsive', () => ({
@@ -31,6 +33,32 @@ describe("<Profile />", () => {
      const { getByTestId } = render(<AvatarUpload {...props} />);
      const uploadComponent = getByTestId('upload-component');
      expect(uploadComponent).toBeTruthy();
+    })
+
+
+    it("<AvatarModify> -> Upload", () => {
+     const props = {
+        user: user,
+        postFile: jest.fn(),
+        isFetching: true
+      };
+     const { getByTestId } = render(<AvatarModify {...props} />);
+     const uploadComponent = getByTestId('upload-component');
+     expect(uploadComponent).toBeTruthy();
+    })
+
+    it("<AvatarModify> -> Show user", () => {
+     const props = {
+        user: user,
+        postFile: jest.fn(),
+        isFetching: null
+     };
+
+     const { getByRole } = render(<AvatarModify {...props} />);
+
+     const img = getByRole('img');
+     expect(img).toHaveAttribute('src', `/static/avatars/${user.avatar}`);
+     expect(img).toHaveAttribute('alt', `Avatar for ：${user.username}`);
     })
 
 });

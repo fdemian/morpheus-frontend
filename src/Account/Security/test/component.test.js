@@ -138,20 +138,20 @@ describe("<Security />", () => {
 
         // Set passwords.
         fireEvent.change(passwords[0], { target: { value: 'password0' } });
-        fireEvent.change(passwords[1], { target: { value: 'password0' } });
+        fireEvent.change(passwords[1], { target: { value: 'password3' } });
         fireEvent.change(passwords[2], { target: { value: 'password3' } });
 
-        debug();
-        /*
+        expect(getByRole('form')).toHaveFormValues({
+          passwordCurrent: 'password0',
+          passwordNew: 'password3',
+          passwordRepeat: 'password3',
+        });
+
         const submit = getByRole("button");
         fireEvent.click(submit);
-        console.log(getByRole('form'));
 
-        expect(getByRole('form')).toHaveFormValues({
-          username: 'user1',
-          password: 'pass',
-        });*/
-
+        console.log(modifyFn.mock.calls.length);
+        console.log("::____")
       })
 
       /*
