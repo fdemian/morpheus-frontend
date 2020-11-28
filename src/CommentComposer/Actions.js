@@ -1,27 +1,29 @@
 import Fetch from '../store/Fetch';
 
-const postComment = (storyId, commentParams) => {
+export const postComment = (storyId, commentParams) => {
 
-  const { user, comment, token } = commentParams;
+
+  const { user, comment } = commentParams;
 
   try {
-    const _name = user.username;
-    const _avatar = user.avatar;
-    const _isAnonymous = user.email === null;
-    const _url = user.link;
-    const endpoint = `/api/stories/${storyId}/comments`;
 
+    const _url = `/users/${user.id}`;
+    const endpoint = `/api/stories/${storyId}/comments`;
     const jsonData = JSON.stringify({
-     name: _name,
+     name: user.username,
      content: comment,
-     avatar: _avatar,
+     avatar: user.avatar,
      url: _url,
-     anonymous: _isAnonymous
+     anonymous: false
     });
 
-    Fetch.POST(endpoint, [], jsonData, {token: token });
+    console.clear();
+    console.log(endpoint);
+
+    Fetch.POST(endpoint, [], jsonData);
   }
-  catch {
+  catch(e) {
+    console.log(e);
     console.log("Error!");
   }
 }

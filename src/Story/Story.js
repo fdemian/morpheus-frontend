@@ -14,7 +14,7 @@ const Story = (props) => {
   const { params } = match;
   const loggedIn = isLoggedIn();
   const { story, error } = useStory(params.id);
-  const { options } = useOptions();
+  const { options, isLoading } = useOptions();
 
   // Will just assume these, for now.
   const oauthServices = [];
@@ -24,7 +24,7 @@ const Story = (props) => {
   if(error)
     return <p>error</p>;
 
-  if(!story || !options)
+  if(!story || !options || isLoading)
     return <LoadingIndicator />;
 
   const commentOptions = getOptionsValues(options, 'comments');

@@ -17,7 +17,7 @@ export const useOptions = () => {
   const { data, mutate, error } =  useSWR('/api/options');
 
   return {
-    options: data,
+    options: data ? data.options : data,
     error: error,
     isLoading: !data && !error,
     mutate: mutate

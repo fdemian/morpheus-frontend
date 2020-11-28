@@ -5,23 +5,28 @@ import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
 import ComposerEditorHeading from './ComposerEditorHeading';
 import { postComment } from './Actions';
+import { useUser } from '../Login/Actions';
+import { getLoginData, isLoggedIn } from '../Login/utils';
 import './Composer.css';
 
 const Composer = (props) => {
 
-  const { visible, storyId, user, token } = props;
-
-  const [composerVisible, setComposerVisible] = useState(visible);
+  const { storyId } = props;
+  const [composerVisible, setComposerVisible] = useState(false);
   const editorContainer = useRef(null);
   const toggleComposer = () => setComposerVisible(!composerVisible);
+
+
+  const loggedIn = isLoggedIn();
+  const userId = getLoginData();
+  const { user, isLoading } = useUser(loggedIn ? userId : null);
 
   const postFn = () => {
     const editor = editorContainer.current;
     const content = editor.getContent();
     const commentParams = {
-      user: user,
-      comment: content,
-      token: token
+      user: user.user,
+      comment: content
     };
 
     // Post comment to the server.
@@ -33,7 +38,7 @@ const Composer = (props) => {
     editor.clear();
   }
 
-  if(!user)
+  if(!loggedIn || isLoading)
     return null;
 
   return(
@@ -43,7 +48,7 @@ const Composer = (props) => {
       title={
         <DrawerHeader
           userlink={`/users/${user.id}/${user.username}`}
-          user={user}
+          user={user.user}
         />
       }
       className="ComposerDrawer"

@@ -9,7 +9,7 @@ const CommentSpace = (props) => {
   const {
     loggedIn,
     storyTitle,
-    storyId,
+    story,
     oauthServices,
     commentOptions,
     setAnonymousUser,
@@ -32,7 +32,7 @@ const CommentSpace = (props) => {
       <AnonymousUserForm setUser={setAnonymousUser} />
       <CommentLogin
         storyName={storyTitle}
-        storyId={storyId}
+        storyId={story.id}
         providers={oauthServices}
       />
     </>
@@ -40,14 +40,15 @@ const CommentSpace = (props) => {
 
   if(userExists){
     if(loggedIn)
-      return <CommentComposer storyTitle={storyTitle} />;
+      return <CommentComposer storyId={story.id} />;
 
+    // User exists but it is not logged int.
     return (
     <>
-      <CommentComposer storyTitle={storyTitle} />
+      <CommentComposer storyId={story.id} />
       <CommentLogin
   		  storyName={storyTitle}
-        storyId={storyId}
+        storyId={story.id}
      	  providers={oauthServices}
     	/>
     </>

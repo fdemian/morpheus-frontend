@@ -20,7 +20,7 @@ const StoryItem = (props) => {
   } = props;
 
   const datepart = story.date.split('.')[0];
-  
+
   return(
   <>
   <div className="StoryTitleContainer">
