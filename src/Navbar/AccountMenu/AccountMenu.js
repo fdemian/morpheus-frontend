@@ -75,10 +75,12 @@ const AccountMenu = ({ mutate, user, isFetching }) => {
         </Link>
       </Menu.Item>
       <Menu.Item key="account:logout">
-        <span onClick={() => {
-          logout();
-          mutate(null);
-        }}>
+        <span
+          data-testid="logout-button"
+          onClick={() => {
+            logout();
+            mutate(null);
+          }}>
           <FontAwesomeIcon
             icon={signOut}
             className="MenuIcon"

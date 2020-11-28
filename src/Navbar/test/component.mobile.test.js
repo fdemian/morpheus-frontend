@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from '../Navbar';
+import AccountMenu from '../Mobile/AccountMenu';
+import MobileMenu from '../Mobile/MobileMenu';
 import { render, fireEvent, act, waitFor} from '../../utils/testing-utils';
 import '@testing-library/jest-dom/extend-expect';
 
 describe("<Navbar /> > Mobile", () => {
 
-  describe("<NavbarDesktop />", () => {
-
-     it("Not logged in.", () => {
+    it("Not logged in.", () => {
 
        const navProps = {
          mobile: true,
@@ -85,6 +85,63 @@ describe("<Navbar /> > Mobile", () => {
 
      })
 
-  })
+     it("<AccountMenu />", () => {
 
-})
+       const navProps = {
+         notificationsEnabled: true,
+         notifications: [],
+         logoutFn: jest.fn(),
+         closeDrawer: jest.fn()
+       };
+
+       const { getByText } = render(<AccountMenu {...navProps} />);
+
+       expect(getByText("User")).toBeInTheDocument();
+       expect(getByText("Notifications")).toBeInTheDocument();
+     })
+
+     it("<MobileMenu /> > Renders account menu.", async () => {
+
+       const navProps = {
+         logoutFn: jest.fn(),
+         loggedIn: true,
+         notifications: [],
+         notificationsEnabled: true,
+         user: {
+           id: 1,
+           user: "adminuser",
+           avatar: "avatar.png"
+         },
+         clearFn: jest.fn(),
+         closeDrawer: jest.fn()
+       };
+
+       const { getByText, debug } = render(<MobileMenu {...navProps} />);
+
+       await waitFor(() => {
+         expect(getByText("User")).toBeInTheDocument();
+       })
+
+     })
+
+     it("<MobileMenu /> > Renders login menu.", async () => {
+
+       const navProps = {
+         logoutFn: jest.fn(),
+         loggedIn: false,
+         notifications: [],
+         notificationsEnabled: false,
+         user: null,
+         clearFn: jest.fn(),
+         closeDrawer: jest.fn()
+       };
+
+       const { getByTestId } = render(<MobileMenu {...navProps} />);
+
+       await waitFor(() => {
+         expect(getByTestId("login-link")).toHaveAttribute('href', '/login');
+       })
+
+     })
+
+  })

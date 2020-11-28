@@ -1,5 +1,5 @@
 import React from 'react';
-import Composer from './ComposerComponent';
+//import Composer from './ComposerComponent';
 import Loading from '../Loading/LoadingIndicator';
 import { useStory } from '../Story/Actions';
 
@@ -10,7 +10,9 @@ const EditingComposer = (props) => {
   if(!error && !story)
     return <Loading />;
 
-  return <Composer isEditing={true} story={story} />;
+  return <p>Editing</p>;
+
+  //return <Composer isEditing={true} story={story} />;
 }
 
 export default EditingComposer;

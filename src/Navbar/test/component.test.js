@@ -1,5 +1,7 @@
 import React from 'react';
 import Navbar from '../Navbar';
+import AccountMenu from '../AccountMenu/AccountMenu';
+
 import { render, fireEvent, act, waitFor} from '../../utils/testing-utils';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -96,18 +98,43 @@ describe("<NavbarDesktop />", () => {
        expect(userImage).toHaveAttribute("alt", `Avatar for ：${navProps.user.username}`);
 
        expect(getByText('adminuser')).toBeInTheDocument();
-
-       /*
-       const bellButton = getByRole('button');
-       fireEvent.click(bellButton, { bubble: true});
-
-       debug()*/
-
-       //console.log(getByText(navProps.notifications[0].text));
      })
-
    })
 
+   it("<AccountMenu /> > undefined user", async () => {
+     const mutateFn = jest.fn();
+     const navProps = {
+       mutate: mutateFn,
+       user: undefined,
+       isFetching: true
+     };
 
+     const { queryByTestId } = render(<AccountMenu {...navProps} />);
+     expect(queryByTestId("logout-button")).toBeFalsy();
+   })
+
+   it("<AccountMenu /> > logout", async () => {
+
+     const mutateFn = jest.fn();
+     const navProps = {
+       mutate: mutateFn,
+       user: {
+         id: 1,
+         username: "adminuser",
+         avatar: "avatar.png"
+       },
+       isFetching: false
+     };
+
+     const { getByTestId, getByText, debug } = render(<AccountMenu {...navProps} />);
+
+     const menuButton = getByText("adminuser");
+     fireEvent.click(menuButton);
+
+     debug();
+
+     //console.log(mutateFn.mock.calls);
+     //console.log("_______");
+   })
 
 })
