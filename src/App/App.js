@@ -3,7 +3,7 @@ import Navbar from '../Navbar/Navbar';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
 import { Layout, Spin } from 'antd';
-import { useConfig } from './Actions';
+import { useConfig, loadWebsocket } from './Actions';
 import { useUser } from '../Login/Actions';
 import { getLoginData, isLoggedIn } from '../Login/utils';
 import './App.css';
@@ -26,11 +26,10 @@ const App = (props) => {
   const { description, blogName } = config;
   const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
 
-  /*
-   *  if(loggedIn) {
-   * props.initializeWS();
-   * }
-  */
+
+   if(loggedIn) {
+    loadWebsocket();
+   }
 
   if(error || !config || (loggedIn && !user))
     return null;

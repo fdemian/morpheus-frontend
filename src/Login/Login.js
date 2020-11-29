@@ -27,6 +27,8 @@ const LoginScreen = () => {
   const [login, setLogin] = useState(initialLoginState);
   const [error, setError] = useState(false);
 
+  const { user, mutate, isLoading } = useUser(userId);
+
   const useForm = async values => {
 
     const { username, password } = values;
@@ -68,15 +70,16 @@ const LoginScreen = () => {
     });
   }
 
-  const { user, mutate, isLoading } = useUser(userId);
-  mutate();
-
   const _isLoading = loggingIn || (userId>=0 && isLoading);
 
   if(_isLoading)
     return <Loading />;
 
-  if(user && isLoggedIn())
+  if(user){
+    mutate(user);
+  }
+
+  if(isLoggedIn() && user)
     return <Redirect to="/"/>;
 
   return (
