@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Drawer } from 'antd';
+import { Drawer, Spin } from 'antd';
 import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
@@ -11,7 +11,7 @@ import './Composer.css';
 
 const Composer = (props) => {
 
-  const { storyId } = props;
+  const { storyId, anonymousUser } = props;
   const [composerVisible, setComposerVisible] = useState(false);
   const editorContainer = useRef(null);
   const toggleComposer = () => setComposerVisible(!composerVisible);
@@ -24,9 +24,11 @@ const Composer = (props) => {
   const postFn = () => {
     const editor = editorContainer.current;
     const content = editor.getContent();
+
     const commentParams = {
-      user: user.user,
-      comment: content
+      user: anonymousUser ? anonymousUser : user.user,
+      comment: content,
+      anonymous: anonymousUser ? true : false
     };
 
     // Post comment to the server.
@@ -38,8 +40,16 @@ const Composer = (props) => {
     editor.clear();
   }
 
-  if(!loggedIn || isLoading)
+  if(!loggedIn && !anonymousUser)
     return null;
+
+  if(isLoading && !anonymousUser)
+    return <Spin />;
+
+  console.clear();
+  console.log(anonymousUser);
+
+  const userlink =  anonymousUser ? anonymousUser.link : `/users/${user.id}/${user.username}`;
 
   return(
   <>
@@ -47,8 +57,9 @@ const Composer = (props) => {
     <Drawer
       title={
         <DrawerHeader
-          userlink={`/users/${user.id}/${user.username}`}
-          user={user.user}
+          userlink={anonymousUser ? anonymousUser.link : userlink}
+          user={anonymousUser ? anonymousUser : user.user}
+          anonymousUser={anonymousUser !== null}
         />
       }
       className="ComposerDrawer"

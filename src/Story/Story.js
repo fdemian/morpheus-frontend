@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BackTop } from 'antd';
 import { Helmet } from "react-helmet";
 import StoryItem from './StoryItem';
@@ -18,8 +18,7 @@ const Story = (props) => {
 
   // Will just assume these, for now.
   const oauthServices = [];
-  const userExists = true;
-  const setAnonymousUser = () => alert("NOT IMPLEMENTED");
+  const [anonymousUser, setAnonymousUser] = useState(null);
 
   if(error)
     return <p>error</p>;
@@ -47,8 +46,8 @@ const Story = (props) => {
       loggedIn={loggedIn}
       oauthServices={oauthServices}
       commentOptions={commentOptions}
+      anonymousUser={anonymousUser}
       setAnonymousUser={setAnonymousUser}
-      userExists={userExists}
     />
 
   </div>

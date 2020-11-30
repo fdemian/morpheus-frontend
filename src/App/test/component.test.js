@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 import { getLoginData, isLoggedIn } from '../../Login/utils';
 import { useMediaQuery } from 'react-responsive';
 import { useUser } from '../../Login/Actions';
-import { useConfig } from '../Actions';
+import { useConfig, loadWebsocket } from '../Actions';
 import fetchMock from 'jest-fetch-mock';
 
 import  { render, waitFor } from '../../utils/testing-utils';
@@ -29,7 +29,7 @@ jest.mock("../../Login/Actions.js", () => ({
         username: "ocelot",
         avatar: ""
       },
-      mutate: null,
+      mutate: jest.fn(),
       isLoading: false,
       error: false
     })
@@ -44,7 +44,8 @@ jest.mock("../Actions.js", () => ({
       mutate: null,
       isLoading: false,
       error: false
-    })
+    }),
+    loadWebsocket: () => {}
 }));
 
 const { Content, Header } = Layout;

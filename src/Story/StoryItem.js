@@ -16,6 +16,7 @@ const StoryItem = (props) => {
     oauthServices,
     commentOptions,
     setAnonymousUser,
+    anonymousUser,
     userExists
   } = props;
 
@@ -49,7 +50,8 @@ const StoryItem = (props) => {
           oauthServices={oauthServices}
           commentOptions={commentOptions}
           setAnonymousUser={setAnonymousUser}
-          userExists={userExists}
+          anonymousUser={anonymousUser}
+          userExists={loggedIn}
         />
       </div>
       <div className="StoryComments" id="comments">

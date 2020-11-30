@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck as check,
@@ -14,16 +14,11 @@ const AnonymousUserForm = ({setUser}) => {
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const user = {
-    id: 1,
+    id: -1,
     avatar: null,
     username: name,
-    fullname: null,
-    email: null,
     role: "guest",
-    link: url,
-    signature:null,
-    about: null,
-    loaded: true
+    link: url
   };
 
   if(!formVisible)
@@ -38,7 +33,7 @@ const AnonymousUserForm = ({setUser}) => {
 
   if(formVisible){
   return(
-  <Fragment>
+  <>
 
     <div>
       <h3>Posting as...</h3>
@@ -74,7 +69,7 @@ const AnonymousUserForm = ({setUser}) => {
        </Button>
      </div>
 
-   </Fragment>
+   </>
    )
 
   }

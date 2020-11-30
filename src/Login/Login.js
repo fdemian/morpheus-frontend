@@ -76,6 +76,7 @@ const LoginScreen = () => {
     return <Loading />;
 
   if(user){
+    alert(user.user.usrname);
     mutate(user);
   }
 

@@ -3,11 +3,11 @@ import Fetch from '../store/Fetch';
 export const postComment = (storyId, commentParams) => {
 
 
-  const { user, comment } = commentParams;
+  const { user, comment, anonymous } = commentParams;
 
   try {
 
-    const _url = `/users/${user.id}`;
+    const _url = anonymous ? user.link : `/users/${user.id}`;
     const endpoint = `/api/stories/${storyId}/comments`;
     const jsonData = JSON.stringify({
      name: user.username,
@@ -18,7 +18,7 @@ export const postComment = (storyId, commentParams) => {
     });
 
     console.clear();
-    console.log(endpoint);
+    console.log(jsonData);
 
     Fetch.POST(endpoint, [], jsonData);
   }

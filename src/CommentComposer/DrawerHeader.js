@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import ComposerAvatar from '../UserAvatar/UserAvatar';
 import './Composer.css';
 
-const DrawerHeader = ({userlink, user, commentsEnabled}) => {
+const DrawerHeader = ({userlink, user, commentsEnabled, anonymousUser}) => {
 
 	if(commentsEnabled === 'OFF')
 		return null;
 
-	if(user.role === 'guest')
+	if(anonymousUser)
 		return(
 		<span className="DrawerHeader">
 			Posting as
