@@ -25,7 +25,7 @@ export const postStory = async (props) => {
       return data;
     }
     catch(error) {
-      console.log(error);
+      throw(error);
     }
 }
 
@@ -56,6 +56,6 @@ export const editStory = async (props) => {
     return data;
   }
   catch(error) {
-    console.log("Error");
+    throw(error);
   }
 }

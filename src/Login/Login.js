@@ -53,7 +53,7 @@ const LoginScreen = () => {
 
   // TODO: show error message here.
   const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+    //console.log('Failed:', errorInfo);
   };
 
   const usernameChange = (username, register) => {

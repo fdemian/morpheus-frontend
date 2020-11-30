@@ -46,9 +46,6 @@ const Composer = (props) => {
   if(isLoading && !anonymousUser)
     return <Spin />;
 
-  console.clear();
-  console.log(anonymousUser);
-
   const userlink =  anonymousUser ? anonymousUser.link : `/users/${user.id}/${user.username}`;
 
   return(

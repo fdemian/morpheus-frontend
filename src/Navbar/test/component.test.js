@@ -132,9 +132,6 @@ describe("<NavbarDesktop />", () => {
      fireEvent.click(menuButton);
 
      debug();
-
-     //console.log(mutateFn.mock.calls);
-     //console.log("_______");
    })
 
 })

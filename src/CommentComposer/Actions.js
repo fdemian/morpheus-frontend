@@ -14,17 +14,13 @@ export const postComment = (storyId, commentParams) => {
      content: comment,
      avatar: user.avatar,
      url: _url,
-     anonymous: false
+     anonymous: anonymous
     });
-
-    console.clear();
-    console.log(jsonData);
 
     Fetch.POST(endpoint, [], jsonData);
   }
   catch(e) {
-    console.log(e);
-    console.log("Error!");
+    throw(e);
   }
 }
 

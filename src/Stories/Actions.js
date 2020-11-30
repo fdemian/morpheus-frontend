@@ -6,7 +6,7 @@ export function deleteStory(id) {
     Fetch.DELETE(`/api/stories/${id}`, [], null, {});
   }
   catch(error){
-    console.log(error);
+    throw(error);
   }
 }
 
