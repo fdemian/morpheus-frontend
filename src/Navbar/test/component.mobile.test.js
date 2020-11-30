@@ -24,7 +24,6 @@ describe("<Navbar /> > Mobile", () => {
        const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
 
        waitFor(() => {
-          expect(getByText('Morpheus')).toBeInTheDocument();
           expect(getByRole('img')).toBeInTheDocument();
           expect(getByText('Login')).toBeInTheDocument();
           expect(getByText('adminuser')).toBeInTheDocument();
