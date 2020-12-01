@@ -1,42 +1,75 @@
 import React from 'react';
-import Enzyme, { mount, render } from 'enzyme';
-import { StaticRouter, Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
-import { Alert , Input, Tag, Button} from 'antd';
-import { Editor } from 'elementary-editor';
-
-//
 import Composer from '../Composer';
-import ComposerComponent from '../ComposerComponent';
-import CategoriesDropdown from '../CategoriesDropdown';
-import EditableTagGroup from '../EditableTagGroup';
-import TitleEditor from '../TitleEditor';
+import  { render, waitFor } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
+
+const actions = require('../Actions'); // postStory, editStory
+const categoryActions = require('../../Categories/Actions');
+const loginActions = require('../../Login/Actions');
+const loginUtils = require('../../Login/utils');
+
+//jest.spyOn(actions, 'postStory').mockImplementation(() => 1);
+//jest.spyOn(actions, 'postStory').mockImplementation(() => 1);
 
 describe("<Composer />", () => {
 
-   it("<ComposerWrapper />", () => {
+  it("Loading", () => {
 
-    const props = {
-      postStory: jest.fn(),
-      editStory: jest.fn(),
-      clearComposer: jest.fn(),
-      posting: false,
-      posted: false,
-      id: -1,
-      title: "",
+   jest.spyOn(loginUtils, 'getLoginData').mockImplementation(() => 1);
+
+   jest.spyOn(loginActions, 'useUser').mockImplementation((id) => ({
+     user: null,
+     error: false,
+     isLoading: false,
+     mutate: jest.fn()
+   }));
+
+   jest.spyOn(categoryActions, 'useCategories').mockImplementation(() => ({
+     categories: [],
+     error: false,
+     isLoading: false,
+     mutate: jest.fn()
+   }));
+
+   const props = { isEditing: false, story: null };
+   const { getByText } = render(<Composer {...props} />);
+
+   expect(getByText('Loading...')).toHaveClass('ant-spin-text');
+
+  })
+
+   it("<ComposerComponent />", () => {
+
+    jest.spyOn(loginUtils, 'getLoginData').mockImplementation(() => 1);
+
+    jest.spyOn(loginActions, 'useUser').mockImplementation((id) => ({
+      user: {
+        id: 1,
+        name:"The Admin",
+        username:"admin",
+        avatar: null
+      },
+      error: false,
+      isLoading: false,
+      mutate: jest.fn()
+    }));
+
+    jest.spyOn(categoryActions, 'useCategories').mockImplementation(() => ({
       categories: [],
-      story: undefined
-    };
+      error: false,
+      isLoading: false,
+      mutate: jest.fn()
+    }));
 
-    const component = mount(
-    <StaticRouter>
-      <Composer {...props} />
-    </StaticRouter>
-    );
+    const props = { isEditing: false, story: null };
+    const { debug } = render(<Composer {...props} />);
 
-    expect(component.contains(Composer));
+    debug();
+    
+    //expect(component.contains(Composer));
    })
 
+   /*
    it("<Composer />", () => {
 
     const props = {
@@ -98,6 +131,6 @@ describe("<Composer />", () => {
     input.simulate('change', { target: { value: 'abcdefg'} });
 
     expect(input.length).toBe(1);
-   })
+  })*/
 
 });

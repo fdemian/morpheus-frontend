@@ -1,81 +1,39 @@
 import Fetch from '../store/Fetch';
-import { select, put, call } from 'redux-saga/effects';
+import _data from './initialData';
+import useSWR from 'swr';
 
-export const GET_CATEGORIES= 'GET_CATEGORIES';
-export const RECEIVE_CATEGORIES_OK = 'RECEIVE_CATEGORIES_OK';
-export const RECEIVE_CATEGORIES_FAILURE = 'RECEIVE_CATEGORIES_FAILURE';
+export const useCategories = () => {
+  const { data, mutate, error } = useSWR('/api/categories', { initialData: _data });
 
-export const DELETE_CATEGORY = 'DELETE_CATEGORY';
-export const DELETE_CATEGORY_OK = 'DELETE_CATEGORY_OK';
-export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY_FAILURE';
-
-export const CREATE_CATEGORY = 'CREATE_CATEGORY';
-export const CREATE_CATEGORY_OK = 'CREATE_CATEGORY_OK';
-export const CREATE_CATEGORY_FAILURE = 'CREATE_CATEGORY_FAILURE';
-
-export function requestCategories(){
   return {
-    type: GET_CATEGORIES
-  };
+    categories: data.items,
+    isLoading: !error && !data,
+    isError: error,
+    mutate
+  }
 }
 
-export default function* loadCategories() {
+export const createCategory = async (name, description, token) => {
   try {
-    const categories = yield call(Fetch.GET, '/api/categories');
-    yield put({type: RECEIVE_CATEGORIES_OK, data: categories});
+    const options = { token: token };
+    const jsonData = JSON.stringify({ name: name,description: description});
+    const data = await Fetch.POST('/api/categories', [], jsonData, options);
+
+    return data;
   }
   catch(error) {
-    yield put({type: RECEIVE_CATEGORIES_FAILURE, error: error});
+    throw(error);
   }
 }
 
-export function requestDeleteCategory(id){
-    return {
-      type: DELETE_CATEGORY,
-      id: id
-    };
-}
-
-export function* deleteCategory(action) {
-
-  const state = yield select();
-  const _token = state.session.token;
-  const options = { token: _token };
-  const endpoint = '/api/categories/' + action.id;
-
+export const deleteCategory = async (id, token) => {
   try {
-    const data = yield call(Fetch.DELETE, endpoint, [], null, options);
-    yield put({type: DELETE_CATEGORY_OK, data: data});
+    const options = { token: token };
+    const endpoint = '/api/categories/' + id;
+
+    Fetch.DELETE(endpoint, [], null, options);
   }
   catch(error) {
-    yield put({type: DELETE_CATEGORY_FAILURE, error: error});
-  }
-}
-
-export function requestCreateCategory(categoryName, categoryDescription){
-    return {
-      type: CREATE_CATEGORY,
-      name: categoryName,
-      description: categoryDescription
-    }
-}
-
-export function* createCategory(action) {
-
-  const state = yield select();
-  const _token = state.session.token;
-  const options = { token: _token };
-
-  const jsonData = JSON.stringify({
-     name: action.name,
-     description: action.description
-  });
-
-  try {
-    const data = yield call(Fetch.POST, '/api/categories', [], jsonData, options);
-    yield put({type: CREATE_CATEGORY_OK, data: data});
-  }
-  catch(error) {
-    yield put({type: CREATE_CATEGORY_FAILURE, error: error});
+    throw(error);
   }
 }

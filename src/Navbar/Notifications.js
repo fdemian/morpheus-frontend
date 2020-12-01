@@ -3,7 +3,7 @@ import React, {
   Suspense
 } from 'react';
 import Spin from 'antd/lib/spin';
-
+import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 faBell as bell,
@@ -11,8 +11,6 @@ faEnvelope as message
 } from '@fortawesome/free-solid-svg-icons';
 import emptyBellIcon from './emptyBell.svg';
 import './Navbar.css';
-
-const NoticeIcon = lazy(() => import('ant-design-pro/lib/NoticeIcon'));
 
 const mapNotification = (p) => {
     const avatarElement = <FontAwesomeIcon icon={message} />;
@@ -52,27 +50,28 @@ const Notifications = (props) => {
 
   return (
   <Suspense fallback={<Spin />}>
-    <NoticeIcon
-      bell={
-      <FontAwesomeIcon
-        icon={bell}
-        size='lg'
-        color="rgba(0,0,0,.65)"
-      />
-      }
-      className="notice-icon"
-      count={notificationsCount}
-      onItemClick={onItemClick}
-      onClear={clearFn}
-      popupAlign={{ offset: [20, -16] }}
-    >
-      <NoticeIcon.Tab
-        list={mappedNotifications}
-        title="Notifications"
-        emptyImage={emptyBellIcon}
-        emptyText="You have no unread notifications."
-      />
-    </NoticeIcon>
+    <div role="button">
+      <NoticeIcon
+        bell={
+        <FontAwesomeIcon
+          icon={bell}
+          size='lg'
+          color="rgba(0,0,0,.65)"
+        />
+        }
+        count={notificationsCount}
+        onItemClick={onItemClick}
+        onClear={clearFn}
+        popupAlign={{ offset: [20, -16] }}
+      >
+        <NoticeIcon.Tab
+          list={mappedNotifications}
+          title="Notifications"
+          emptyImage={emptyBellIcon}
+          emptyText="You have no unread notifications."
+        />
+      </NoticeIcon>
+    </div>
   </Suspense>
   );
 }

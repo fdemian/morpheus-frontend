@@ -7,6 +7,22 @@ export const MARK_NOTIFICATION_READ_FAILURE = 'MARK_NOTIFICATION_READ_FAILURE';
 export const MARK_ALL_NOTIFICATIONS_READ = 'MARK_ALL_NOTIFICATIONS_READ';
 export const DISMISS_NOTIFICATIONS = 'DISMISS_NOTIFICATIONS';
 
+/*
+return {
+  markNotificationsAsRead: () => {
+    dispatch(markNotificationsAsRead());
+  },
+  dismissNotifications: () => {
+    dispatch(dismissNotifications());
+  },
+  markReadNotification: (notification) => {
+    dispatch(markReadNotification(notification));
+  },
+  initializeWS: () => {
+    dispatch({type: REQUEST_INITIALIZE_WS });
+  }
+}*/
+
 export function markNotificationsAsRead() {
   return { type: MARK_ALL_NOTIFICATIONS_READ };
 }

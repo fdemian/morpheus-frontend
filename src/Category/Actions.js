@@ -1,38 +1,25 @@
-import Fetch from '../store/Fetch';
-import { put, call } from 'redux-saga/effects';
+import useSWR from 'swr';
 
-export const REQUEST_CATEGORY = 'REQUEST_CATEGORY';
-export const RECEIVE_CATEGORY = 'RECEIVE_CATEGORY';
-export const RECEIVE_CATEGORY_FAILURE = 'RECEIVE_CATEGORY_FAILURE';
+export const useCategory = (id) => {
 
-export const REQUEST_CATEGORY_STORIES = 'REQUEST_CATEGORY_STORIES';
-export const RECEIVE_CATEGORY_STORIES = 'RECEIVE_CATEGORY_STORIES';
-export const RECEIVE_CATEGORY_STORIES_FAILURE = 'RECEIVE_CATEGORY_STORIES_FAILURE';
+  const { data, error } = useSWR(`/api/categories/${id}`);
 
-export function requestCategory(id){
-    return {
-      type: REQUEST_CATEGORY,
-      id: id
-    };
+  return {
+    category: data,
+    isLoading: !error && !data,
+    isError: error
+  }
 }
 
-export default function* loadCategory(action) {
+export const useCategoryStories = (id) => {
 
-  try {
-    const category = yield call(Fetch.GET, '/api/categories/'+ action.id);
-    yield put({type: RECEIVE_CATEGORY, data: category});
-    const storiesEndpoint = "/api/categories/" + category.id + "/1";
+  const shouldFetch = id != null;
+  const { data, error } = useSWR(shouldFetch ? `/api/categories/${id}/1` : null);
 
-    try {
-       const stories = yield call(Fetch.GET, storiesEndpoint);
-       yield put({type: RECEIVE_CATEGORY_STORIES, data: stories});
-    }
-    catch(error) {
-       yield put({type: RECEIVE_CATEGORY_STORIES_FAILURE, error: error});
-    }
-
+  return {
+    stories: data,
+    isLoading: !error && !data,
+    isError: error
   }
-  catch(error) {
-    yield put({type: RECEIVE_CATEGORY_FAILURE, error: error});
-  }
+
 }

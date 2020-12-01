@@ -1,7 +1,9 @@
 import React from 'react';
-import Enzyme, { mount, render } from 'enzyme';
 import { List, Button } from 'antd';
 import Security from '../SecurityView';
+import { render, fireEvent, waitFor } from '../../../utils/testing-utils';
+import '@testing-library/jest-dom';
+import { useOptions } from '../Actions';
 import ModifyEmailModal from '../ModifyEmailModal';
 import ModifyPasswordModal from '../ModifyPassword/ModifyPasswordModal';
 import {
@@ -11,6 +13,18 @@ import {
   _PASS_TOO_COMMON,
   _PASS_NO_ERROR
 } from '../ModifyPassword/utils';
+
+
+jest.mock("../Actions", () => ({
+  useOptions: () => ({
+    isError: false,
+    isLoading: false,
+    options: {
+      page: 1,
+      options: [{ key: "comments", value: "ANONYMOUS" }]
+    }
+  })
+}));
 
 describe("<Security />", () => {
     const user = {
@@ -26,21 +40,38 @@ describe("<Security />", () => {
       loaded: true
     };
 
-    it("Renders correctly.", () => {
+    it("Security view loading.", () => {
      const props = {
        updateUser: jest.fn(),
+       mutate: jest.fn(),
        user: user,
        modifyPassword: jest.fn(),
        clearPasswordErrors: jest.fn(),
-       isFetching: false,
-       isFetchingConfig: false,
+       isLoading: true,
        error: false,
        validated: false,
        commentsEnabled: 'OFF'
      };
-     const component = mount(<Security {...props} />);
-     const list = component.find(List);
-     expect(list.length).toBe(1);
+
+     const { getByText } = render(<Security {...props} />);
+     expect(getByText('Loading...')).toBeTruthy();
+    })
+
+    it("Renders correctly.", () => {
+     const props = {
+       updateUser: jest.fn(),
+       mutate: jest.fn(),
+       user: user,
+       modifyPassword: jest.fn(),
+       clearPasswordErrors: jest.fn(),
+       isLoading: false,
+       error: false,
+       validated: false,
+       commentsEnabled: 'OFF'
+     };
+
+     const { container } = render(<Security {...props} />);
+     expect(container).toBeTruthy();
     })
 
     it("Modify email modal > Fetching", () => {
@@ -53,9 +84,9 @@ describe("<Security />", () => {
       }
 
       // Todo should test the spinner component not the class.
-      const component = render(<ModifyEmailModal {...props} />);
-      const spinnerClass="ant-spin ant-spin-lg ant-spin-spinning modal-spin";
-      expect(component[0].attribs.class).toStrictEqual(spinnerClass);
+      const { getByTestId } = render(<ModifyEmailModal {...props} />);
+      const spinnerClass = "ant-spin ant-spin-lg ant-spin-spinning modal-spin";
+      expect(getByTestId("spin-indicator")).toHaveClass(spinnerClass);
     })
 
     it("Modify email modal > Validated", () => {
@@ -70,12 +101,9 @@ describe("<Security />", () => {
       const validatedText = "Successfully updated email!";
 
       // Todo should test the spinner component not the class.
-      const component = render(<ModifyEmailModal {...props} />);
-      const textWrapper = component.find('.ValidatedText');
-      const componentText = textWrapper.text();
-
-      expect(textWrapper.length).toBe(1);
-      expect(componentText).toStrictEqual(validatedText);
+      const { getByText } = render(<ModifyEmailModal {...props} />);
+      const componentText = getByText(validatedText);
+      expect(componentText).toBeTruthy();
     })
 
     it("Modify email modal > Normal render", () => {
@@ -87,20 +115,49 @@ describe("<Security />", () => {
         updateEmail: jest.fn()
       }
 
-      const component = mount(<ModifyEmailModal {...props} />);
+      const { getByText } = render(<ModifyEmailModal {...props} />);
 
+      expect(getByText("Change Email")).toBeInTheDocument();
+      expect(getByText(user.email)).toHaveClass("email-desc");
     })
 
-    it("Modify password modal > Normal render", () => {
+    it("Modify password modal > Normal render", async () => {
+
+      const modifyFn = jest.fn();
+
       const props = {
-        modifyPassword: jest.fn(),
+        modifyPassword: modifyFn,
         clearErrorsFn: jest.fn()
       }
 
-      const component = render(<ModifyPasswordModal {...props} />);
-      const inputs = component.find('.input-field-security');
+      const { getAllByRole, getByRole, debug } = render(<ModifyPasswordModal {...props} />);
 
-      expect(inputs.length).toBe(3);
+      await waitFor(() => {
+
+        const passwords = getAllByRole('password');
+
+        // Set passwords.
+        fireEvent.change(passwords[0], { target: { value: 'password0' } });
+        fireEvent.change(passwords[1], { target: { value: 'password3' } });
+        fireEvent.change(passwords[2], { target: { value: 'password3' } });
+
+        expect(getByRole('form')).toHaveFormValues({
+          passwordCurrent: 'password0',
+          passwordNew: 'password3',
+          passwordRepeat: 'password3',
+        });
+
+        const submit = getByRole("button");
+        fireEvent.click(submit);
+
+        console.log(modifyFn.mock.calls.length);
+        console.log("::____")
+      })
+
+      /*
+      const inputs = getByRole('input');
+
+      expect(inputs.length).toBe(3);*/
     })
 
     it("Password strength checker", () => {
@@ -124,7 +181,7 @@ describe("<Security />", () => {
      const passwordSuccess = getPasswordErrors("megapassword!123", "megapassword!123");
      expect(passwordSuccess.error).toBe(false);
      expect(passwordSuccess.type).toStrictEqual(_PASS_NO_ERROR);
-     
+
     })
 
 });

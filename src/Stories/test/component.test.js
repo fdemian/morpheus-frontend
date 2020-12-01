@@ -1,102 +1,48 @@
 import React from 'react';
-import Enzyme, { mount, render } from 'enzyme';
-import { StaticRouter } from 'react-router';
-import { List, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import ActionButton from '../ActionButton';
 import Stories from '../Stories';
 import testStories from './data';
+import { render, waitFor } from '../../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
+
+const utils = require('../../Login/utils');
+const actions = require('../Actions');
+
+const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
+const noStoriesText = "There are currently no stories on this blog.";
 
 describe("<Stories />", () => {
 
-    it("Renders with error.", () => {
 
-     const props = {
-       stories: null,
-       onDelete: jest.fn(),
-       onEditClick: jest.fn(),
-       isFetching: false,
-       error: true,
-       loggedIn: false
-     };
+    it("Renders with error.", async () => {
 
-     const component = render(
-      <StaticRouter>
-       <Stories {...props} />
-     </StaticRouter>
-     );
-     const errorText = component.find('h1');
-     expect(errorText.length).toBe(1);
-     expect(errorText[0].attribs['class']).toEqual("NoStories ErrorText");
+     jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
+
+     jest.spyOn(actions, 'useStories').mockImplementation(() => ({
+        data: null,
+        error: true,
+        isLoading: false,
+        mutate: jest.fn()
+     }));
+
+     const { getByText } = render(<Stories />);
+     await waitFor(() => expect(getByText(errorText)).toBeTruthy());
     })
-
-    it("Renders without stories.", () => {
-
-     const props = {
-       stories: [],
-       onDelete: jest.fn(),
-       onEditClick: jest.fn(),
-       isFetching: false,
-       error: false,
-       loggedIn: false
-     };
-
-     const component = render(
-      <StaticRouter>
-       <Stories {...props} />
-      </StaticRouter>
-     );
-     const noStoriesText = component.find('h1');
-     expect(noStoriesText.length).toBe(1);
-     expect(noStoriesText[0].attribs['class']).toEqual("NoStories");
-   })
 
    it("Renders with stories.", () => {
 
-    const props = {
-      stories: testStories,
-      onDelete: jest.fn(),
-      onEditClick: jest.fn(),
-      isFetching: false,
-      error: false,
-      loggedIn: false
-    };
+      jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
 
-    const component = mount(
-     <StaticRouter>
-      <Stories {...props} />
-    </StaticRouter>
-    );
-    const storyContainer = component.find('.stories-container');
-    const storyList = component.find('.StoryListContainer');
+      jest.spyOn(actions, 'useStories').mockImplementation(() => ({
+         data: { items: testStories },
+         error: false,
+         isLoading: false,
+         mutate: jest.fn()
+      }));
 
-    expect(storyList.length).toBe(1);
-  })
+      const { getByText } = render(<Stories />);
 
-  it("Renders the ActionButton.", () => {
-
-   const props = {
-     title: 'Action Button',
-     linkURL: '/link-to-url',
-     icon: null,
-     clickFn: jest.fn(),
-     id:1,
-     cssClass: 'TestButton'
-   };
-
-   const component = mount(
-    <StaticRouter>
-     <ActionButton {...props} />
-   </StaticRouter>
-   );
-
-   const tooltip = component.find(Tooltip);
-   const link = component.find(Link);
-
-   expect(link.length).toBe(1);
-   expect(tooltip.length).toBe(1);
+      expect(getByText(testStories[0].name)).toBeInTheDocument();
+      expect(getByText(testStories[1].name)).toBeInTheDocument();
   })
 
 });

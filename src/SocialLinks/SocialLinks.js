@@ -7,7 +7,7 @@ const SocialLinks = ({links}) => {
   return(
   <span className="SocialLinksContainer">
     {links.map((service, i) =>
-	   <span key={i}>
+	   <span key={i} data-testid="link-span">
 	    <LinkIcon service={service} />
 	   </span>
 	   )}

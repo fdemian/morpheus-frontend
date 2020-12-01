@@ -2,29 +2,35 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-import { Spin } from 'antd';
+import { Spin, Affix } from 'antd';
+import { useUser } from '../Login/Actions';
 
 const NavbarDesktop = lazy(() => import('./NavbarDesktop'));
 const NavbarMobile = lazy(() => import('./NavbarMobile'));
 
 const Navbar = (props) => {
 
-  if(props.loggedIn) {
-    props.initializeWS();
-  }
-
   const { mobile } = props;
+  const { user, mutate } = useUser();
+
+  mutate(user);
+
+  if(user && props.user){
+    props.user = user;
+  }
 
   if(mobile)
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarMobile {...props} />
+        <NavbarMobile {...props} />
     </Suspense>
     ) ;
 
     return (
     <Suspense fallback={<Spin />}>
-      <NavbarDesktop {...props} />
+      <Affix>
+        <NavbarDesktop {...props} />
+      </Affix>
     </Suspense>
   );
 

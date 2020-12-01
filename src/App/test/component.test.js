@@ -1,60 +1,67 @@
-import React from 'react';
-import Enzyme, { render } from 'enzyme';
-//import LayoutDesktop from '../LayoutDesktop';
-//import LayoutMobile from '../LayoutMobile';
-import Navbar from '../../Navbar/Container';
-import { Provider } from 'react-redux';
+import React, {Suspense} from 'react';
+import App from '../App';
+import { Helmet } from "react-helmet";
+import { Layout } from 'antd';
+import { getLoginData, isLoggedIn } from '../../Login/utils';
+import { useMediaQuery } from 'react-responsive';
+import { useUser } from '../../Login/Actions';
+import { useConfig, loadWebsocket } from '../Actions';
+import fetchMock from 'jest-fetch-mock';
 
-const ComponentWithStore = ({Component, store, props}) => {
-  return render(
-  <Provider store={store}>
-    <Component {...props} />
-  </Provider>
-  )
-};
+import  { render, waitFor } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
 
-const store = {};
-const props = {
-  children: <div><p className="child">Children</p></div>
-};
+const props = { children: <div><p className="child">Children</p></div> };
+
+jest.mock('react-responsive', () => ({
+  useMediaQuery: (query) => false
+}));
+
+jest.mock("../../Login/utils", () => ({
+  getLoginData: () => "1",
+  isLoggedIn: () => true
+}));
+
+jest.mock("../../Login/Actions.js", () => ({
+    useUser: (id) => ({
+      user: {
+        id: 1,
+        username: "ocelot",
+        avatar: ""
+      },
+      mutate: jest.fn(),
+      isLoading: false,
+      error: false
+    })
+}));
+
+jest.mock("../Actions.js", () => ({
+    useConfig: () => ({
+      config: {
+        blogName: 'Diamond Blogs',
+        notificationsEnabled: true,
+      },
+      mutate: null,
+      isLoading: false,
+      error: false
+    }),
+    loadWebsocket: () => {}
+}));
+
+const { Content, Header } = Layout;
 
 describe("<App />", () => {
 
-  /*
-  it("Mobile layout.", () => {
-    const component = <ComponentWithStore
-      component={LayoutMobile}
-      store={store}
-      props={props}
-    />;
-    console.log(component.props);
-    console.log(":::::::::::::::::::::");
-    const containerElement = component.props.component.find(<div></div>);
-    const firstChild = containerElement.find('.child');
-    const navbar = component.find(Navbar);
+  it("Renders correctly (desktop).", async () => {
+    const { getByTestId, getByRole } = render(<App {...props} />);
+    const appLayout = getByTestId('app-layout');
+    const content = getByTestId('content-container');
+    const header = getByRole('banner');
 
-    expect(containerElement.length).toBe(1);
-    expect(firstChild.length).toBe(1);
-    expect(navbar.length).toBe(1)
-  })
+    expect(appLayout).toBeTruthy();
+    expect(content).toBeTruthy();
+    expect(header).toHaveClass('page-header-container');
 
-  it("Desktop layout", () => {
-    const component = <ComponentWithStore
-                component={LayoutDesktop}
-                store={store}
-                props={props}
-    />;
-    const containerElement = component.props.component(<div></div>);
-    const firstChild = containerElement.find('.child');
-    const navbar = component.find(Navbar);
-
-    expect(containerElement.length).toBe(1);
-    expect(firstChild.length).toBe(1);
-    expect(navbar.length).toBe(1)
-  })*/
-
-  it("False test.", () => {
-    expect(true).toStrictEqual(true);
+    await waitFor(() => expect(document.title).toEqual("Diamond Blogs"));
   });
-
 });

@@ -1,15 +1,18 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import ModifyPasswordModal from './ModifyPassword/ModifyPasswordModal';
 import ModifyEmailModal from './ModifyEmailModal';
 import {
-  /*message,
-  Popconfirm,*/
   List,
   Button,
   Modal,
   Switch,
   Radio
 } from 'antd';
+
+import useSWR from 'swr';
+import { updateUser, updatePassword } from '../Profile/Actions';
+import getOptionsValues from '../../utils/misc';
+import { useOptions } from './Actions';
 
 const RadioGroup = Radio.Group;
 
@@ -19,58 +22,58 @@ const radioStyle = {
    lineHeight: '30px',
 };
 
-//const deleteAccountText = 'This will permanently delete your account. Are you sure you want to do this?';
-//const deleteAccountDescription = 'This will permanently delete your account';
-
-/*function confirm() {
-  message.info('Clicked on Yes.');
-}*/
-
 const commentOptionsArray = [
   {id: 1, text: 'OFF'},
   {id: 2, text: 'ANONYMOUS'},
   {id: 3, text: 'AUTHENTICATED'}
 ];
 
+const getCommentOptions = (config) => getOptionsValues(config.options, 'comments');
+
 const SecurityView = (props) => {
 
   const {
-    updateUser,
     user,
-    modifyPassword,
-    clearPasswordErrors,
-    isFetching,
-    isFetchingConfig,
-    error,
-    validated,
-    commentsEnabled
+    mutate,
+    isLoading
   }  = props;
 
-  const filterOpts = commentOptionsArray.filter(c => c.text === commentsEnabled);
-  const defaultCommentOpt = filterOpts[0].id;
+  const isFetchingConfig = false;
+  const { config, isError } = useOptions();
+
+  const commentsEnabled = config ? getCommentOptions(config): null;
   const [ paswordModalOpen, setPaswordModalOpen ] = useState(false);
   const [ emailModalOpen, setEmailModalOpen ] = useState(false);
+  const [ isFetching , setIsFetching ] = useState(false);
+
+  const filterOpts = commentOptionsArray.filter(c => c.text === commentsEnabled);
+  const defaultCommentOpt = commentsEnabled ? filterOpts[0].id : null;
   const [ commentOptions, setCommentOptions ] = useState(defaultCommentOpt);
 
-  const toggleModifyPasswordModal = () => {
-    setPaswordModalOpen(!paswordModalOpen, () => {
-      clearPasswordErrors();
-    });
+  // Toggle fns. (remove?)
+  const toggleModifyPasswordModal = () => setPaswordModalOpen(!paswordModalOpen);
+  const toggleEmailModal = () => setEmailModalOpen(!emailModalOpen);
+
+  const modifyPassword = async (currentPass, newPass) => {
+    await updatePassword(currentPass, newPass, user.id);
+    setPaswordModalOpen(!paswordModalOpen);
   }
 
-  const toggleEmailModal = () => {
-    setEmailModalOpen(!emailModalOpen, () => {
-      clearPasswordErrors();
-    });
-  }
-
-  const updateEmail = (email) => {
+  const updateEmail = async (email) => {
     const newUser = JSON.parse(JSON.stringify(user));
     newUser.email = email;
-    updateUser(newUser);
+    newUser.fullname = newUser.name;
+    newUser.about = "";
+    newUser.signature = "";
+
+    setIsFetching(true);
+    mutate({user: newUser});
+    await updateUser(newUser);
+    setIsFetching(false);
+    setEmailModalOpen(!emailModalOpen);
   }
 
-  const setCommentRadio = (e) =>{
+  const setCommentRadio = (e) => {
     setCommentOptions(e.target.value);
   }
 
@@ -84,14 +87,17 @@ const SecurityView = (props) => {
     props.updateSecInfo(securityInfo);
   }
 
+  if((!config && !isError) || isLoading)
+    return <p>Loading...</p>;
+
   const viewItems = [
     {
       title: 'Password',
       description: (
-      <Fragment>
+      <>
         Current password:
         ******
-      </Fragment>
+      </>
       ),
       actions: [
        <button
@@ -147,33 +153,13 @@ const SecurityView = (props) => {
         </RadioGroup>
       ),
         actions: [],
-      }/*,
-      {
-        title: 'Delete',
-        description: deleteAccountDescription,
-        actions: [
-        <Popconfirm
-            placement="rightTop"
-            title={deleteAccountText}
-            onConfirm={confirm}
-            okText="Yes"
-            cancelText="No"
-        >
-         <Button
-            type="danger"
-            disabled={isFetchingConfig}
-          >
-            Delete my account
-         </Button>
-        </Popconfirm>
-        ]
-      }*/
+      }
     ];
 
     const buttonText = isFetchingConfig ? "Updating information" : "Update information";
 
     return (
-    <Fragment>
+    <>
       <List
         itemLayout="horizontal"
         dataSource={viewItems}
@@ -193,6 +179,7 @@ const SecurityView = (props) => {
         footer={
         <Button
             type="button"
+            role="button"
             onClick={toggleModifyPasswordModal}
           >
            Close
@@ -201,10 +188,8 @@ const SecurityView = (props) => {
       >
         <ModifyPasswordModal
           modifyPassword={modifyPassword}
-          clearErrorsFn={clearPasswordErrors}
-          isFetching={isFetching}
-          error={error}
-          validated={validated}
+          isFetching={false}
+          error={isError}
         />
       </Modal>
       <Modal
@@ -213,6 +198,7 @@ const SecurityView = (props) => {
         footer={
          <Button
            type="button"
+           role="button"
            onClick={toggleEmailModal}
          >
           Close
@@ -223,20 +209,20 @@ const SecurityView = (props) => {
           user={user}
           updateEmail={updateEmail}
           isFetching={isFetching}
-          error={error}
-          validated={validated}
+          error={isError}
         />
       </Modal>
       <br />
       <hr />
       <Button
         type="primary"
+        role="button"
         onClick={updateSecurityInfo}
         loading={isFetchingConfig}
       >
         {buttonText}
       </Button>
-    </Fragment>
+    </>
     );
 }
 

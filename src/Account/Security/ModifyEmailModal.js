@@ -1,7 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import {Input, Button, Alert, Spin } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import './Security.css';
 
 const ErrorLayer = ({error}) => {
@@ -28,8 +28,8 @@ const ModifyEmailModal = (props) => {
     user,
     isFetching,
     error,
-    validated,
-    updateEmail
+    updateEmail,
+    validated
   } = props;
   const { email } = user;
   const [userEmail, setUserEmail] = useState(email);
@@ -37,30 +37,36 @@ const ModifyEmailModal = (props) => {
   const text = `By changing your email you will no longer recieve notifications
   to your older email. Please make sure you will not use this email anymore.`;
 
-  if(isFetching)
-   return <Spin size="large" className="modal-spin" />;
 
-  if(validated)
-   return(
-   <div className="security-view password-success-layer">
-     <FontAwesomeIcon
-        icon={faCheck}
-        size="2x"
-        color="green"
-        className="alert-circle"
-     />
-     <p className="ValidatedText">Successfully updated email!</p>
-    </div>
+  if(isFetching)
+   return <Spin size="large" className="modal-spin" data-testid="spin-indicator"/>;
+
+    if(validated)
+     return(
+     <div className="security-view password-success-layer">
+       <FontAwesomeIcon
+          icon={faCheck}
+          size="2x"
+          color="green"
+          className="alert-circle"
+       />
+       <p className="ValidatedText">Successfully updated email!</p>
+      </div>
     );
 
     return(
-    <Fragment>
-      <p>Current email: <span className="email-desc">{user.email}</span></p>
+    <>
+      <p>Current email:
+        <span className="email-desc">
+          {user.email}
+        </span>
+      </p>
       <Alert
-      message="Warning"
-      description={text}
-      type="warning"
-      showIcon
+        message="Warning"
+        description={text}
+        type="warning"
+        showIcon
+        data-testid="alert-warning"
       />
       <div style={{marginTop: '10px'}}>
         <Input
@@ -69,6 +75,7 @@ const ModifyEmailModal = (props) => {
           onChange={(e) => setUserEmail(e.target.value)}
           value={userEmail}
           prefix={<FontAwesomeIcon icon={faEnvelope} size="lg" color="gainsboro" />}
+          data-testid="alert-warning"
         />
       </div>
       <div>
@@ -77,7 +84,7 @@ const ModifyEmailModal = (props) => {
         </Button>
       </div>
       <ErrorLayer error={error} />
-    </Fragment>
+    </>
     );
 }
 

@@ -32,7 +32,6 @@ const Navbar = (props) => {
    user,
    notifications,
    notificationsEnabled,
-   logoutFn,
    dismissNotifications
  } = props;
 
@@ -61,7 +60,6 @@ const Navbar = (props) => {
      >
       <Suspense fallback={<Spin />}>
          <NavbarMenu
-           logoutFn={logoutFn}
            loggedIn={loggedIn}
            notifications={notifications}
            notificationsEnabled={notificationsEnabled}

@@ -1,38 +1,64 @@
 import React, { useState, useRef } from 'react';
-import { Drawer } from 'antd';
+import { Drawer, Spin } from 'antd';
 import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
 import ComposerEditorHeading from './ComposerEditorHeading';
+import { postComment } from './Actions';
+import { useUser } from '../Login/Actions';
+import { getLoginData, isLoggedIn } from '../Login/utils';
 import './Composer.css';
 
 const Composer = (props) => {
 
-  const { visible, user } = props;
-  const [composerVisible, setComposerVisible] = useState(visible);
+  const { storyId, anonymousUser } = props;
+  const [composerVisible, setComposerVisible] = useState(false);
   const editorContainer = useRef(null);
+  const toggleComposer = () => setComposerVisible(!composerVisible);
 
-  const toggleComposer = () => {
-    setComposerVisible(!composerVisible);
-  }
 
-  const postComment = () => {
+  const loggedIn = isLoggedIn();
+  const userId = getLoginData();
+  const { user, isLoading } = useUser(loggedIn ? userId : null);
+
+  const postFn = () => {
     const editor = editorContainer.current;
-    const { postComment } = props;
     const content = editor.getContent();
 
-    postComment(content);
+    const commentParams = {
+      user: anonymousUser ? anonymousUser : user.user,
+      comment: content,
+      anonymous: anonymousUser ? true : false
+    };
+
+    // Post comment to the server.
+    postComment(storyId, commentParams);
+    //TODO: mutate
+
+    // Clear comment editor.
     toggleComposer();
     editor.clear();
   }
 
-  const userlink = "/users/" + user.id + "/" + user.username;
+  if(!loggedIn && !anonymousUser)
+    return null;
 
-  return (
-  <React.Fragment>
+  if(isLoading && !anonymousUser)
+    return <Spin />;
+
+  const userlink =  anonymousUser ? anonymousUser.link : `/users/${user.id}/${user.username}`;
+
+  return(
+  <>
     <ComposerHeader toggle={toggleComposer} />
     <Drawer
-      title={<DrawerHeader userlink={userlink} user={user} />}
+      title={
+        <DrawerHeader
+          userlink={anonymousUser ? anonymousUser.link : userlink}
+          user={anonymousUser ? anonymousUser : user.user}
+          anonymousUser={anonymousUser !== null}
+        />
+      }
       className="ComposerDrawer"
       placement="bottom"
       closable={true}
@@ -42,7 +68,7 @@ const Composer = (props) => {
      >
        <ComposerEditorHeading
           toggleComposer={toggleComposer}
-          postComment={postComment}
+          postComment={postFn}
        />
        <div id="new-comment" className="CommentBox">
          <div className="EditorContainer">
@@ -53,8 +79,7 @@ const Composer = (props) => {
          </div>
        </div>
    </Drawer>
-
- </React.Fragment>
+ </>
  );
 
 }

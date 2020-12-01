@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'antd/lib/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash as trash} from '@fortawesome/free-solid-svg-icons';
 
@@ -7,11 +8,17 @@ const DeleteRow = ({id, loggedIn, deleteFn}) => {
       return null;
 
     return(
-    <FontAwesomeIcon
-       icon={trash}
-       size="lg"
-       onClick={() => deleteFn(id)}
-     />
+    <Button
+      type="primary"
+      shape="circle"
+      icon={
+      <FontAwesomeIcon
+         icon={trash}
+         size="lg"
+       />
+      }
+      onClick={() => deleteFn(id)}
+    />
     );
 }
 

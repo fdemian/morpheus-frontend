@@ -1,43 +1,75 @@
-import React, { Suspense, Fragment } from 'react';
-import Navbar from '../Navbar/Container';
+import React, { Suspense } from 'react';
+import Navbar from '../Navbar/Navbar';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
-import { Layout, Affix, Spin } from 'antd';
+import { Layout, Spin } from 'antd';
+import { useConfig, loadWebsocket } from './Actions';
+import { useUser } from '../Login/Actions';
+import { getLoginData, isLoggedIn } from '../Login/utils';
 import './App.css';
 
-const {Content, Header } = Layout;
+const { Content, Header } = Layout;
 
 const App = (props) => {
 
-  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+  // Fetch user data.
+  const userId = getLoginData();
+  const loggedIn = isLoggedIn();
+
+  const { user, mutate, isLoading } = useUser(userId);
+
+  // Fetch config data.
+  const { config, error } = useConfig();
+
+  //
   const { children } = props;
+  const { description, blogName } = config;
+  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+
+
+   if(loggedIn) {
+    loadWebsocket();
+   }
+
+  if(error || !config || (loggedIn && !user))
+    return null;
+
+  const navProps = {
+    mobile: isMobile,
+    config: config,
+    user: user ? user.user : null,
+    loggedIn: loggedIn,
+    isFetching: isLoading && userId!==null,
+    blogName: config.blogName,
+    notificationsEnabled: config.notificationsEnabled,
+    notifications: [],
+    mutateUser: mutate
+  };
 
   return (
-  <Fragment>
+  <>
 
      <Helmet>
        <meta charset="utf-8" />
-       <meta name="description" content={props.description} />
-       <title>{props.blogName}</title>
+       <meta name="description" content={description} />
+       <title>{blogName}</title>
      </Helmet>
 
      <Suspense fallback={<Spin />}>
-       <Layout>
-
-        <Header className="page-header-container">
-           <Affix>
-           <Navbar mobile={isMobile} />
-           </Affix>
-        </Header>
-
-        <Content className={"content-container" + isMobile ? "mobile": ""}>
-          {children}
-        </Content>
+       <Layout data-testid="app-layout">
+          <Header className="page-header-container">
+              <Navbar {...navProps} />
+          </Header>
+          <Content
+            className={"content-container" + isMobile ? "mobile": ""}
+            data-testid="content-container"
+          >
+            {children}
+          </Content>
        </Layout>
-
       </Suspense>
 
-  </Fragment>
+  </>
   );
 
 }

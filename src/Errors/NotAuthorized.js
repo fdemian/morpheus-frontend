@@ -1,7 +1,4 @@
-import React, {
-  lazy,
-  Suspense
-} from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Button } from 'antd';
 import './Errors.css';
 
@@ -10,7 +7,6 @@ const Exception = lazy(() => import('ant-design-pro/lib/Exception'));
 const actions = (
   <div>
     <Button type="primary">Home</Button>
-    <Button>Detail</Button>
   </div>
 );
 
@@ -24,7 +20,7 @@ const exception = () => {
       actions={actions}
       desc={<Description />}
     />
-  </ Suspense>
+  </Suspense>
   );
 }
 

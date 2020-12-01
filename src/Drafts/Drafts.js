@@ -3,11 +3,17 @@ import { Table } from 'antd';
 import DraftLink from './DraftLink';
 import CategoryLink from './DraftCategoryLink';
 import DeleteRow from './DeleteRow';
+import { isLoggedIn } from '../Login/utils';
+import { deleteStory } from '../Stories/Actions';
+import { useDrafts } from './Actions';
+
 import './Drafts.css';
 
-const Drafts = (props) => {
+const Drafts = () => {
 
-  const { drafts, loggedIn, deleteFn } = props;
+  const loggedIn = isLoggedIn();
+  const { drafts } = useDrafts();
+
   const columns = [
     {
         title: 'Name',
@@ -25,7 +31,12 @@ const Drafts = (props) => {
         title: ' ',
         dataIndex: '',
         key: 'x',
-        render: (row) => <DeleteRow id={row.id} deleteFn={deleteFn} loggedIn={loggedIn} />
+        render: (row) =>
+        <DeleteRow
+          id={row.id}
+          deleteFn={deleteStory}
+          loggedIn={loggedIn}
+        />
     }
   ];
 
@@ -35,7 +46,7 @@ const Drafts = (props) => {
   return(
   <div className="drafts-container">
       <div className="drafts-title">
-       <p>Drafts</p>
+       <p role="aria-readonly">Drafts</p>
       </div>
 
       <div className="drafts-table">
@@ -43,7 +54,7 @@ const Drafts = (props) => {
           dataSource={drafts}
           columns={columns}
           pagination={false}
-          locale={{emptyText:'There are no drafts.'}}
+          locale={{emptyText:"There are no drafts."}}
         />
       </div>
   </div>

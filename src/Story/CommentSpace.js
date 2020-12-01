@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import CommentComposer from '../CommentComposer/Container';
+import React from 'react';
+import CommentComposer from '../CommentComposer/Composer';
 import CommentLogin from '../Comments/CommentLogin';
 import LoadingIndicator from '../Loading/LoadingIndicator';
 import AnonymousUserForm from './AnonymousUserForm';
@@ -9,67 +9,89 @@ const CommentSpace = (props) => {
   const {
     loggedIn,
     storyTitle,
-    storyId,
+    story,
     oauthServices,
     commentOptions,
     setAnonymousUser,
+    anonymousUser,
     userExists
    } = props;
 
    if(commentOptions === null || commentOptions === undefined)
       return <LoadingIndicator />;
 
-  if(commentOptions === "OFF")
-    return (
-    <h1 className="comments-disabled">
-      Comments have been disabled.
-    </h1>
-    );
+  /*
+   * Comment options is a site-wide setting to determine
+   * who can comment on stories.
+   * OFF: comments are disabled. No one can comment.
+   * ANONYMOUS: anonymous people can comment, only a username is required.
+   * LOGGED_IN: only users of this blog can comment. They must be logged in.
+   */
+  switch(commentOptions) {
+    case "OFF":
+      {
+        return (
+        <h1 className="comments-disabled">
+          Comments have been disabled.
+        </h1>
+        );
+      }
+      break;
+    case "ANONYMOUS":
+      {
+           if(userExists) {
+            return (
+            <CommentComposer
+               storyId={story.id}
+               anonymousUser={null}
+             />);
+           }
 
-  if(commentOptions === "ANONYMOUS" && !userExists)
-    return (
-    <Fragment>
-      <AnonymousUserForm setUser={setAnonymousUser} />
-      <CommentLogin
-        storyName={storyTitle}
-        storyId={storyId}
-        providers={oauthServices}
-      />
-    </Fragment>
-    );
+           if(anonymousUser && !userExists) {
+            return (
+            <CommentComposer
+               storyId={story.id}
+               anonymousUser={anonymousUser}
+            />);
+          }
 
-  if(userExists){
-    if(loggedIn)
-      return(
-      <CommentComposer
-        storyTitle={storyTitle}
-        type={commentOptions}
-      />);
+          if(!anonymousUser && !userExists) {
+          return(
+          <>
+            <AnonymousUserForm setUser={setAnonymousUser} />
+               <CommentLogin
+                 storyName={storyTitle}
+                 storyId={story.id}
+                 providers={oauthServices}
+               />
+          </>
+          );
 
-    return (
-    <Fragment>
-      <CommentComposer
-        storyTitle={storyTitle}
-        type={commentOptions}
-      />
-      <CommentLogin
-  		  storyName={storyTitle}
-        storyId={storyId}
-     	  providers={oauthServices}
-    	/>
-    </Fragment>
-    )
+        }
 
-  }
-  else {
-    if(!loggedIn)
-     return(
-     <CommentLogin
-		   storyName={storyTitle}
-       storyId={storyId}
-   	   providers={oauthServices}
-  	 />
-     );
+      }
+      break;
+    case "LOGGED_IN":
+      {
+         if(userExists) {
+           return (
+           <CommentComposer
+             storyId={story.id}
+             anonymousUser={null}
+           />);
+         }
+         else {
+           return (
+           <CommentLogin
+             storyName={storyTitle}
+             storyId={story.id}
+             providers={oauthServices}
+           />
+           );
+         }
+      }
+    default:
+      return null;
   }
 
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import Enzyme, { shallow, render } from 'enzyme';
-
+import { render } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
 import Activation from '../Activation';
 import ActivationSuccess from '../ActivationSuccess';
 import ActivationFailure from '../ActivationFailure';
@@ -8,15 +8,15 @@ import ActivationFailure from '../ActivationFailure';
 describe('<Activation /> ', () => {
 
     it('Render sucessfull activation.', () => {
-      const enzymeWrapper = shallow(<Activation />);
-      expect(enzymeWrapper.contains(<ActivationSuccess />));
+      const { getByTestId } = render(<Activation  />);
+      expect(getByTestId('success-container')).toBeTruthy();
     })
 
     it('Render activation failure', () => {
-     const component = render(<ActivationFailure />);
+     const { container } = render(<ActivationFailure  />);
 
      // TODO: does not render anything useful.
-     expect(component.length).toBe(1);
+     expect(container).toBeTruthy();
     })
 
   })

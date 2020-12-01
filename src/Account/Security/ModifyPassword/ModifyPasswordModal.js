@@ -17,13 +17,12 @@ const ModifyPasswordModal = (props) => {
   const [ message, setMessage] = useState('');
   const [ passwordStatusVisible] = useState(false);
 
-  const { modifyPassword, clearErrorsFn } = props;
+  const { modifyPassword } = props;
   const errorClass = error ? " input-error" : "";
 
   function clearError(){
     setError(false);
     setMessage('');
-    clearErrorsFn();
   }
 
   function onSubmit(){
@@ -43,12 +42,22 @@ const ModifyPasswordModal = (props) => {
   }
 
   return(
-  <React.Fragment>
-    <Form
-       onSubmit={null}
-       className="modify-password-form"
-     >
+  <Form
+     id="modify-password-form"
+     name="modify-password-form"
+     role="form"
+     onSubmit={null}
+     className="modify-password-form"
+  >
+
+    <Form.Item
+      name="password-current"
+      rules={[]}
+    >
       <Input
+        id="modify-password-form_password-current"
+        role="password"
+        name="passwordCurrent"
         className="input-field-security "
         placeholder=" Enter current password"
         onChange={(e) => setCurrentPass(e.target.value)}
@@ -62,6 +71,11 @@ const ModifyPasswordModal = (props) => {
           />
         }
       />
+    </Form.Item>
+    <Form.Item
+      name="password-new"
+      rules={[]}
+    >
       <Popover
          getPopupContainer={node => node.parentNode}
          content={<TooltipModal password={newPass} />}
@@ -70,6 +84,9 @@ const ModifyPasswordModal = (props) => {
          visible={passwordStatusVisible}
       >
         <Input
+          role="password"
+          name="passwordNew"
+          id="modify-password-form_password-new"
           className={"input-field-security " + errorClass}
           placeholder=" Enter new password"
           onChange={(e) => setNewPass(e.target.value)}
@@ -84,8 +101,17 @@ const ModifyPasswordModal = (props) => {
           }
         />
       </Popover>
+    </Form.Item>
+    <Form.Item
+      label=""
+      name="password-repeat"
+      rules={[]}
+    >
       <Input
+        id="modify-password-form_password-repeat"
         className={"input-field-security " + errorClass}
+        role="password"
+        name="passwordRepeat"
         placeholder=" Confirm new password"
         onChange={(e) => setNewPassRepeat(e.target.value)}
         type="password"
@@ -97,7 +123,7 @@ const ModifyPasswordModal = (props) => {
             color="gainsboro" />
         }
       />
-
+     </Form.Item>
       <div>
        <Button
           type="button"
@@ -115,12 +141,11 @@ const ModifyPasswordModal = (props) => {
        />
        <ModifyError
          error={error}
-         closeFn={clearErrorsFn}
+         closeFn={clearError}
        />
       </div>
 
-    </Form>
-  </React.Fragment>
+  </Form>
   )
 
 }

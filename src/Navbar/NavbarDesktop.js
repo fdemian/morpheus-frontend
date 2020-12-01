@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faSignInAlt as signIn,
-  faUserPlus as userPlus
+/*  faUserPlus as userPlus*/
 } from '@fortawesome/free-solid-svg-icons';
 import logo from '../logo.png';
 import './Navbar.css';
@@ -29,42 +29,49 @@ const Navbar = (props) => {
     /*notificationsEnabled,*/
     markReadNotification,
     isFetching,
-    logoutFn,
     dismissNotifications,
-    blogName
+    blogName,
+    mutateUser
   } = props;
 
   if(loggedIn)
-   return(
-   <Suspense fallback={<Spin />}>
-     <Menu mode="horizontal" key="parent.menu.logged">
-       <Menu.Item key="item.empty.logged"></Menu.Item>
-       <span className="logo-item-desktop" key="logo-item-desktop">
-         <Link to="/" className="topnav header-logo">
-           <img
-             src={logo}
-             alt={blogName + " logo"}
-             className="blog-logo"
-           />
-         </Link>
-       </span>
-       <span className="pull-right" >
+  return(
+  <Suspense fallback={<Spin />}>
+    <Menu mode="horizontal" key="parent.menu.not.logged">
+      <Row>
+        <Col span={8}>
+          <Menu.Item key="item.empty.logged"></Menu.Item>
+          <span className="logo-item-desktop" key="logo-item-desktop">
+             <Link to="/" className="topnav header-logo">
+                <Suspense fallback={<Spin />}>
+                 <img
+                   src={logo}     
+                   alt={blogName + " logo"}
+                   className="blog-logo"
+                 />
+                </Suspense>
+             </Link>
+          </span>
+        </Col>
+        <Col span={8}></Col>
+        <Col span={8}>
+         <span className="account-nav-items">
           <Notifications
              notifications={notifications}
              clearFn={dismissNotifications}
              markRead={markReadNotification}
              dismiss={dismissNotifications}
-          />
-       </span>
-       <span>
-          <AccountMenu
-            user={user}
-            logoutFn={logoutFn}
-          />
-       </span>
+           />
+           <span>
+             <AccountMenu user={user} mutate={mutateUser} />
+           </span>
+         </span>
+        </Col>
+      </Row>
     </Menu>
   </Suspense>
   );
+
 
   return(
   <Suspense fallback={<Spin />}>
@@ -86,19 +93,19 @@ const Navbar = (props) => {
         </Col>
         <Col span={8}></Col>
         <Col span={8}>
-          <span>
+          <span className="login-items">
            {
              isFetching ? <Spin /> :
              (
               <span key="login-items">
-                 <Link to="/login/login">
+                 <Link to="/login">
                     <FontAwesomeIcon icon={signIn} />
                     Login
                  </Link>
-                 <Link to="/login/register">
+                 {/*<Link to="/login/register">
                    <FontAwesomeIcon icon={userPlus} />
                    Register
-                 </Link>
+                 </Link>*/}
               </span>
               )
            }

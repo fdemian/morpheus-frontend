@@ -19,8 +19,12 @@ const OAuthButtons = ({services, method}) => {
   return(
   <div>
     {services.map((service, i) =>
-     <span key={i}>
-       <OAuthButton service={service} method={method} icons={BrandIcons} />
+     <span key={i} data-testid="oauth-buttons">
+       <OAuthButton
+          service={service}
+          method={method}
+          icons={BrandIcons}
+       />
      </span>
      )}
 	</div>

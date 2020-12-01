@@ -1,48 +1,27 @@
 import Fetch from '../store/Fetch';
-import { select, put, call } from 'redux-saga/effects';
-import { LOGOUT_SUCCESS } from '../Authentication/Actions';
 
-export const POST_COMMENT = 'POST_COMMENT';
-export const POST_COMMENT_OK = 'POST_COMMENT_OK';
-export const POST_COMMENT_FAILURE = 'POST_COMMENT_FAILURE';
+export const postComment = (storyId, commentParams) => {
 
-export function requestPostComment(commentContent){
-  return {
-     type: POST_COMMENT,
-     content: commentContent
-  };
-}
 
-export default function* postComment(action) {
-
-  const state = yield select();
-  const { session } = state;
-  const { user } = session;
-  const storyId = state.story.id;
-  const _name = user.username;
-  const _avatar = user.avatar;
-  const _content = action.content;
-  const _url = user.link;
-  const _token = session.token;
-  const endpoint = "/api/stories/" + storyId + "/comments";
-
-  const jsonData = JSON.stringify({
-   name: _name,
-   content: _content,
-   avatar: _avatar,
-   url: _url,
-   anonymous: user.email === null
-  });
+  const { user, comment, anonymous } = commentParams;
 
   try {
-   const data = yield call(Fetch.POST, endpoint, [], jsonData, {token: _token });
-   yield put({type: POST_COMMENT_OK, data: data});
 
-   if(user.role === 'guest')
-     yield put({type: LOGOUT_SUCCESS})
+    const _url = anonymous ? user.link : `/users/${user.id}`;
+    const endpoint = `/api/stories/${storyId}/comments`;
+    const jsonData = JSON.stringify({
+     name: user.username,
+     content: comment,
+     avatar: user.avatar,
+     url: _url,
+     anonymous: anonymous
+    });
 
+    Fetch.POST(endpoint, [], jsonData);
   }
-  catch(error) {
-    yield put({type: POST_COMMENT_FAILURE, error: error});
+  catch(e) {
+    throw(e);
   }
 }
+
+export default postComment;

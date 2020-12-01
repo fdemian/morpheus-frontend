@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Spin } from 'antd';
 import AccountAvatar from '../../UserAvatar/UserAvatar';
 
 // Font awesome icons.
@@ -12,9 +12,13 @@ import {
   faSignOutAlt as signOut,
   faPenNib as draftIcon
 } from '@fortawesome/free-solid-svg-icons';
+import { logout } from '../../Login/utils';
 import './AccountMenu.css';
 
-const AccountMenu = ({ logoutFn, user, isFetching }) => {
+const AccountMenu = ({ mutate, user, isFetching }) => {
+
+  if(user === undefined)
+    return <Spin />;
 
   const menu = (
     <Menu className="AccountDropdownMenu">
@@ -71,7 +75,12 @@ const AccountMenu = ({ logoutFn, user, isFetching }) => {
         </Link>
       </Menu.Item>
       <Menu.Item key="account:logout">
-        <span onClick={() => logoutFn()}>
+        <span
+          data-testid="logout-button"
+          onClick={() => {
+            logout();
+            mutate(null);
+          }}>
           <FontAwesomeIcon
             icon={signOut}
             className="MenuIcon"
@@ -84,7 +93,10 @@ const AccountMenu = ({ logoutFn, user, isFetching }) => {
   );
 
   return(
-  <Dropdown overlay={menu} placement="bottomCenter">
+  <Dropdown
+    overlay={menu}
+    placement="bottomCenter"
+  >
     <span className="UserMenuAvatar">
       <AccountAvatar
         avatar={user.avatar}
@@ -93,7 +105,7 @@ const AccountMenu = ({ logoutFn, user, isFetching }) => {
         shape='circle'
       />
       <span className="navbar-text">
-      {user.username}
+          {user.username}
       </span>
     </span>
   </Dropdown>

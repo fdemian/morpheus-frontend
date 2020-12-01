@@ -1,15 +1,15 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import { Progress } from 'antd';
 import PasswordProgress from './PasswordProgress';
 import { getPasswordStength } from './passwordUtils';
+import { render } from '../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
 
 describe('<PasswordProgress />', () => {
 
   it('Renders correctly', () => {
-   const pwTooltip = mount(<PasswordProgress password="aaa" />);
-   const progressBar = pwTooltip.find(Progress);
-   expect(progressBar.length).toBe(1);
+   const { getByText } = render(<PasswordProgress password="aaa" />);
+   expect(getByText('Strength: Weak')).toBeTruthy();
   })
 
   it('Password checking funtions', () => {

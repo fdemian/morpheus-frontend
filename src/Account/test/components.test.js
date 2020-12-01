@@ -1,24 +1,46 @@
 import React from 'react';
-import Enzyme, { mount, render } from 'enzyme';
 import { List, Menu } from 'antd';
+import AccountSettings from '../AccountSettings';
 
+/*
 import BindingView from '../BindingView';
 import AccountView from '../AccountSettings';
-import NotificationView from '../NotificationView';
-import { Provider } from 'react-redux';
-import configureMockStore from 'redux-mock-store';
+import NotificationView from '../NotificationView';*/
+import { render, waitFor, fireEvent } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
+
+const loginUtils = require('../../Login/utils');
+const loginActions = require('../../Login/Actions');
 
 describe("<Account /> Views.", () => {
 
-    it("<BindingView /> Render", () => {
-     const component = mount(<BindingView />);
-     const bindingList = component.find(List);
-     const listItems = component.find(List.Item);
+    it("Renders default view", async () => {
 
-     expect(bindingList.length).toBe(1);
-     expect(listItems.length).toBe(3);
+     jest.spyOn(loginUtils, "getLoginData").mockImplementation(() => {1});
+     jest.spyOn(loginActions, "useUser").mockImplementation(() => ({
+        user: {
+          id: 1,
+          username: "ocelot",
+          name: "ocelot",
+          avatar: "avatar.png"
+        },
+        error: false,
+        isLoading: false,
+        mutate: jest.fn()
+     }));
+
+     const { debug, getAllByText } = render(<AccountSettings />);
+     //const flsl = getByTestId('binding-list');
+     //console.log(flsl);
+
+     await waitFor(() => {
+        const items = getAllByText('Profile', { hidden: true});
+        expect(items[1]).toHaveClass("title");
+     })
     })
 
+
+    /*
     it("<NotificationView> > Render", () => {
      const component = mount(<NotificationView />);
      const itemList = component.find(List);
@@ -58,5 +80,6 @@ describe("<Account /> Views.", () => {
       expect(compMenu.length).toBe(1);
       expect(items.length).toBe(2);
     })
+    */
 
 });

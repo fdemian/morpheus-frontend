@@ -1,148 +1,137 @@
 import React from 'react';
-import Enzyme, { mount, render } from 'enzyme';
-import { Drawer, Input, Avatar, Dropdown, Spin, Badge, Menu } from 'antd';
-import { StaticRouter } from 'react-router';
-import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
-
-// Components.
 import Navbar from '../Navbar';
-import NavbarDesktop from '../NavbarDesktop';
-import NavbarMobile from '../NavbarMobile';
-import NavbarMenuMobile from '../Mobile/MobileMenu';
-import Notifications from '../Notifications';
 import AccountMenu from '../AccountMenu/AccountMenu';
 
-import Notification from '../AccountMenu/NotificationsMenu/Notification';
-import NotificationsMenuHeader from '../AccountMenu/NotificationsMenu/NotificationsMenuHeader';
+import { render, fireEvent, act, waitFor} from '../../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
 
-describe("<Navbar />", () => {
+describe("<NavbarDesktop />", () => {
 
-   it("Renders <NavbarDesktop /> inside <Navbar /> component.", () => {
-     const navbarComponent = mount(
-      <StaticRouter >
-       <Navbar mobile={false} />
-      </StaticRouter>
-     );
-     expect(navbarComponent.contains(NavbarDesktop));
-   });
+   beforeAll(() => {
+     console.error = (msg) => {}; //no-op
+   })
 
-   it("<NavbarDesktop />", () => {
+   it("Not logged in.", async () => {
 
-     const props = {
-       loggedIn: false,
+     const navProps = {
+       mobile: false,
+       config: {},
        user: null,
+       loggedIn: false,
+       isFetching: false,
+       blogName: "Morpheus",
+       notificationsEnabled: false,
        notifications: [],
-       logoutFn: jest.fn(),
-       dismissNotifications: jest.fn()
+       mutateUser: jest.fn()
      };
 
-     const navbarDesktop = mount(
-      <StaticRouter >
-        <NavbarDesktop {...props} />
-      </StaticRouter>
-     );
+     const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
 
-     const menu = navbarDesktop.find(Menu);
+     await waitFor(() => {
+        expect(getByRole('img')).toBeInTheDocument();
+        expect(getByText('Login')).toBeInTheDocument();
+      });
 
-     expect(menu.length).toBe(1);
    })
 
-   it("<Notifications />", () => {
+   it("Loading.", async () => {
 
-     const props = {
-      notifications: [{
-        id: 1,
-        type: "message",
-        text: "Mensaje del usuario <X>"
-      }],
-      clearFn: jest.fn()
-    };
+     const navProps = {
+       mobile: false,
+       config: {},
+       user: null,
+       loggedIn: false,
+       isFetching: true,
+       blogName: "Morpheus",
+       notificationsEnabled: false,
+       notifications: [],
+       mutateUser: jest.fn()
+     };
 
-     const notificationsComponent = mount(
-      <StaticRouter >
-        <Notifications {...props} />
-      </StaticRouter>
-     );
+     const { getByText, getByRole } = render(<Navbar {...navProps} />);
 
-     expect(notificationsComponent.contains(NoticeIcon));
-     expect(notificationsComponent.contains(NoticeIcon.Tab));
+     /*
+     await waitFor(() => {
+        expect(getByText('loading')).toBeInTheDocument();
+      });*/
+
    })
 
-   it("<AccountMenu />", () => {
-    const user = {
-     id: 1,
-     username: "test",
-     name:"Joe Test",
-     avatar: undefined
-    }
+   it("Logged in.", async () => {
 
-    const props = {
-      logoutFn: jest.fn(),
-      user: user,
-      isFetching: false
-    };
+     const navProps = {
+       mobile: false,
+       config: {},
+       user: {
+         id: 1,
+         username: "adminuser",
+         avatar: "avatar.png"
+       },
+       loggedIn: true,
+       isFetching: false,
+       blogName: "Morpheus",
+       notificationsEnabled: true,
+       notifications: [{
+         id: 1,
+         link: "",
+         text: "MR.X has commented on your story.",
+         read: false
+       }],
+       mutateUser: jest.fn()
+     };
 
-    const component = mount(
-     <StaticRouter>
-       <AccountMenu {...props} />
-     </StaticRouter>
-    );
+     const { getByText, getAllByRole } = render(<Navbar {...navProps} />);
 
-    expect(component.contains(Dropdown));
- })
+     await waitFor(() => {
 
- it("<Notification />", () => {
+       const images = getAllByRole('img');
+       const altText = navProps.blogName + " logo";
 
-      const props = {
-        notification: {
-          id:1,
-          read: false,
-          text: "This is a notification"
-        }
-      };
+       const blogImage = images[0];
+       const userImage = images[1];
 
-      const component = mount(
-       <StaticRouter>
-         <Notification {...props} />
-       </StaticRouter>
-      );
+       // Test blog image.
+       expect(blogImage).toHaveAttribute("alt", altText);
 
-      expect(component.contains(Badge));
-  })
+       // Test user image.
+       expect(userImage).toHaveAttribute("src", `/static/avatars/${navProps.user.avatar}`);
+       expect(userImage).toHaveAttribute("alt", `Avatar for ：${navProps.user.username}`);
 
-  it("<NotificationsMenuHeader /> > Disabled Notifications", () => {
-
-       const props = {
-         notifications: null,
-         enabled: false
-       };
-
-       const component = mount(
-        <StaticRouter>
-          <NotificationsMenuHeader {...props} />
-        </StaticRouter>
-       );
-
-       expect(component.contains(<span />));
+       expect(getByText('adminuser')).toBeInTheDocument();
+     })
    })
 
-   it("<NotificationsMenuHeader /> > Enabled Notifications", () => {
+   it("<AccountMenu /> > undefined user", async () => {
+     const mutateFn = jest.fn();
+     const navProps = {
+       mutate: mutateFn,
+       user: undefined,
+       isFetching: true
+     };
 
-        const props = {
-          notifications: [{
-            id:1,
-            read: false,
-            text: "This is a notification"
-          }],
-          enabled: true
-        };
+     const { queryByTestId } = render(<AccountMenu {...navProps} />);
+     expect(queryByTestId("logout-button")).toBeFalsy();
+   })
 
-        const component = mount(
-         <StaticRouter>
-           <NotificationsMenuHeader {...props} />
-         </StaticRouter>
-        );
+   it("<AccountMenu /> > logout", async () => {
 
-        expect(component.contains(<Badge />));
-  })
+     const mutateFn = jest.fn();
+     const navProps = {
+       mutate: mutateFn,
+       user: {
+         id: 1,
+         username: "adminuser",
+         avatar: "avatar.png"
+       },
+       isFetching: false
+     };
+
+     const { getByTestId, getByText, debug } = render(<AccountMenu {...navProps} />);
+
+     const menuButton = getByText("adminuser");
+     fireEvent.click(menuButton);
+
+     debug();
+   })
+
 })

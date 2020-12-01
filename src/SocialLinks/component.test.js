@@ -1,8 +1,9 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SocialLinks from './SocialLinks';
 import LinkIcon from './LinkIcon';
+import { render } from '../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
 
 const shareLinks = [
   { url:"http://url.com", name: "twitter" },
@@ -13,16 +14,8 @@ describe('<SocialLinks />', () => {
 
   // Basic rendering test.
   it('Renders correctly.', () => {
-   const component = mount(<SocialLinks links={shareLinks} />);
-   const linkIcons = component.find(LinkIcon);
-   expect(linkIcons.length).toBe(2);
+   const { getAllByTestId } = render(<SocialLinks links={shareLinks} />);
+   expect(getAllByTestId('link-span').length).toBe(2);
   })
-
-  it('Renders <LinkIcon />', () => {
-   const shareLink = shareLinks[0];
-   const component = mount(<LinkIcon service={shareLink} />);
-   const iconComponent = component.find(FontAwesomeIcon);
-   expect(iconComponent.length).toBe(1);
-  });
 
 });

@@ -25,7 +25,7 @@ const ActionButton = (props) =>
         <FontAwesomeIcon
 		       icon={icon}
 		       size="lg"
-		       onClick={() => clickFn(id)}
+		       onClick={clickFn ? () => clickFn(id) : null}
 		       className={cssClass}
 	      />
       </Link>

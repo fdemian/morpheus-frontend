@@ -2,11 +2,14 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-
 import List from 'antd/lib/list';
 import Spin from 'antd/lib/spin';
-
 import StoryItem from './StoriesItem';
+import StoriesList from './StoriesList';
+import { isLoggedIn } from '../Login/utils';
+import { deleteStory, useStories } from './Actions';
+import { setIsEditingState } from './utils';
+import './Stories.css';
 
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
@@ -20,30 +23,36 @@ const pagination = {
 const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
 const noStoriesText = "There are currently no stories on this blog.";
 
-const Stories = (props) =>
-{
+const Stories = () => {
 
-   const {
-     stories,
-     error,
-     onDelete,
-     onEditClick,
-     loggedIn
-   } = props;
+   const loggedIn = isLoggedIn();
+   const { data, mutate, error, isLoading } = useStories();
+
+   const onEditClick = () => setIsEditingState();
+
+   const deleteFn = (id) => {
+     deleteStory(id);
+
+     const _items = data.items.filter(s => s.id !== id);
+     const newData = { page: 1, items: _items };
+     mutate("/api/stories", newData);
+   }
 
    if(error)
     return (
     <Suspense fallback={<Spin />}>
       <NoStoriesNotice text={errorText} error={true} />
     </Suspense>
-    );
+   );
 
-   if(stories === null || stories.length === 0)
-   return (
+   if (isLoading)
+   return(
    <Suspense fallback={<Spin />}>
-      <NoStoriesNotice text={noStoriesText} error={false} />
-    </Suspense>
-    );
+     <NoStoriesNotice text={noStoriesText} error={false} />
+   </Suspense>
+   );
+
+  const stories = data.items;
 
 	return(
   <div className="stories-container">
@@ -52,25 +61,14 @@ const Stories = (props) =>
       <h1 className="StoriesTitle">Stories</h1>
     </div>
 
-    <div className="StoryListContainer">
-     <Suspense fallback={<Spin />}>
-      	<List
-      	  itemLayout="vertical"
-      	  size="default"
-          pagination={pagination}
-          dataSource={stories}
-          renderItem={item =>
-            <StoryItem
-              item={item}
-              editFn={onEditClick}
-              deleteFn={onDelete}
-              loggedIn={loggedIn}
-              stories={stories}
-            />
-          }
-      	/>
-      </Suspense>
-    </div>
+    <StoriesList
+      stories={stories}
+      pagination={pagination}
+      editFn={onEditClick}
+      deleteFn={(id) => deleteFn(id)}
+      loggedIn={loggedIn}
+    />
+
   </div>
 	);
 

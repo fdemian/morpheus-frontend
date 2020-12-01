@@ -3,8 +3,8 @@ import React, {
   Suspense
 } from 'react';
 import List from 'antd/lib/list';
-import Spin from 'antd/lib/spin';
 import Skeleton from 'antd/lib/skeleton';
+import ActionButton from './ActionButton';
 
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,34 +16,32 @@ import './Stories.css';
 
 // Lazy imports.
 const AccountAvatar = lazy(() => import('../UserAvatar/UserAvatar'));
-const ActionButton = lazy(() => import('./ActionButton'));
 
-const getAvatarLink = (author) => "/users/" + author.id + "/" + author.name;
+const getAvatarLink = (author) => `/users/${author.id}/${author.name}`;
 const defaultCategory = { id: -1, name: "Uncategorized" };
 
 const StoryItem = (props) => {
 
-  const { item, editFn, deleteFn, loggedIn, stories  } = props;
-  const commentsLink = "/stories/" + item.id + "/" + format_title_string(item.name) + "#comments";
+  const { item, deleteFn, loggedIn } = props;
+  const commentsLink = `/stories/${item.id}/${format_title_string(item.name)}#comments`;
 
   const itemActions = [
-      <ActionButton
-        title="Edit"
-        linkURL="stories/new"
-        icon={faEdit}
-        clickFn={() => editFn(item.id, stories)}
-        id={item.id}
-        className="IconRight EditStoryIcon"
-      />,
-      <ActionButton
-        title="Delete"
-        linkURL="#"
-        icon={faTrash}
-        clickFn={deleteFn}
-        id={item.id}
-        cssClass="DeleteStoryIcon"
-      />
-    ];
+    <ActionButton
+      title="Edit"
+      linkURL={`/stories/edit/${item.id}`}
+      icon={faEdit}
+      id={item.id}
+      className="IconRight EditStoryIcon"
+    />,
+    <ActionButton
+      title="Delete"
+      linkURL="#"
+      icon={faTrash}
+      clickFn={deleteFn}
+      id={item.id}
+      cssClass="DeleteStoryIcon"
+    />
+   ];
 
    const mappedActions = loggedIn ? itemActions : [];
    let category = item.category != null ? item.category : defaultCategory;
@@ -62,11 +60,7 @@ const StoryItem = (props) => {
     }>
      <List.Item
         key={item.id}
-        actions={
-        <Suspense fallback={<Spin />}>
-          {mappedActions}
-        </Suspense>
-        }
+        actions={mappedActions}
         extra={storyDate}
       >
        <div className="item-container">

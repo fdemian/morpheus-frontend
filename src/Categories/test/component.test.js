@@ -1,68 +1,126 @@
 import React from 'react';
+import antd from 'antd';
 import { Button, Input } from 'antd';
-import Enzyme, { mount, shallow} from 'enzyme';
-import Categories from '../Categories';
-import { StaticRouter } from 'react-router';
-import { Table } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import NewCategoryForm from '../NewCategoryForm';
 import DeleteRow from '../DeleteRow';
 import Form from '../Form';
+import Categories from '../SWRComponent';
+import  { render, waitFor, fireEvent } from '../../utils/testing-utils';
+import '@testing-library/jest-dom';
+
+const utils = require('../../Login/utils');
+const actions = require('../Actions');
 
 describe("<Categories />", () => {
 
   it("Renders correctly.", () => {
 
-    const props = {
+    jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
+    jest.spyOn(actions, 'useCategories').mockImplementation(() => ({
       categories: [{
         id: 1,
-        name: "Category 1"
+        name: 'Category 1',
+        description: "A category 1"
       }],
-      loggedIn: true,
-      deleteFn: jest.fn(),
-      createFn: jest.fn()
-    };
+      isLoading:false,
+      isError: false,
+      mutate: jest.fn()
+    }));
+    jest.spyOn(actions, 'deleteCategory').mockImplementation(() => ({}));
+    jest.spyOn(actions, 'createCategory').mockImplementation(() => ({}));
 
-    const component = mount(
-    <StaticRouter>
-      <Categories {...props} />
-    </StaticRouter>
-    );
-    const categoryForm = component.find(NewCategoryForm);
-    const categoriesTable = component.find(Table);
+    const { getByText, getAllByRole } = render(<Categories />);
 
-    expect(categoryForm.length).toBe(1);
-    expect(categoriesTable.length).toBe(1);
+    expect(getByText('Category 1')).toBeInTheDocument();
+    expect(getByText('A category 1')).toBeInTheDocument();
+    expect(getAllByRole('button')[0]).toBeInTheDocument();
   })
 
-  it("<DeleteRow /> not logged in", () => {
+  it("Change name and description values .", () => {
 
-    const props = {
-      id:1,
-      loggedIn: false,
-      deleteFn: jest.fn()
-    };
+    jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
+    jest.spyOn(actions, 'useCategories').mockImplementation(() => ({
+      categories: [{
+        id: 1,
+        name: 'Category 1',
+        description: "A category 1"
+      }],
+      isLoading:false,
+      isError: false,
+      mutate: jest.fn()
+    }));
+    jest.spyOn(actions, 'deleteCategory').mockImplementation(() => ({}));
+    jest.spyOn(actions, 'createCategory').mockImplementation(() => ({}));
 
-    const component = shallow(<DeleteRow {...props} />);
-    expect(component.type()).toEqual(null);
+    const {
+        getByText,
+        getByRole,
+        getAllByRole,
+        getByTestId
+      } = render(<Categories />);
+
+    expect(getByText('Category 1')).toBeInTheDocument();
+    expect(getByText('A category 1')).toBeInTheDocument();
+
+    const button = getAllByRole('button')[0];
+    fireEvent.click(button);
+
+    expect(getByText('Cancel')).toBeInTheDocument();
+    expect(getByText('Create')).toBeInTheDocument();
+
+    expect(getByRole('form')).toHaveFormValues({
+      name: '',
+      description: '',
+    });
+
+    const nameInput = getByTestId('input-category-name');
+    const descInput = getByTestId('input-category-description');
+
+    fireEvent.change(nameInput, { target: { value: 'A name' } })
+    fireEvent.change(descInput, { target: { value: 'A description' } })
+
+    expect(getByRole('form')).toHaveFormValues({
+      name: 'A name',
+      description: 'A description',
+    });
+
   })
 
-  it("<Form />", () => {
+  it("Add category .", () => {
 
-    const props = {
-      updateName: jest.fn(),
-      updateDescription: jest.fn(),
-      createFn: jest.fn(),
-      cancelFn: jest.fn(),
-      visible: true
-    };
+    jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
+    jest.spyOn(actions, 'useCategories').mockImplementation(() => ({
+      categories: [],
+      isLoading:false,
+      isError: false,
+      mutate: jest.fn()
+    }));
+    jest.spyOn(actions, 'deleteCategory').mockImplementation(() => ({}));
+    jest.spyOn(actions, 'createCategory').mockImplementation(() => ({}));
 
-    const component = mount(<Form {...props} />);
-    const button = component.find(Button);
-    const input = component.find(Input)
+    const {
+        getByText,
+        getByRole,
+        getAllByRole,
+        getByTestId
+      } = render(<Categories />);
 
-    expect(button.length).toEqual(2);
-    expect(input.length).toEqual(2);
+    // Open the new category form.
+    const button = getAllByRole('button')[0];
+    fireEvent.click(button);
+
+    // Add a name and description.
+    const nameInput = getByTestId('input-category-name');
+    const descInput = getByTestId('input-category-description');
+
+    fireEvent.change(nameInput, { target: { value: 'A name' } })
+    fireEvent.change(descInput, { target: { value: 'A description' } })
+
+    // Submit form.
+    const submitButton = getByText('Create')
+    fireEvent.click(submitButton);
+
+    
   })
 
 

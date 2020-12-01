@@ -1,46 +1,49 @@
 import React from 'react';
 import { Button, Input } from 'antd';
-import Enzyme, { mount, shallow} from 'enzyme';
 import Drafts from '../Drafts';
-import { StaticRouter } from 'react-router';
 import { Table } from 'antd';
 import DeleteRow from '../DeleteRow';
+import { useDrafts } from '../Actions';
+import { render, screen } from '../../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
+
+jest.mock('../Actions');
+
+const actions = require('../Actions');
 
 describe("<Drafts />", () => {
 
-  it("Renders correctly.", () => {
+  it("Renders with drafts", () => {
 
-    const props = {
-      drafts: [{
-        id: 1,
-        name: "Draft 1",
-        category: { id: 1, name: "Category 1" }
-      }],
-      loggedIn: true,
-      deleteFn: jest.fn()
-    };
+    jest.spyOn(actions, 'useDrafts').mockImplementation(() => ({
+        drafts: [{
+          id: 1,
+          name: "Draft 1",
+          category: { id: 3, name: "User Name" }
+        }],
+        error: false,
+        isLoading: false
+    }));
 
-    const component = mount(
-    <StaticRouter>
-      <Drafts {...props} />
-    </StaticRouter>
-    );
-    const draftsTable = component.find('.drafts-table')
-                                 .find(Table);
+    const { getByText } = render(<Drafts />);
 
-    expect(draftsTable.length).toBe(1);
-  });
+    expect(getByText('Drafts')).toBeInTheDocument();
+    expect(getByText('Draft 1')).toHaveAttribute('href', '/draft/1/draft-1');
+    expect(getByText('User Name')).toHaveAttribute('href', '/categories/3/user-name');
+  })
 
-  it("<DeleteRow /> not logged in", () => {
+  /*
+  it("Renders without drafts", () => {
 
-    const props = {
-      id:1,
-      loggedIn: false,
-      deleteFn: jest.fn()
-    };
+    jest.spyOn(actions, 'useDrafts').mockImplementation(() => ({
+        drafts: null,
+        error: false,
+        isLoading: false
+    }));
 
-    const component = shallow(<DeleteRow {...props} />);
-    expect(component.type()).toEqual(null);
-  });
+    const container = render(<Drafts />);
+    expect(draft).not.toBeInTheDocument();
+
+  })*/
 
 });

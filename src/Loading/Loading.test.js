@@ -1,17 +1,16 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import Loading from './LoadingIndicator';
-import { Spin, Alert } from 'antd';
+import { render, screen } from '../utils/testing-utils';
+import '@testing-library/jest-dom/extend-expect';
+
 
 describe("<LoadingIndicator />", () => {
 
   it("Renders correctly", () => {
+   const { getByText } = render(<Loading />);
 
-   const component = mount(<Loading />);
-
-   expect(component.contains(Spin));
-   expect(component.contains(Alert));
-
+   expect(getByText("Loading...")).toHaveClass("ant-spin-text");
+   expect(getByText("Loading")).toHaveClass("ant-alert-message");
+   expect(getByText("Please wait.")).toHaveClass("ant-alert-description");
   })
-
 });
