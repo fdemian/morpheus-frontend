@@ -12,6 +12,7 @@ const Navbar = (props) => {
 
   const { mobile } = props;
   const { user, mutate } = useUser();
+
   mutate(user);
 
   if(user && props.user){
