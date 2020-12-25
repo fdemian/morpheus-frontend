@@ -51,7 +51,7 @@ const Drafts = () => {
 
       <div className="drafts-table">
         <Table
-          dataSource={drafts}
+          dataSource={drafts.items}
           columns={columns}
           pagination={false}
           locale={{emptyText:"There are no drafts."}}

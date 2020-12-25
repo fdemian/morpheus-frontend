@@ -16,11 +16,13 @@ describe("<Drafts />", () => {
   it("Renders with drafts", () => {
 
     jest.spyOn(actions, 'useDrafts').mockImplementation(() => ({
-        drafts: [{
-          id: 1,
-          name: "Draft 1",
-          category: { id: 3, name: "User Name" }
-        }],
+        drafts: {
+          items: [{
+            id: 1,
+            name: "Draft 1",
+            category: { id: 3, name: "User Name" }
+          }]
+        },
         error: false,
         isLoading: false
     }));
