@@ -18,6 +18,7 @@ span.invisible, li.ant-menu-item.invisible {
 
 .navbar-logo-mobile {
   height: 30px;
+  width: 93px;
   margin-left: 15px;
 }
 
@@ -69,6 +70,7 @@ span.register-link {
   display: inline-block;
   position: relative;
   width: 150px;
+  height:50px;
   line-height: 64px;
 }
 

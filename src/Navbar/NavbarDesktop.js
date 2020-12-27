@@ -8,6 +8,7 @@ import {
   Row,
   Col
 } from 'antd';
+import NavLogo from './NavLogo';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -42,15 +43,7 @@ const Navbar = (props) => {
         <Col span={8}>
           <Menu.Item key="item.empty.logged"></Menu.Item>
           <span className="logo-item-desktop" key="logo-item-desktop">
-             <Link to="/" className="topnav header-logo">
-                <Suspense fallback={<Spin />}>
-                 <img
-                   src={logo}     
-                   alt={blogName + " logo"}
-                   className="blog-logo"
-                 />
-                </Suspense>
-             </Link>
+             <NavLogo mobile={false} blogName={props.blogName} />
           </span>
         </Col>
         <Col span={8}></Col>
@@ -80,15 +73,7 @@ const Navbar = (props) => {
         <Col span={8}>
           <Menu.Item key="item.empty.not.logged"></Menu.Item>
           <span className="logo-item-desktop" key="logo-item-desktop">
-             <Link to="/" className="topnav header-logo">
-                <Suspense fallback={<Spin />}>
-                 <img
-                   src={logo}     
-                   alt={blogName + " logo"}
-                   className="blog-logo"
-                 />
-                </Suspense>
-             </Link>
+              <NavLogo mobile={false} blogName={props.blogName} />
           </span>
         </Col>
         <Col span={8}></Col>
@@ -102,10 +87,6 @@ const Navbar = (props) => {
                     <FontAwesomeIcon icon={signIn} />
                     Login
                  </Link>
-                 {/*<Link to="/login/register">
-                   <FontAwesomeIcon icon={userPlus} />
-                   Register
-                 </Link>*/}
               </span>
               )
            }

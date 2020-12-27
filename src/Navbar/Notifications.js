@@ -50,7 +50,7 @@ const Notifications = (props) => {
 
   return (
   <Suspense fallback={<Spin />}>
-    <div role="button">
+    <div role="button" aria-label="Notifications">
       <NoticeIcon
         bell={
         <FontAwesomeIcon
