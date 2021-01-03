@@ -1948,10 +1948,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@fortawesome/react-fontawesome@0.1.13":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.13.tgz#ce9654bf4e537108014ec022f2423dbe8114fd62"
-  integrity sha512-/HrLnIft5Ks2511Pz6TxHBIctC9QalVscAC64sufQ4sJH/sXaQlG3uR9LCu6VpEwkBemgcBLrz/QPNP/ddbjDg==
+"@fortawesome/react-fontawesome@0.1.14":
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.14.tgz#bf28875c3935b69ce2dc620e1060b217a47f64ca"
+  integrity sha512-4wqNb0gRLVaBm/h+lGe8UfPPivcbuJ6ecI4hIgW0LjI7kzpYB9FkN0L9apbVzg+lsBdcTf0AlBtODjcSX5mmKA==
   dependencies:
     prop-types "^15.7.2"
 
@@ -2420,7 +2420,21 @@
     lz-string "^1.4.4"
     pretty-format "^26.6.2"
 
-"@testing-library/jest-dom@5.11.6", "@testing-library/jest-dom@^5.11.6":
+"@testing-library/jest-dom@5.11.8":
+  version "5.11.8"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.11.8.tgz#433a84d6f9a089485101b9e112ef03e5c30bcbfc"
+  integrity sha512-ScyKrWQM5xNcr79PkSewnA79CLaoxVskE+f7knTOhDD9ftZSA1Jw8mj+pneqhEu3x37ncNfW84NUr7lqK+mXjA==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    "@types/testing-library__jest-dom" "^5.9.1"
+    aria-query "^4.2.2"
+    chalk "^3.0.0"
+    css "^3.0.0"
+    css.escape "^1.5.1"
+    lodash "^4.17.15"
+    redent "^3.0.0"
+
+"@testing-library/jest-dom@^5.11.6":
   version "5.11.6"
   resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.11.6.tgz#782940e82e5cd17bc0a36f15156ba16f3570ac81"
   integrity sha512-cVZyUNRWwUKI0++yepYpYX7uhrP398I+tGz4zOlLVlUYnZS+Svuxv4fwLeCIy7TnBYKXUaOlQr3vopxL8ZfEnA==
@@ -3126,10 +3140,10 @@ ant-design-pro@2.3.2:
     prop-types "^15.6.2"
     react-fittext "^1.0.0"
 
-antd-dayjs-webpack-plugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/antd-dayjs-webpack-plugin/-/antd-dayjs-webpack-plugin-1.0.1.tgz#cc31cc05c9bd69652a4bddab19eb49726bebe0d5"
-  integrity sha512-1UWGAnv856s5r/2bi6KJvWMeevDEHwFFdHaymZElW5kbH06A/xP7JcZ75UdYoxqny3scD22DWErbGg+vQ9RNdg==
+antd-dayjs-webpack-plugin@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/antd-dayjs-webpack-plugin/-/antd-dayjs-webpack-plugin-1.0.2.tgz#795724eddcae439addd8591533e9af4872ef82b8"
+  integrity sha512-y49JdmwSF8B7JLSFB+A/0RmvYoXi+TR0FzvwcAydDCJlZjqb4UJdRCcKduhZg2ByFpz/mE8XKhKMqgF24T9Yhw==
 
 antd@4.8.2:
   version "4.8.2"
@@ -13663,10 +13677,10 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swr@0.3.10:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.3.10.tgz#666bd6eb67cf5dc550018595d953e605ec457490"
-  integrity sha512-4yUM9RAQWNih94Tm8BlOyqgxB9QdwloVb8BOv66hu64+pp+cdKcvw+0pRqnpxALdoKOj2aK2ue0R+yeVL2tSAQ==
+swr@0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.3.11.tgz#f7f50ed26c06afea4249482cec504768a2272664"
+  integrity sha512-ya30LuRGK2R7eDlttnb7tU5EmJYJ+N6ytIOM2j0Hqs0qauJcDjVLDOGy7KmFeH5ivOwLHalFaIyYl2K+SGa7HQ==
   dependencies:
     dequal "2.0.2"
 

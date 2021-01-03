@@ -39,7 +39,7 @@ const Comments = ({comments, loggedIn}) => {
     return null;
 
   return(
-  <div>
+  <div className="comments-container">
 
 	  <div>
 	    <p className="CommentsTitle">
