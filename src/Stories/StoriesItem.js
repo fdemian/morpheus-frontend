@@ -74,13 +74,12 @@ const StoryItem = (props) => {
             />
            </Link>
           }
-          title={
-          <Link to={storyLink}>
-            <span className="StoryLinkTitle">{item.name}</span>
-          </Link>
-          }
           description={
           <>
+            <Link to={storyLink}>
+              <span className="StoryLinkTitle">{item.name}</span>
+            </Link>
+            <br />
             <Link to={categoryLink}>
               {category.name}
             </Link>
