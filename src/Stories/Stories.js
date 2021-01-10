@@ -4,13 +4,13 @@ import React, {
 } from 'react';
 import List from 'antd/lib/list';
 import Spin from 'antd/lib/spin';
-import StoryItem from './StoriesItem';
-import StoriesList from './StoriesList';
 import { isLoggedIn } from '../Login/utils';
 import { deleteStory, useStories } from './Actions';
 import { setIsEditingState } from './utils';
 import './Stories.css';
 
+const StoryItem =  lazy(() => import('./StoriesItem'));
+const StoriesList =  lazy(() => import('./StoriesList'));
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 
 const pagination = {
@@ -55,21 +55,21 @@ const Stories = () => {
   const stories = data.items;
 
 	return(
-  <div className="stories-container">
+  <Suspense fallback={<Spin />}>
+    <div className="stories-container">
+        <div>
+          <h1 className="StoriesTitle">Stories</h1>
+        </div>
 
-    <div>
-      <h1 className="StoriesTitle">Stories</h1>
-    </div>
-
-    <StoriesList
-      stories={stories}
-      pagination={pagination}
-      editFn={onEditClick}
-      deleteFn={(id) => deleteFn(id)}
-      loggedIn={loggedIn}
-    />
-
-  </div>
+        <StoriesList
+          stories={stories}
+          pagination={pagination}
+          editFn={onEditClick}
+          deleteFn={(id) => deleteFn(id)}
+          loggedIn={loggedIn}
+        />
+     </div>
+  </Suspense>
 	);
 
 }
