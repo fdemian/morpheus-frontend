@@ -1,5 +1,6 @@
 import React, {
   lazy,
+  useState,
   Suspense
 } from 'react';
 import List from 'antd/lib/list';
@@ -8,27 +9,25 @@ import { isLoggedIn } from '../Login/utils';
 import { deleteStory, useStories } from './Actions';
 import { setIsEditingState } from './utils';
 import './Stories.css';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const StoryItem =  lazy(() => import('./StoriesItem'));
 const StoriesList =  lazy(() => import('./StoriesList'));
 const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
-
-const pagination = {
-  pageSize: 10,
-  current: 1,
-  total: 1,
-  onChange: null
-};
 
 const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
 const noStoriesText = "There are currently no stories on this blog.";
 
 const Stories = () => {
 
+   const [currentPage, setCurrentPage] = useState(0);
    const loggedIn = isLoggedIn();
-   const { data, mutate, error, isLoading } = useStories();
+   const { data, mutate, error, isLoading } = useStories(currentPage);
 
    const onEditClick = () => setIsEditingState();
+
+   console.clear();
+   console.log(data);
 
    const deleteFn = (id) => {
      deleteStory(id);
@@ -52,6 +51,8 @@ const Stories = () => {
    </Suspense>
    );
 
+   /* loadMore={this.handleInfiniteOnLoad}
+ hasMore={!this.state.loading && this.state.hasMore}*/
   const stories = data.items;
 
 	return(
@@ -61,13 +62,21 @@ const Stories = () => {
           <h1 className="StoriesTitle">Stories</h1>
         </div>
 
-        <StoriesList
-          stories={stories}
-          pagination={pagination}
-          editFn={onEditClick}
-          deleteFn={(id) => deleteFn(id)}
-          loggedIn={loggedIn}
-        />
+
+        <InfiniteScroll
+            initialLoad={false}
+            pageStart={0}
+            loadMore={false}
+            hasMore={false}
+            useWindow={false}
+       >
+          <StoriesList
+             stories={stories}
+             editFn={onEditClick}
+             deleteFn={(id) => deleteFn(id)}
+             loggedIn={loggedIn}
+          />
+        </InfiniteScroll>
      </div>
   </Suspense>
 	);
