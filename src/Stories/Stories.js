@@ -18,6 +18,7 @@ const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
 const noStoriesText = "There are currently no stories on this blog.";
 
+
 const Stories = () => {
 
    const [currentPage, setCurrentPage] = useState(0);
@@ -26,9 +27,6 @@ const Stories = () => {
 
    const onEditClick = () => setIsEditingState();
 
-   console.clear();
-   console.log(data);
-
    const deleteFn = (id) => {
      deleteStory(id);
 
@@ -36,6 +34,14 @@ const Stories = () => {
      const newData = { page: 1, items: _items };
      mutate("/api/stories", newData);
    }
+
+   /*
+   const hasMore = () => {
+     return (
+       data.items.length >= data.pageSize && data.totalItems
+       &&
+       data.
+    );*/
 
    if(error)
     return (
@@ -67,7 +73,7 @@ const Stories = () => {
             initialLoad={false}
             pageStart={0}
             loadMore={false}
-            hasMore={false}
+            hasMore={hasMore}
             useWindow={false}
        >
           <StoriesList

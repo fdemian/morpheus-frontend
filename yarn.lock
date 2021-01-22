@@ -1924,12 +1924,24 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.32.tgz#3436795d5684f22742989bfa08f46f50f516f259"
   integrity sha512-ux2EDjKMpcdHBVLi/eWZynnPxs0BtFVXJkgHIxXRl+9ZFaHPvYamAfCzeeQFqHRjuJtX90wVnMRaMQAAlctz3w==
 
+"@fortawesome/fontawesome-common-types@^0.2.34":
+  version "0.2.34"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.34.tgz#0a8c348bb23b7b760030f5b1d912e582be4ec915"
+  integrity sha512-XcIn3iYbTEzGIxD0/dY5+4f019jIcEIWBiHc3KrmK/ROahwxmZ/s+tdj97p/5K0klz4zZUiMfUlYP0ajhSJjmA==
+
 "@fortawesome/fontawesome-svg-core@1.2.32":
   version "1.2.32"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.32.tgz#da092bfc7266aa274be8604de610d7115f9ba6cf"
   integrity sha512-XjqyeLCsR/c/usUpdWcOdVtWFVjPbDFBTQkn2fQRrWhhUoxriQohO2RWDxLyUM8XpD+Zzg5xwJ8gqTYGDLeGaQ==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.32"
+
+"@fortawesome/fontawesome-svg-core@1.2.34":
+  version "1.2.34"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.34.tgz#1d1a7c92537cbc2b8a83eef6b6d824b4b5b46b26"
+  integrity sha512-0KNN0nc5eIzaJxlv43QcDmTkDY1CqeN6J7OCGSs+fwGPdtv0yOQqRjieopBCmw+yd7uD3N2HeNL3Zm5isDleLg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.34"
 
 "@fortawesome/free-brands-svg-icons@5.15.1":
   version "5.15.1"
@@ -1938,6 +1950,13 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.32"
 
+"@fortawesome/free-brands-svg-icons@5.15.2":
+  version "5.15.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.15.2.tgz#d74e2540b5552b915d6bef719f17e361b70a8d65"
+  integrity sha512-YPlVjE1cEO+OJ9I9ay3TQ3I88+XkxMTYwnnddqAboxLhPNGncsHV0DjWOVLCyuAY66yPfyndWwVn4v7vuqsO1g==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.34"
+
 "@fortawesome/free-regular-svg-icons@5.15.1":
   version "5.15.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.15.1.tgz#a8897d0ce325352dbba0e943101323e0175ee2b2"
@@ -1945,12 +1964,26 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.32"
 
+"@fortawesome/free-regular-svg-icons@5.15.2":
+  version "5.15.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-5.15.2.tgz#61eeb8c206e792c530eaa58279cc32c55332fe8f"
+  integrity sha512-Uv5NQCYjyisNVTu/1Xjs+z8vwQjbfT6hiqYvQNfF0n8qdgfWLM581bAfVMQ3BCs1SPy+eEUKNcGkK4n0FihFHg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.34"
+
 "@fortawesome/free-solid-svg-icons@5.15.1":
   version "5.15.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.1.tgz#e1432676ddd43108b41197fee9f86d910ad458ef"
   integrity sha512-EFMuKtzRMNbvjab/SvJBaOOpaqJfdSap/Nl6hst7CgrJxwfORR1drdTV6q1Ib/JVzq4xObdTDcT6sqTaXMqfdg==
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.32"
+
+"@fortawesome/free-solid-svg-icons@5.15.2":
+  version "5.15.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.2.tgz#25bb035de57cf85aee8072965732368ccc8e8943"
+  integrity sha512-ZfCU+QjaFsdNZmOGmfqEWhzI3JOe37x5dF4kz9GeXvKn/sTxhqMtZ7mh3lBf76SvcYY5/GKFuyG7p1r4iWMQqw==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.34"
 
 "@fortawesome/react-fontawesome@0.1.12":
   version "0.1.12"
@@ -2431,10 +2464,10 @@
     lz-string "^1.4.4"
     pretty-format "^26.6.2"
 
-"@testing-library/jest-dom@5.11.8":
-  version "5.11.8"
-  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.11.8.tgz#433a84d6f9a089485101b9e112ef03e5c30bcbfc"
-  integrity sha512-ScyKrWQM5xNcr79PkSewnA79CLaoxVskE+f7knTOhDD9ftZSA1Jw8mj+pneqhEu3x37ncNfW84NUr7lqK+mXjA==
+"@testing-library/jest-dom@5.11.9":
+  version "5.11.9"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.11.9.tgz#e6b3cd687021f89f261bd53cbe367041fbd3e975"
+  integrity sha512-Mn2gnA9d1wStlAIT2NU8J15LNob0YFBVjs2aEQ3j8rsfRQo+lAs7/ui1i2TGaJjapLmuNPLTsrm+nPjmZDwpcQ==
   dependencies:
     "@babel/runtime" "^7.9.2"
     "@types/testing-library__jest-dom" "^5.9.1"
@@ -3159,15 +3192,15 @@ ant-design-pro@2.3.2:
     prop-types "^15.6.2"
     react-fittext "^1.0.0"
 
-antd-dayjs-webpack-plugin@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/antd-dayjs-webpack-plugin/-/antd-dayjs-webpack-plugin-1.0.4.tgz#017c3681fdd7fede38e3fa5b7ee9e04bf62cfb3a"
-  integrity sha512-yraPusfk1eO3JN6DZ6itH2woDSRPQoxd0sDv4tnr2NoGRz9u2iBJsUHjVnm2mE6JqjN0a/eGUPB+b1jAeZ+GEg==
+antd-dayjs-webpack-plugin@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/antd-dayjs-webpack-plugin/-/antd-dayjs-webpack-plugin-1.0.6.tgz#7d98bcb51422248b8cd4a32e352a0425a3bffa3a"
+  integrity sha512-UlK3BfA0iE2c5+Zz/Bd2iPAkT6cICtrKG4/swSik5MZweBHtgmu1aUQCHvICdiv39EAShdZy/edfP6mlkS/xXg==
 
-antd@4.10.1:
-  version "4.10.1"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-4.10.1.tgz#ad390f535d43e7e1d42d316b3d42d9e0f6e42626"
-  integrity sha512-nf7rEkoS8H5Vu1uMcFVnChAoIrydjLXYhQnuNRvRJoiEVlZCDKukxmUjMSxz3/zAjJ0iT6j7EqnL3PBlk+gVXw==
+antd@4.10.3:
+  version "4.10.3"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-4.10.3.tgz#54da18519470f6c68c348d29e646836321f8ddc0"
+  integrity sha512-J/IZvW15MwTmUxK/AWFkSU51T1Hyn4e0GchJWlIe7+FrPpLoTgLf9/Cx3mgxiooHfE9OfvnYvvRli1VxHH6H0Q==
   dependencies:
     "@ant-design/colors" "^5.0.0"
     "@ant-design/icons" "^4.3.0"
@@ -3178,7 +3211,6 @@ antd@4.10.1:
     copy-to-clipboard "^3.2.0"
     lodash "^4.17.20"
     moment "^2.25.3"
-    omit.js "^2.0.2"
     rc-cascader "~1.4.0"
     rc-checkbox "~2.3.0"
     rc-collapse "~3.1.0"
@@ -3208,7 +3240,7 @@ antd@4.10.1:
     rc-tree "~4.1.0"
     rc-tree-select "~4.3.0"
     rc-upload "~3.3.4"
-    rc-util "^5.6.6"
+    rc-util "^5.7.0"
     scroll-into-view-if-needed "^2.2.25"
     warning "^4.0.3"
 
@@ -12101,10 +12133,19 @@ rc-util@^5.5.0:
     react-is "^16.12.0"
     shallowequal "^1.1.0"
 
-rc-util@^5.5.1, rc-util@^5.6.1, rc-util@^5.6.2, rc-util@^5.6.6:
+rc-util@^5.5.1, rc-util@^5.6.1, rc-util@^5.6.2:
   version "5.6.6"
   resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.6.6.tgz#62632a8ab31dcc474d28eff9aa5c3ff2405e1146"
   integrity sha512-GLAqlODTuVu4V5dZpcDhM7i1pM0BCck2i5u1tW7PO0ZlmX385BhCJOWKqpJXvv4oh3rR5iC2zsJgb1B8hU5FJw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    react-is "^16.12.0"
+    shallowequal "^1.1.0"
+
+rc-util@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-5.7.0.tgz#776b14cf5bbfc24f419fd40c42ffadddda0718fc"
+  integrity sha512-0hh5XkJ+vBDeMJsHElqT1ijMx+gC3gpClwQ10h/5hccrrgrMx8VUem183KLlH1YrWCfMMPmDXWWNnwsn+p6URw==
   dependencies:
     "@babel/runtime" "^7.12.5"
     react-is "^16.12.0"
