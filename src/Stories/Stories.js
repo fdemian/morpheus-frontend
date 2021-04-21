@@ -57,6 +57,7 @@ const Stories = () => {
    </Suspense>
    );
 
+  const loadMore = () => {};
    /* loadMore={this.handleInfiniteOnLoad}
  hasMore={!this.state.loading && this.state.hasMore}*/
   const stories = data.items;
@@ -72,8 +73,8 @@ const Stories = () => {
         <InfiniteScroll
             initialLoad={false}
             pageStart={0}
-            loadMore={false}
-            hasMore={hasMore}
+            loadMore={loadMore}
+            hasMore={false}
             useWindow={false}
        >
           <StoriesList

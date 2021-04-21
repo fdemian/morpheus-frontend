@@ -41,7 +41,6 @@ const Navbar = (props) => {
     <Menu mode="horizontal" key="parent.menu.not.logged">
       <Row>
         <Col span={8}>
-          <Menu.Item key="item.empty.logged"></Menu.Item>
           <span className="logo-item-desktop" key="logo-item-desktop">
              <NavLogo mobile={false} blogName={props.blogName} />
           </span>
@@ -71,7 +70,6 @@ const Navbar = (props) => {
     <Menu mode="horizontal" key="parent.menu.not.logged">
       <Row>
         <Col span={8}>
-          <Menu.Item key="item.empty.not.logged"></Menu.Item>
           <span className="logo-item-desktop" key="logo-item-desktop">
               <NavLogo mobile={false} blogName={props.blogName} />
           </span>
