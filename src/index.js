@@ -40,4 +40,4 @@ const Morpheus = () => {
 
 ReactDOM.render(<Morpheus />, document.getElementById('root'));
 
-serviceWorker.register();
+serviceWorker.unregister();
