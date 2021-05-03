@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import ApplicationRoutes from './Routes/Routes';
 import AppRoute from './Routes/AppRoute';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-//import reportWebVitals from './reportWebVitals';
+//import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
 import { SWRConfig } from 'swr';
 import { fetcher }  from './store/utils';
 
@@ -39,7 +39,7 @@ const Morpheus = () => {
   );
 };
 
-serviceWorkerRegistration.register();
+//serviceWorkerRegistration.register();
 
 const rootElement = document.getElementById("root");
 

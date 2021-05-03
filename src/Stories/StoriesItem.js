@@ -4,8 +4,8 @@ import React, {
 } from 'react';
 import List from 'antd/lib/list';
 import Skeleton from 'antd/lib/skeleton';
+import Spin from 'antd/lib/spin';
 import ActionButton from './ActionButton';
-
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faEdit, faComment }  from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +24,7 @@ const StoryItem = (props) => {
 
   const { item, deleteFn, loggedIn } = props;
   const commentsLink = `/stories/${item.id}/${format_title_string(item.name)}#comments`;
+  const { author } = item;
 
   const itemActions = [
     <ActionButton
@@ -63,16 +64,17 @@ const StoryItem = (props) => {
         actions={mappedActions}
         extra={storyDate}
       >
-       <div className="item-container">
          <List.Item.Meta
           avatar={
           <Link to={getAvatarLink(item.author)}>
-            <AccountAvatar
-              avatar={item.author.avatar}
-              username={item.author.name}
-              size={40}
-            />
-           </Link>
+            <Suspense fallback={<Spin />}>
+              <AccountAvatar
+                avatar={author.avatar}
+                username={author.name}
+                size={40}
+              />
+              </Suspense>
+          </Link>
           }
           description={
           <>
@@ -98,7 +100,6 @@ const StoryItem = (props) => {
           </>
           }
         />
-      </div>
     </List.Item>
   </Suspense>
   );

@@ -18,7 +18,6 @@ const NoStoriesNotice = lazy(() => import('./NoStoriesNotice'));
 const errorText = "There was an error retrieving the stories on this blog. Please try again later.";
 const noStoriesText = "There are currently no stories on this blog.";
 
-
 const Stories = () => {
 
    const [currentPage, setCurrentPage] = useState(0);
@@ -29,7 +28,6 @@ const Stories = () => {
 
    const deleteFn = (id) => {
      deleteStory(id);
-
      const _items = data.items.filter(s => s.id !== id);
      const newData = { page: 1, items: _items };
      mutate("/api/stories", newData);
@@ -65,10 +63,10 @@ const Stories = () => {
 	return(
   <Suspense fallback={<Spin />}>
     <div className="stories-container">
-        <div>
+    
+        <>
           <h1 className="StoriesTitle">Stories</h1>
-        </div>
-
+        </>
 
         <InfiniteScroll
             initialLoad={false}

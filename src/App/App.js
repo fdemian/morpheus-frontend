@@ -55,20 +55,24 @@ const App = (props) => {
        <title>{blogName}</title>
      </Helmet>
 
-     <Suspense fallback={<Spin />}>
-       <Layout data-testid="app-layout">
-          <Header className="page-header-container">
-              <Navbar {...navProps} />
-          </Header>
+    <Layout data-testid="app-layout">
+
+      <Suspense fallback={<Spin />}>
+        <Header className="page-header-container">
+          <Navbar {...navProps} />
+        </Header>
+      </Suspense>
+
+      <Suspense fallback={<Spin />}>
           <Content
             className={"content-container" + isMobile ? "mobile": ""}
             data-testid="content-container"
           >
             {children}
           </Content>
-       </Layout>
       </Suspense>
 
+    </Layout>
   </>
   );
 
