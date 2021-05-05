@@ -61,7 +61,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "identity-obj-proxy": "^3.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "react-app-rewired": "^2.1.6"
+    "react-app-rewired": "2.1.7"
   },
   "scripts": {
     "start-rewired": "react-app-rewired start",
