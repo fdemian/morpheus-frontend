@@ -1,6 +1,6 @@
 import React from 'react';
 import './User.css';
-import Avatar from '../Avatar/Avatar';
+import Avatar from '../UserAvatar/UserAvatar';
 //import SocialLinks from '../SocialLinks/SocialLinks';
 import StoriesList from '../Stories/StoriesList';
 import LoadingIndicator from '../Loading/LoadingIndicator';
@@ -31,13 +31,20 @@ const User = (props) => {
     return <LoadingIndicator />;
 
   const { stories } = userStories;
-  const avatarLink = "/static/avatars/" + user.user.avatar;
+  const { avatar } = user;
+  const avatarLink = avatar ? "/static/avatars/" + avatar : "";
 
   return(
   <div>
 
   	<div className="UserSummary">
-  	  <Avatar src={avatarLink} size={100} className="UserAvatar" />
+  	  <Avatar
+        username={user.user.name}
+        avatar={avatarLink}
+        src={avatarLink}
+        size={100}
+        shape="circle"
+       />
   		<h1 className="UserName">{user.user.name}</h1>
   		<em>Estudiante de Ingeniería en Sistemas, UTN.</em>
       {/*

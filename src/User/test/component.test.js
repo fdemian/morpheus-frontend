@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Avatar from '../../Avatar/Avatar';
+import Avatar from '../../UserAvatar/UserAvatar';
 import SocialLinks from '../../SocialLinks/SocialLinks';
 import Stories from '../../Stories/Stories';
 import User from '../User';

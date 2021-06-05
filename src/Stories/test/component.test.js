@@ -13,10 +13,9 @@ const noStoriesText = "There are currently no stories on this blog.";
 describe("<Stories />", () => {
 
 
-    it("Renders with error.", async () => {
+   it("Renders with error.", async () => {
 
      jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
-
      jest.spyOn(actions, 'useStories').mockImplementation(() => ({
         data: null,
         error: true,
@@ -26,7 +25,7 @@ describe("<Stories />", () => {
 
      const { getByText } = render(<Stories />);
      await waitFor(() => expect(getByText(errorText)).toBeTruthy());
-    })
+   })
 
    it("Renders with stories.", () => {
 
