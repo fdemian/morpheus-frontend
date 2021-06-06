@@ -22,10 +22,11 @@ const App = (props) => {
   // Fetch config data.
   const { config, error } = useConfig();
 
-  //
+  // Fetch media data.
   const { children } = props;
   const { description, blogName } = config;
-  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+  const isMobile = useMediaQuery({query: '(max-device-width: 500px)'});
+  const contentClass = "content-container" + (isMobile ? " mobile": "");
 
   if(loggedIn) {
     loadWebsocket();
@@ -49,30 +50,26 @@ const App = (props) => {
   return (
   <>
 
-     <Helmet>
-       <meta charset="utf-8" />
-       <meta name="description" content={description} />
-       <title>{blogName}</title>
-     </Helmet>
+   <Helmet>
+      <meta charset="utf-8" />
+      <meta name="description" content={description} />
+      <title>{blogName}</title>
+    </Helmet>
 
-    <Layout data-testid="app-layout">
-
-      <Suspense fallback={<Spin />}>
-        <Header className="page-header-container">
+   <Layout data-testid="app-layout">
+     <Suspense fallback={<Spin />}>
+       <Header className="page-header-container">
           <Navbar {...navProps} />
-        </Header>
-      </Suspense>
+       </Header>
+     </Suspense>
 
-      <Suspense fallback={<Spin />}>
-          <Content
-            className={"content-container" + isMobile ? "mobile": ""}
-            data-testid="content-container"
-          >
-            {children}
-          </Content>
-      </Suspense>
+     <Content className={contentClass} data-testid="content-container">
+        <Suspense fallback={<Spin />}>
+          {children}
+        </Suspense>
+     </Content>
+   </Layout>
 
-    </Layout>
   </>
   );
 
