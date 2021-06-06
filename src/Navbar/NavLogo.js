@@ -8,7 +8,7 @@ const NavLogo = ({mobile, blogName}) => (
      <Link to="/" className="topnav header-logo">
        <img
           width={mobile ? 93 : 96}
-          height={mobile ? 30 : 50}
+          height={mobile ? 30 : 31.17}
           src={logo}
           alt={blogName + " logo"}
           className={mobile ? "navbar-logo-mobile" : "blog-logo"}

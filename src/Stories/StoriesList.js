@@ -29,7 +29,7 @@ const StoriesList = (props) => {
             <StoryItem
               item={item}
               editFn={editFn}
-              deleteFn={(id) => deleteFn(id)}
+              deleteFn={deleteFn}
               loggedIn={loggedIn}
             />
           }
