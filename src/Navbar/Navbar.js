@@ -2,8 +2,9 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-import { Spin, Affix } from 'antd';
 import { useUser } from '../Login/Actions';
+import Spin from 'antd/lib/spin';
+import Affix from 'antd/lib/affix';
 
 const NavbarDesktop = lazy(() => import('./NavbarDesktop'));
 const NavbarMobile = lazy(() => import('./NavbarMobile'));

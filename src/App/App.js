@@ -1,35 +1,36 @@
-import React, { Suspense } from 'react';
-import Navbar from '../Navbar/Navbar';
+import React, { Suspense, lazy } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Helmet } from "react-helmet";
-import { Layout, Spin } from 'antd';
+import Spin from 'antd/lib/spin';
+import { Layout } from 'antd';
 import { useConfig, loadWebsocket } from './Actions';
 import { useUser } from '../Login/Actions';
 import { getLoginData, isLoggedIn } from '../Login/utils';
 import './App.css';
+
+const Navbar = lazy(() => import('../Navbar/Navbar'));
 
 const { Content, Header } = Layout;
 
 const App = (props) => {
 
   // Fetch user data.
-  const userId = getLoginData();
   const loggedIn = isLoggedIn();
-
+  const userId = getLoginData();
   const { user, mutate, isLoading } = useUser(userId);
 
   // Fetch config data.
   const { config, error } = useConfig();
 
-  //
+  // Fetch media data.
   const { children } = props;
   const { description, blogName } = config;
-  const isMobile = useMediaQuery({query: '(max-device-width: 1224px)'});
+  const isMobile = useMediaQuery({query: '(max-device-width: 500px)'});
+  const contentClass = "content-container" + (isMobile ? " mobile": "");
 
-
-   if(loggedIn) {
+  if(loggedIn) {
     loadWebsocket();
-   }
+  }
 
   if(error || !config || (loggedIn && !user))
     return null;
@@ -49,25 +50,26 @@ const App = (props) => {
   return (
   <>
 
-     <Helmet>
-       <meta charset="utf-8" />
-       <meta name="description" content={description} />
-       <title>{blogName}</title>
-     </Helmet>
+   <Helmet>
+      <meta charset="utf-8" />
+      <meta name="description" content={description} />
+      <title>{blogName}</title>
+    </Helmet>
 
-     <Suspense fallback={<Spin />}>
-       <Layout data-testid="app-layout">
-          <Header className="page-header-container">
-              <Navbar {...navProps} />
-          </Header>
-          <Content
-            className={"content-container" + isMobile ? "mobile": ""}
-            data-testid="content-container"
-          >
-            {children}
-          </Content>
-       </Layout>
+    <Layout data-testid="app-layout">
+
+      <Suspense fallback={<Spin />}>
+        <Header className="page-header-container">
+           <Navbar {...navProps} />
+        </Header>
       </Suspense>
+
+      <Suspense fallback={<Spin />}>
+        <Content className={contentClass} data-testid="content-container">
+           {children}
+        </Content>
+      </Suspense>
+    </Layout>
 
   </>
   );

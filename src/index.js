@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import ApplicationRoutes from './Routes/Routes';
 import AppRoute from './Routes/AppRoute';
-import * as serviceWorker from './serviceWorker';
+//import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+//import reportWebVitals from './reportWebVitals';
 import { SWRConfig } from 'swr';
 import { fetcher }  from './store/utils';
 
-const {App} = ApplicationRoutes;
-const {Routes} = ApplicationRoutes;
+const {App, Routes} = ApplicationRoutes;
 
 const swrOptions = {
   suspense: true,
@@ -38,6 +38,11 @@ const Morpheus = () => {
   );
 };
 
-ReactDOM.render(<Morpheus />, document.getElementById('root'));
+//serviceWorkerRegistration.register();
+const rootElement = document.getElementById("root");
 
-serviceWorker.register();
+if (rootElement.hasChildNodes()) {
+  ReactDOM.hydrate(<Morpheus />, rootElement);
+} else {
+  ReactDOM.render(<Morpheus />, rootElement);
+}

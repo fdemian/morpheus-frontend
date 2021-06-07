@@ -8,6 +8,7 @@ import {
   Row,
   Col
 } from 'antd';
+import NavLogo from './NavLogo';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -37,24 +38,20 @@ const Navbar = (props) => {
   if(loggedIn)
   return(
   <Suspense fallback={<Spin />}>
-    <Menu mode="horizontal" key="parent.menu.not.logged">
+    <Menu
+      mode="horizontal"
+      key="parent.menu.not.logged"
+      role="menu"
+      aria-label="Navbar"
+    >
       <Row>
-        <Col span={8}>
-          <Menu.Item key="item.empty.logged"></Menu.Item>
+        <Col span={8} role="menuitem" aria-label={props.blogName}>
           <span className="logo-item-desktop" key="logo-item-desktop">
-             <Link to="/" className="topnav header-logo">
-                <Suspense fallback={<Spin />}>
-                 <img
-                   src={logo}     
-                   alt={blogName + " logo"}
-                   className="blog-logo"
-                 />
-                </Suspense>
-             </Link>
+             <NavLogo mobile={false} blogName={props.blogName} />
           </span>
         </Col>
-        <Col span={8}></Col>
-        <Col span={8}>
+        <Col span={8} role="menuitem" aria-label="empty item"></Col>
+        <Col span={8} role="menuitem" aria-label="account menu">
          <span className="account-nav-items">
           <Notifications
              notifications={notifications}
@@ -62,9 +59,9 @@ const Navbar = (props) => {
              markRead={markReadNotification}
              dismiss={dismissNotifications}
            />
-           <span>
+           <>
              <AccountMenu user={user} mutate={mutateUser} />
-           </span>
+           </>
          </span>
         </Col>
       </Row>
@@ -75,24 +72,20 @@ const Navbar = (props) => {
 
   return(
   <Suspense fallback={<Spin />}>
-    <Menu mode="horizontal" key="parent.menu.not.logged">
+    <Menu
+      mode="horizontal"
+      key="parent.menu.not.logged"
+      role="menu"
+      aria-label="Navbar"
+    >
       <Row>
-        <Col span={8}>
-          <Menu.Item key="item.empty.not.logged"></Menu.Item>
+        <Col span={8} role="menuitem" aria-label={props.blogName}>
           <span className="logo-item-desktop" key="logo-item-desktop">
-             <Link to="/" className="topnav header-logo">
-                <Suspense fallback={<Spin />}>
-                 <img
-                   src={logo}     
-                   alt={blogName + " logo"}
-                   className="blog-logo"
-                 />
-                </Suspense>
-             </Link>
+              <NavLogo mobile={false} blogName={props.blogName} />
           </span>
         </Col>
-        <Col span={8}></Col>
-        <Col span={8}>
+        <Col span={8} role="menuitem" aria-label="col"></Col>
+        <Col span={8} role="menuitem" aria-label="login">
           <span className="login-items">
            {
              isFetching ? <Spin /> :
@@ -102,10 +95,6 @@ const Navbar = (props) => {
                     <FontAwesomeIcon icon={signIn} />
                     Login
                  </Link>
-                 {/*<Link to="/login/register">
-                   <FontAwesomeIcon icon={userPlus} />
-                   Register
-                 </Link>*/}
               </span>
               )
            }

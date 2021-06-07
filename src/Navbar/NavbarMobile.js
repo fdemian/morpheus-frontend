@@ -9,10 +9,10 @@ import Drawer from 'antd/lib/drawer';
 import Row  from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Spin from 'antd/lib/spin';
+import NavLogo from './NavLogo';
 
 // Other imports.
 import { Link } from 'react-router-dom'; // Replace
-import logo from '../logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import './Navbar.css';
@@ -72,15 +72,7 @@ const Navbar = (props) => {
      </Drawer>
      <Row gutter={4}>
        <Col className="gutter-row" span={4}>
-        <Suspense fallback={<Spin />}>
-           <Link to="/" className="topnav header-logo">
-             <img
-                src={logo}
-                alt={props.blogName + " logo"}
-                className="navbar-logo-mobile"
-              />
-           </Link>
-        </Suspense>
+          <NavLogo mobile={true} blogName={props.blogName} />
        </Col>
        <Col className="gutter-row" span={16}></Col>
        <Col className="gutter-row" span={4}>

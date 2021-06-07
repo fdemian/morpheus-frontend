@@ -16,7 +16,7 @@ const Story = (props) => {
   const { story, error } = useStory(params.id);
   const { options, isLoading } = useOptions();
 
-  // Will just assume these, for now.
+  // No oauth services for the time being.
   const oauthServices = [];
   const [anonymousUser, setAnonymousUser] = useState(null);
 

@@ -10,8 +10,9 @@ export function deleteStory(id) {
   }
 }
 
-export const useStories = () => {
-  const { data, mutate, error } = useSWR("/api/stories");
+export const useStories = (page) => {
+  const pageParam = page ? "page?="+page : "";
+  const { data, mutate, error } = useSWR(`/api/stories${pageParam}`);
 
   return {
     data: data,
