@@ -56,7 +56,6 @@ describe('<User />', () => {
      const { getByText } = render(<User {...componentProps} />);
 
      expect(getByText("ocelot")).toHaveClass('UserName');
-     expect(getByText("21 jul. 2019 20:57 hs")).toHaveClass("ant-list-item-extra");
      expect(getByText("Mega Story")).toHaveClass("StoryLinkTitle");
   })
 
