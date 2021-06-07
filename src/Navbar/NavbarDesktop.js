@@ -38,15 +38,20 @@ const Navbar = (props) => {
   if(loggedIn)
   return(
   <Suspense fallback={<Spin />}>
-    <Menu mode="horizontal" key="parent.menu.not.logged">
+    <Menu
+      mode="horizontal"
+      key="parent.menu.not.logged"
+      role="menu"
+      aria-label="Navbar"
+    >
       <Row>
-        <Col span={8}>
+        <Col span={8} role="menuitem" aria-label={props.blogName}>
           <span className="logo-item-desktop" key="logo-item-desktop">
              <NavLogo mobile={false} blogName={props.blogName} />
           </span>
         </Col>
-        <Col span={8}></Col>
-        <Col span={8}>
+        <Col span={8} role="menuitem" aria-label="empty item"></Col>
+        <Col span={8} role="menuitem" aria-label="account menu">
          <span className="account-nav-items">
           <Notifications
              notifications={notifications}
@@ -67,15 +72,20 @@ const Navbar = (props) => {
 
   return(
   <Suspense fallback={<Spin />}>
-    <Menu mode="horizontal" key="parent.menu.not.logged">
+    <Menu
+      mode="horizontal"
+      key="parent.menu.not.logged"
+      role="menu"
+      aria-label="Navbar"
+    >
       <Row>
-        <Col span={8}>
+        <Col span={8} role="menuitem" aria-label={props.blogName}>
           <span className="logo-item-desktop" key="logo-item-desktop">
               <NavLogo mobile={false} blogName={props.blogName} />
           </span>
         </Col>
-        <Col span={8}></Col>
-        <Col span={8}>
+        <Col span={8} role="menuitem" aria-label="col"></Col>
+        <Col span={8} role="menuitem" aria-label="login">
           <span className="login-items">
            {
              isFetching ? <Spin /> :
