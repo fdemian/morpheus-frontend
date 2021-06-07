@@ -8,8 +8,7 @@ import AppRoute from './Routes/AppRoute';
 import { SWRConfig } from 'swr';
 import { fetcher }  from './store/utils';
 
-const {App} = ApplicationRoutes;
-const {Routes} = ApplicationRoutes;
+const {App, Routes} = ApplicationRoutes;
 
 const swrOptions = {
   suspense: true,
@@ -40,7 +39,6 @@ const Morpheus = () => {
 };
 
 //serviceWorkerRegistration.register();
-
 const rootElement = document.getElementById("root");
 
 if (rootElement.hasChildNodes()) {

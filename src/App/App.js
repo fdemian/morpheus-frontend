@@ -56,19 +56,20 @@ const App = (props) => {
       <title>{blogName}</title>
     </Helmet>
 
-   <Layout data-testid="app-layout">
-     <Suspense fallback={<Spin />}>
-       <Header className="page-header-container">
-          <Navbar {...navProps} />
-       </Header>
-     </Suspense>
+    <Layout data-testid="app-layout">
 
-     <Content className={contentClass} data-testid="content-container">
-        <Suspense fallback={<Spin />}>
-          {children}
-        </Suspense>
-     </Content>
-   </Layout>
+      <Suspense fallback={<Spin />}>
+        <Header className="page-header-container">
+           <Navbar {...navProps} />
+        </Header>
+      </Suspense>
+
+      <Suspense fallback={<Spin />}>
+        <Content className={contentClass} data-testid="content-container">
+           {children}
+        </Content>
+      </Suspense>
+    </Layout>
 
   </>
   );

@@ -54,9 +54,9 @@ const Navbar = (props) => {
              markRead={markReadNotification}
              dismiss={dismissNotifications}
            />
-           <span>
+           <>
              <AccountMenu user={user} mutate={mutateUser} />
-           </span>
+           </>
          </span>
         </Col>
       </Row>
