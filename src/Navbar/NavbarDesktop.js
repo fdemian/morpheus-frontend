@@ -43,28 +43,20 @@ const Navbar = (props) => {
       key="parent.menu.not.logged"
       role="menu"
       aria-label="Navbar"
+      className="desktop-menu"
     >
-      <Row>
-        <Col span={8} role="menuitem" aria-label={props.blogName}>
-          <span className="logo-item-desktop" key="logo-item-desktop">
-             <NavLogo mobile={false} blogName={props.blogName} />
-          </span>
-        </Col>
-        <Col span={8} role="menuitem" aria-label="empty item"></Col>
-        <Col span={8} role="menuitem" aria-label="account menu">
-         <span className="account-nav-items">
-          <Notifications
-             notifications={notifications}
-             clearFn={dismissNotifications}
-             markRead={markReadNotification}
-             dismiss={dismissNotifications}
-           />
-           <>
-             <AccountMenu user={user} mutate={mutateUser} />
-           </>
-         </span>
-        </Col>
-      </Row>
+      <span className="logo-item-desktop" key="logo-item-desktop">
+         <NavLogo mobile={false} blogName={props.blogName} />
+      </span>
+       <span className="account-nav-items">
+        <Notifications
+           notifications={notifications}
+           clearFn={dismissNotifications}
+           markRead={markReadNotification}
+           dismiss={dismissNotifications}
+         />
+        <AccountMenu user={user} mutate={mutateUser} />
+       </span>
     </Menu>
   </Suspense>
   );
@@ -77,32 +69,25 @@ const Navbar = (props) => {
       key="parent.menu.not.logged"
       role="menu"
       aria-label="Navbar"
+      className="desktop-menu"
     >
-      <Row>
-        <Col span={8} role="menuitem" aria-label={props.blogName}>
-          <span className="logo-item-desktop" key="logo-item-desktop">
-              <NavLogo mobile={false} blogName={props.blogName} />
+      <span className="logo-item-desktop" key="logo-item-desktop">
+         <NavLogo mobile={false} blogName={props.blogName} />
+      </span>
+
+      <span className="login-items">
+       {
+         isFetching ? <Spin /> :
+         (
+          <span key="login-items">
+             <Link to="/login">
+                <FontAwesomeIcon icon={signIn} />
+                Login
+             </Link>
           </span>
-        </Col>
-        <Col span={8} role="menuitem" aria-label="col"></Col>
-        <Col span={8} role="menuitem" aria-label="login">
-          <span className="login-items">
-           {
-             isFetching ? <Spin /> :
-             (
-              <span key="login-items">
-                 <Link to="/login">
-                    <FontAwesomeIcon icon={signIn} />
-                    Login
-                 </Link>
-              </span>
-              )
-           }
-          </span>
-        </Col>
-      </Row>
-
-
+          )
+       }
+      </span>
     </Menu>
   </Suspense>
   );
