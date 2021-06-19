@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { Comment, Tooltip, List } from 'antd';
+import { Comment, Tooltip, List, Button } from 'antd';
 import { DefaultRenderer }  from 'elementary-editor';
 import AccountAvatar from '../UserAvatar/UserAvatar';
 import './Comments.css';
@@ -31,8 +31,15 @@ const DateComponent = ({commentDate}) => {
   );
 }
 
-const Comments = ({comments, loggedIn}) => {
 
+const Comments = (props) => {
+
+  const {
+    comments,
+    loggedIn,
+    addQuotedComment,
+    commentText
+  } = props;
   const commentLength = comments.length;
   const repliesText = commentLength === 1 ? "reply" : "replies";
   if(commentLength === 0 || comments === undefined)
@@ -41,13 +48,14 @@ const Comments = ({comments, loggedIn}) => {
   return(
   <div className="comments-container">
 
-	  <div>
-	    <p className="CommentsTitle">
-		    Comments
-		      &nbsp;
-		        <FontAwesomeIcon icon={faComment} size="lg" />
-		</p>
-	  </div>
+	  <>
+	   <p className="CommentsTitle">
+		   Comments
+		   &nbsp;
+		   <FontAwesomeIcon icon={faComment} size="lg" />
+		 </p>
+	  </>
+
     <br />
     <List
       className="comment-list"
@@ -57,33 +65,36 @@ const Comments = ({comments, loggedIn}) => {
       renderItem={item => (
         <li>
           <Comment
-            actions={null}
+            actions={[
+            <Button onClick={() => addQuotedComment(item)}>
+              Quote
+            </Button>
+            ]}
             author={
              <p className="UserMenuName">{item.author}</p>
             }
             avatar={
              <Link to={item.url}>
-                <AccountAvatar
-                   avatar={item.avatar}
-                   username={item.author}
-                   size="large"
-                   shape="circle"
-                />
+               <AccountAvatar
+                 avatar={item.avatar}
+                 username={item.author}
+                 size="large"
+                 shape="circle"
+               />
              </Link>
             }
             content={
-            <span className="CommentText">
-              <DefaultRenderer raw={JSON.parse(item.content)} />
-            </span>
+              <span className="CommentText">
+                <DefaultRenderer raw={JSON.parse(item.content)} />
+              </span>
             }
             datetime={
-            <DateComponent commentDate={item.date.split('.')[0]} />
+              <DateComponent commentDate={item.date.split('.')[0]} />
             }
           />
          <br />
          <br />
         </li>
-
       )}
     />
 
