@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { BackTop } from 'antd';
 import { Helmet } from "react-helmet";
 
@@ -20,7 +20,22 @@ const StoryItem = (props) => {
     userExists
   } = props;
 
+  const composerContainer = useRef(null);
   const datepart = story.date.split('.')[0];
+  const [commentText, setCommentText] = useState(null);
+
+  const addQuote = ({content, author}) => {
+    if(composerContainer.current){
+      const editorContainer = composerContainer.current.editorContainer.current;
+      const {addNewEntity} = editorContainer;
+      addNewEntity('blockquote', 'blockquote', {
+        content: content,
+        author: author,
+        authorLink: "#",
+        cite: "/comments/1"
+      });
+    }
+  }
 
   return(
   <>
@@ -40,8 +55,7 @@ const StoryItem = (props) => {
 
     <StoryFooter storyInfo={story} />
 
-   {story.isDraft ? null :
-    (
+   {story.isDraft ? null : (
     <>
       <div className="CommentSpace">
         <CommentSpace
@@ -52,17 +66,18 @@ const StoryItem = (props) => {
           setAnonymousUser={setAnonymousUser}
           anonymousUser={anonymousUser}
           userExists={loggedIn}
+          composerContainer={composerContainer}
         />
       </div>
       <div className="StoryComments" id="comments">
          <Comments
             comments={story.comments}
             loggedIn={loggedIn}
+            addQuotedComment={addQuote}
          />
       </div>
     </>
-    )
-    }
+    )}
   </>
   )
 

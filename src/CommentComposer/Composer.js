@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle } from 'react';
 import { Drawer, Spin } from 'antd';
 import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
@@ -11,11 +11,16 @@ import './Composer.css';
 
 const Composer = (props) => {
 
-  const { storyId, anonymousUser } = props;
-  const [composerVisible, setComposerVisible] = useState(false);
+  const {
+    storyId,
+    anonymousUser,
+    commentText,
+    setCommentText,
+    composerContainer
+  } = props;
   const editorContainer = useRef(null);
+  const [composerVisible, setComposerVisible] = useState(false);
   const toggleComposer = () => setComposerVisible(!composerVisible);
-
 
   const loggedIn = isLoggedIn();
   const userId = getLoginData();
@@ -38,7 +43,15 @@ const Composer = (props) => {
     // Clear comment editor.
     toggleComposer();
     editor.clear();
+
   }
+
+  // Exposed methods.
+  useImperativeHandle(composerContainer, () => {
+    return {
+      editorContainer: editorContainer
+    };
+  });
 
   if(!loggedIn && !anonymousUser)
     return null;
@@ -49,9 +62,9 @@ const Composer = (props) => {
   const userlink =  anonymousUser ? anonymousUser.link : `/users/${user.id}/${user.username}`;
 
   return(
-  <>
+  <span ref={composerContainer}>
     <ComposerHeader toggle={toggleComposer} />
-    <Drawer
+    {/*<Drawer
       title={
         <DrawerHeader
           userlink={anonymousUser ? anonymousUser.link : userlink}
@@ -64,8 +77,8 @@ const Composer = (props) => {
       closable={true}
       onClose={toggleComposer}
       visible={composerVisible}
-      height={520}
-     >
+      height={300}
+     >*/}
        <ComposerEditorHeading
           toggleComposer={toggleComposer}
           postComment={postFn}
@@ -78,8 +91,8 @@ const Composer = (props) => {
            />
          </div>
        </div>
-   </Drawer>
- </>
+   {/*</Drawer>*/}
+ </span>
  );
 
 }
