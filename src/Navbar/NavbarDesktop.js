@@ -2,19 +2,11 @@ import React, {
   lazy,
   Suspense
 } from 'react';
-import {
-  Menu ,
-  Spin,
-  Row,
-  Col
-} from 'antd';
+import { Menu, Spin } from 'antd';
 import NavLogo from './NavLogo';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSignInAlt as signIn,
-/*  faUserPlus as userPlus*/
-} from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt as signIn } from '@fortawesome/free-solid-svg-icons';
 import logo from '../logo.png';
 import './Navbar.css';
 
