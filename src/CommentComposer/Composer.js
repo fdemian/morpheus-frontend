@@ -35,15 +35,17 @@ const Composer = (props) => {
       comment: content,
       anonymous: anonymousUser ? true : false
     };
-
     // Post comment to the server.
     postComment(storyId, commentParams);
     //TODO: mutate
-
     // Clear comment editor.
-    toggleComposer();
     editor.clear();
 
+  }
+
+  const clearComment = () => {
+    const editor = editorContainer.current;
+    editor.clear();
   }
 
   // Exposed methods.
@@ -63,7 +65,7 @@ const Composer = (props) => {
 
   return(
   <span ref={composerContainer}>
-    <ComposerHeader toggle={toggleComposer} />
+    {/*<ComposerHeader toggle={toggleComposer} />*/}
     {/*<Drawer
       title={
         <DrawerHeader
@@ -80,7 +82,7 @@ const Composer = (props) => {
       height={300}
      >*/}
        <ComposerEditorHeading
-          toggleComposer={toggleComposer}
+          clearComment={clearComment}
           postComment={postFn}
        />
        <div id="new-comment" className="CommentBox">
@@ -92,6 +94,7 @@ const Composer = (props) => {
          </div>
        </div>
    {/*</Drawer>*/}
+      <br />
  </span>
  );
 
