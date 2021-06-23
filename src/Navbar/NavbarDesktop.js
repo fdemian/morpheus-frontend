@@ -37,10 +37,10 @@ const Navbar = (props) => {
       aria-label="Navbar"
       className="desktop-menu"
     >
-      <span className="logo-item-desktop" key="logo-item-desktop">
+      <span className="logo-item-desktop" key="logo-item-desktop" role="menuitem">
          <NavLogo mobile={false} blogName={props.blogName} />
       </span>
-       <span className="account-nav-items">
+       <span className="account-nav-items"  role="menuitem">
         <Notifications
            notifications={notifications}
            clearFn={dismissNotifications}
@@ -63,11 +63,11 @@ const Navbar = (props) => {
       aria-label="Navbar"
       className="desktop-menu"
     >
-      <span className="logo-item-desktop" key="logo-item-desktop">
+      <span className="logo-item-desktop" key="logo-item-desktop" role="menuitem">
          <NavLogo mobile={false} blogName={props.blogName} />
       </span>
 
-      <span className="login-items">
+      <span className="login-items"  role="menuitem">
        {
          isFetching ? <Spin /> :
          (
