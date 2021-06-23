@@ -1,5 +1,5 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
-import { Drawer, Spin } from 'antd';
+import { Spin } from 'antd';
 import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
@@ -37,15 +37,17 @@ const Composer = (props) => {
     };
     // Post comment to the server.
     postComment(storyId, commentParams);
-    //TODO: mutate
-    // Clear comment editor.
-    editor.clear();
 
+    editor.clear();
+    toggleComposer();
+
+    //TODO: mutate
   }
 
   const clearComment = () => {
     const editor = editorContainer.current;
     editor.clear();
+    toggleComposer();
   }
 
   // Exposed methods.
@@ -65,22 +67,8 @@ const Composer = (props) => {
 
   return(
   <span ref={composerContainer}>
-    {/*<ComposerHeader toggle={toggleComposer} />*/}
-    {/*<Drawer
-      title={
-        <DrawerHeader
-          userlink={anonymousUser ? anonymousUser.link : userlink}
-          user={anonymousUser ? anonymousUser : user.user}
-          anonymousUser={anonymousUser !== null}
-        />
-      }
-      className="ComposerDrawer"
-      placement="bottom"
-      closable={true}
-      onClose={toggleComposer}
-      visible={composerVisible}
-      height={300}
-     >*/}
+    <ComposerHeader toggle={toggleComposer} />
+    <span class={composerVisible ? "" : "Invisible"}>
        <ComposerEditorHeading
           clearComment={clearComment}
           postComment={postFn}
@@ -93,8 +81,8 @@ const Composer = (props) => {
            />
          </div>
        </div>
-   {/*</Drawer>*/}
       <br />
+    </span>
  </span>
  );
 
