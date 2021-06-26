@@ -71,12 +71,10 @@ const Navbar = (props) => {
        {
          isFetching ? <Spin /> :
          (
-          <span key="login-items">
-             <Link to="/login">
-                <FontAwesomeIcon icon={signIn} />
-                Login
-             </Link>
-          </span>
+          <Link to="/login">
+            <FontAwesomeIcon icon={signIn} />
+            Login
+          </Link>
           )
        }
       </span>

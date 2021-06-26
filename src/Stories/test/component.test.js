@@ -27,10 +27,9 @@ describe("<Stories />", () => {
      await waitFor(() => expect(getByText(errorText)).toBeTruthy());
    })
 
-   it("Renders with stories.", () => {
+   it("Renders with stories.", async () => {
 
       jest.spyOn(utils, 'isLoggedIn').mockImplementation(() => (true));
-
       jest.spyOn(actions, 'useStories').mockImplementation(() => ({
          data: { items: testStories },
          error: false,
@@ -40,8 +39,10 @@ describe("<Stories />", () => {
 
       const { getByText } = render(<Stories />);
 
-      expect(getByText(testStories[0].name)).toBeInTheDocument();
-      expect(getByText(testStories[1].name)).toBeInTheDocument();
-  })
+      await waitFor(() => {
+        expect(getByText(testStories[0].name)).toBeInTheDocument();
+        expect(getByText(testStories[1].name)).toBeInTheDocument();
+      });
+    })
 
 });
