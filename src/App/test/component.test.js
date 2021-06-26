@@ -56,7 +56,7 @@ describe("<App />", () => {
     const { getByTestId, getByRole } = render(<App {...props} />);
     const appLayout = getByTestId('app-layout');
     const content = getByTestId('content-container');
-    const header = getByRole('banner');
+    const header = getByRole('banner', {hidden: true});
 
     expect(appLayout).toBeTruthy();
     expect(content).toBeTruthy();

@@ -50,6 +50,10 @@ span.register-link {
   width: 100%;
 }
 
+.desktop-menu {
+  height: 70px;
+}
+
 .navbar-text {
   text-align: center;
   color: rgba(0,0,0,.65);
@@ -130,10 +134,10 @@ span.register-link {
 }
 
 .login-items {
-  margin-left: 215px;
+  margin-left: 60%;
 }
 
 .account-nav-items {
   display: flex;
-  margin-left: 40%;
+  margin-left: 60%;
 }

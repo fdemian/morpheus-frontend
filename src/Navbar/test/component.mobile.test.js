@@ -24,8 +24,8 @@ describe("<Navbar /> > Mobile", () => {
        const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
 
        await waitFor(() => {
-          expect(getByRole('img')).toBeInTheDocument();
-          //expect(getByText('adminuser')).toBeInTheDocument();
+          //expect(getByRole('img')).toBeInTheDocument();
+
        })
 
      })
@@ -76,7 +76,7 @@ describe("<Navbar /> > Mobile", () => {
        await waitFor(() => {
           //expect(getByText('Morpheus')).toBeInTheDocument();
           expect(getByRole('img')).toBeInTheDocument();
-          //expect(getByText('adminuser')).toBeInTheDocument();
+          expect(getByText('adminuser')).toBeInTheDocument();
        })
 
      })

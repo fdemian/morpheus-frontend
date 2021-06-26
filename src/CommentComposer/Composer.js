@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Drawer, Spin } from 'antd';
+import React, { useState, useRef, useImperativeHandle } from 'react';
+import { Spin } from 'antd';
 import { Editor } from 'elementary-editor';
 import DrawerHeader from './DrawerHeader';
 import ComposerHeader from './ComposerHeader';
@@ -11,11 +11,16 @@ import './Composer.css';
 
 const Composer = (props) => {
 
-  const { storyId, anonymousUser } = props;
-  const [composerVisible, setComposerVisible] = useState(false);
+  const {
+    storyId,
+    anonymousUser,
+    commentText,
+    setCommentText,
+    composerContainer
+  } = props;
   const editorContainer = useRef(null);
+  const [composerVisible, setComposerVisible] = useState(false);
   const toggleComposer = () => setComposerVisible(!composerVisible);
-
 
   const loggedIn = isLoggedIn();
   const userId = getLoginData();
@@ -30,15 +35,27 @@ const Composer = (props) => {
       comment: content,
       anonymous: anonymousUser ? true : false
     };
-
     // Post comment to the server.
     postComment(storyId, commentParams);
-    //TODO: mutate
 
-    // Clear comment editor.
-    toggleComposer();
     editor.clear();
+    toggleComposer();
+
+    //TODO: mutate
   }
+
+  const clearComment = () => {
+    const editor = editorContainer.current;
+    editor.clear();
+    toggleComposer();
+  }
+
+  // Exposed methods.
+  useImperativeHandle(composerContainer, () => {
+    return {
+      editorContainer: editorContainer
+    };
+  });
 
   if(!loggedIn && !anonymousUser)
     return null;
@@ -49,25 +66,11 @@ const Composer = (props) => {
   const userlink =  anonymousUser ? anonymousUser.link : `/users/${user.id}/${user.username}`;
 
   return(
-  <>
+  <span ref={composerContainer}>
     <ComposerHeader toggle={toggleComposer} />
-    <Drawer
-      title={
-        <DrawerHeader
-          userlink={anonymousUser ? anonymousUser.link : userlink}
-          user={anonymousUser ? anonymousUser : user.user}
-          anonymousUser={anonymousUser !== null}
-        />
-      }
-      className="ComposerDrawer"
-      placement="bottom"
-      closable={true}
-      onClose={toggleComposer}
-      visible={composerVisible}
-      height={520}
-     >
+    <span class={composerVisible ? "" : "Invisible"}>
        <ComposerEditorHeading
-          toggleComposer={toggleComposer}
+          clearComment={clearComment}
           postComment={postFn}
        />
        <div id="new-comment" className="CommentBox">
@@ -78,8 +81,9 @@ const Composer = (props) => {
            />
          </div>
        </div>
-   </Drawer>
- </>
+      <br />
+    </span>
+ </span>
  );
 
 }

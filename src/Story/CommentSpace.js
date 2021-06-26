@@ -14,7 +14,8 @@ const CommentSpace = (props) => {
     commentOptions,
     setAnonymousUser,
     anonymousUser,
-    userExists
+    userExists,
+    composerContainer
    } = props;
 
    if(commentOptions === null || commentOptions === undefined)
@@ -44,6 +45,7 @@ const CommentSpace = (props) => {
             <CommentComposer
                storyId={story.id}
                anonymousUser={null}
+               composerContainer={composerContainer}
              />);
            }
 
@@ -52,6 +54,7 @@ const CommentSpace = (props) => {
             <CommentComposer
                storyId={story.id}
                anonymousUser={anonymousUser}
+               composerContainer={composerContainer}
             />);
           }
 
@@ -59,11 +62,11 @@ const CommentSpace = (props) => {
           return(
           <>
             <AnonymousUserForm setUser={setAnonymousUser} />
-               <CommentLogin
-                 storyName={storyTitle}
-                 storyId={story.id}
-                 providers={oauthServices}
-               />
+            <CommentLogin
+               storyName={storyTitle}
+               storyId={story.id}
+               providers={oauthServices}
+            />
           </>
           );
 
@@ -78,6 +81,7 @@ const CommentSpace = (props) => {
            <CommentComposer
              storyId={story.id}
              anonymousUser={null}
+             composerContainer={composerContainer}
            />);
          }
          else {

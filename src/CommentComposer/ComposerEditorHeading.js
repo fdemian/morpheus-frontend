@@ -7,14 +7,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './Composer.css';
 
-const ComposerEditorHeading = ({toggleComposer, postComment}) => (
+const ComposerEditorHeading = ({clearComment, postComment}) => (
   <div className="ComposerHeading">
 
     <span className="PanelButtons">
       <Button.Group size="large">
-        <Button type="danger" onClick={toggleComposer}>
+        <Button type="danger" onClick={clearComment}>
           <FontAwesomeIcon icon={faTimes} size="lg" />
-          &nbsp; Discard
+	          &nbsp; Discard
         </Button>
         <Button type="primary" onClick={postComment}>
           Post &nbsp;

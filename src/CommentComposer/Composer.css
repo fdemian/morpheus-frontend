@@ -44,7 +44,7 @@
   }
 
   .PanelButtons {
-    margin-left: 69%;
+    margin-left: 46%;
   }
 
 }
@@ -105,4 +105,8 @@
 .CommentButtonText
 {
   margin-left: 10px;
+}
+
+.Invisible {
+  visibility: hidden;
 }

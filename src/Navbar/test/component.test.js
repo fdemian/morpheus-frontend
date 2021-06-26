@@ -25,11 +25,11 @@ describe("<NavbarDesktop />", () => {
        mutateUser: jest.fn()
      };
 
-     const { getByText, getByRole, debug } = render(<Navbar {...navProps} />);
+     const { getByText, getAllByText, getByRole, debug } = render(<Navbar {...navProps} />);
 
      await waitFor(() => {
         expect(getByRole('img')).toBeInTheDocument();
-        expect(getByText('Login')).toBeInTheDocument();
+        expect(getAllByText('Login').length).toStrictEqual(2);
       });
 
    })
@@ -80,7 +80,7 @@ describe("<NavbarDesktop />", () => {
        mutateUser: jest.fn()
      };
 
-     const { getByText, getAllByRole } = render(<Navbar {...navProps} />);
+     const { getAllByText, getAllByRole } = render(<Navbar {...navProps} />);
 
      await waitFor(() => {
 
@@ -97,7 +97,7 @@ describe("<NavbarDesktop />", () => {
        expect(userImage).toHaveAttribute("src", `/static/avatars/${navProps.user.avatar}`);
        expect(userImage).toHaveAttribute("alt", `Avatar for ：${navProps.user.username}`);
 
-       expect(getByText('adminuser')).toBeInTheDocument();
+       expect(getAllByText('adminuser').length).toStrictEqual(2);
      })
    })
 
